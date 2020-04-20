@@ -21,6 +21,10 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 
 
+def manual(request):
+    return render(request, 'manual.html')
+
+
 def handleSignup(request):
     if request.method == 'POST':
         firstName = request.POST['firstName']
