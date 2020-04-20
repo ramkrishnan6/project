@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Expense Manager</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <!--===============================================================================================-->
+</head>
+
+<body>
+
+<h1>This is your Dashboard</h1>
+<p>
+<div class="container-login100-form-btn m-t-32">
+    <form class="login100-form validate-form p-b-33 p-t-5" action='/signout' method='get'>
+
+        <div class="container-login100-form-btn m-t-32">
+            <button class="login100-form-btn" type="submit">
+                Logout
+            </button>
+        </div>
+
+    </form>
+</div>
+</p>
+
+</body>
+</html>

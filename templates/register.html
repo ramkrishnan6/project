@@ -39,8 +39,13 @@
             <form class="login100-form validate-form p-b-33 p-t-5" action='/signup' method='post'>
 
                 {% csrf_token %}
-                <div class="wrap-input100 validate-input" data-validate="Enter your name">
-                    <input class="input100" type="text" name="name" placeholder="Full name">
+                <div class="wrap-input100 validate-input" data-validate="Enter your first name">
+                    <input class="input100" type="text" name="firstName" placeholder="First name">
+                    <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Enter your last name">
+                    <input class="input100" type="text" name="lastName" placeholder="Last name">
                     <span class="focus-input100" data-placeholder="&#xe82a;"></span>
                 </div>
 
