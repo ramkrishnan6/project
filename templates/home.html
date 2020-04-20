@@ -4,7 +4,6 @@
 <html lang="en">
 
 <head>
-    {% if user.is_authenticated %}
     <title>Expense Manager</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,29 +17,28 @@
 
 <body>
 
-<h1>This is your Dashboard</h1>
+<h1>Welcome to Expense Manager</h1>
 <p>
 <div class="container-login100-form-btn m-t-32">
-    <form class="login100-form validate-form p-b-33 p-t-5" action='/signout' method='get'>
 
-        <h2> You are logged in as {{ request.user }}</h2>
-        <div class="container-login100-form-btn m-t-32">
-            <button class="login100-form-btn" type="submit">
-                Logout
-            </button>
+        <form class="login100-form validate-form p-b-33 p-t-5" action='/login' method='get'>
+            <div class="container-login100-form-btn m-t-32">
+                <button class="login100-form-btn" type="submit">
+                    Login
+                </button>
+            </div>
+        </form>
 
-        </div>
+        <form class="login100-form validate-form p-b-33 p-t-5" action='/register' method='get'>
+            <div class="container-login100-form-btn m-t-32">
+                <button class="login100-form-btn" type="submit">
+                    Register
+                </button>
 
-    </form>
+            </div>
+        </form>
+
 </div>
 </p>
-
-
-
-    {% else %}
-        <h1>Nice try, smarty!</h1>
-        <h1>Kindly sign in, like human beings and you will see what you should</h1>
-
-    {% endif %}
 </body>
 </html>
