@@ -1,0 +1,181 @@
+body
+{	margin: 10;
+	padding: 0;
+	background-image: url('/static/images/bg-01.jpg');
+	background-size: cover;
+	background-position: center;
+    font-family: Ubuntu-Regular, sans-serif;
+
+}
+
+.img_box
+{	width:100px;
+	height: 100px;
+	border-radius: 50%;
+	position: absolute;
+	top: -50px;
+	left: cal(50% - 50px);
+}
+.MIP
+{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.box
+{	width: 320px;
+	height: 420px;
+	background: #fff ;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	box-sizing: border-box;
+	padding: 10px 0px;
+	font-family: Ubuntu-Regular;
+
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+
+    <!--edge cruve-->
+    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.form-tag-box{
+    padding: 0px 10px;
+    border-bottom: 1px solid #e6e6e6
+}
+.form-tag-box input{
+    padding: 0 30 0px;
+}
+.submit button[type="submit"]
+{
+    font-family: Ubuntu-Bold;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-left: 0px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    min-width: 160px;
+    height: 42px;
+    border-radius: 21px;
+
+    background: #d41872;
+    background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
+    background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
+    background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
+    background: linear-gradient(left, #a445b2, #d41872, #fa4299);
+    position: relative;
+    z-index: 1;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+<!--.box p
+{	margin: 0;
+	padding: 0;
+	font-weight: bold; 
+	
+}
+
+.box input
+{	width: 100%;
+	margin-bottom: 10px;
+	margin-top: 10px;
+
+}
+
+.box input[type="text"], input[type="password"]
+{	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 40px;
+	color: #D5D8DC;
+	font-size: 16px;
+}
+
+.box input[type="submit"] 
+{
+	border: none;
+	outline: none;
+	height: 40px;
+	background: #F1C40F;
+	color: #fff;
+	font-size= 18px;
+	border-radius: 20px;
+
+}
+.box input[type="submit"]:hover
+{	cursor: pointer;
+	background: #2ECC71;
+	colour: #000;
+}
+
+.box a
+{	text-decoration: none:
+	font-size: 12px;
+	line-height: 20px;
+	color: darkgrey;
+}
+
+.box a:hover
+{	colour: #F1C40F;
+}
+
+.mheading
+{	margin: 0;
+	padding: 5 5 5px;
+	text-align: center;
+	font-size: 35px;
+	background: #E74C3C;
+	color: #FDFEFE;
+}
+
+span.subheading
+{	margin: 0;
+	padding: 0 0 20px;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+}
+.sheading
+{	margin: 0;
+	padding: 5 5 5px;
+	text-align: left;
+	font-size: 25px;
+	background: transparent;
+	color: #FDFEFE;
+	
+}
+
+ HEADING
+MAIN HEADING SIZE = 35
+SUB HEADING SIZE = 30
+SECONDARY HEADING SIZE = 25 -->
