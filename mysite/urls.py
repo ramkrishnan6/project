@@ -16,4 +16,6 @@ urlpatterns = [
     path('dashboard', views.dashboard, name='dashboard'),
 
     path('manual', views.manual, name='manual'),
+
+    path('predict', views.handlePredict, name='predict'),
 ]
