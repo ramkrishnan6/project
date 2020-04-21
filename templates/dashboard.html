@@ -34,7 +34,7 @@
     <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/predict' method='post'>
         {% csrf_token %}
         <div class="wrap-input100 validate-input" data-validate="Enter your Transaction">
-            <input class="input100" type="text" name="transaction" placeholder="Transaction">
+            <input class="input100" type="text" name="transaction" placeholder="Transaction" required>
             <span class="focus-input100" data-placeholder="&#xe82a;"></span>
         </div>
 
@@ -50,9 +50,9 @@
 
 
 {% else %}
-<h1>Nice try, smarty!</h1>
-<h1>Kindly sign in, like human beings and you will see what you should</h1>
-<meta http-equiv="refresh" content="3; url = '/myapp/login' ">
+<h1>You are not signed in!</h1>
+<h1>Kindly sign in, You will be redirected in 5 seconds</h1>
+<meta http-equiv="refresh" content="5; url = '/myapp/login' ">
 {% endif %}
 
 </body>
