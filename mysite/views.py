@@ -1,8 +1,9 @@
 from django.contrib import messages
-from django.http.response import HttpResponseNotFound
+from django.http.response import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from mysite.predict import predict
 
 
 def home(request):
@@ -63,3 +64,12 @@ def handleSignout(request):
     logout(request)
     messages.success(request, "Successfully Logged out")
     return redirect('login')
+
+
+def handlePredict(request):
+    if request.method == 'POST':
+        transaction = request.POST['transaction']
+    else:
+        return HttpResponseNotFound('<h1>Error 404 - Page not found</h1>')
+    prediction = predict(transaction)
+    return HttpResponse(prediction)
