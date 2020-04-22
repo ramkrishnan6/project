@@ -90,7 +90,7 @@ def manualAdd(request):
         cost = request.POST['cost']
         category = request.POST['category']
 
-        if category == "":
+        if category == "Unknown":
             category = predict(description)[0]
 
         transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)

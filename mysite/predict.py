@@ -8,7 +8,7 @@ from sklearn.svm import LinearSVC
 
 
 def predict(transaction):
-    df = pd.read_csv('~/project/dataset.csv')
+    df = pd.read_csv('D:\KUSH_DATA\SCOE\BE\Sem 1\Project\Sem 2\dataset.csv')
     df = df[['Category', 'Description']]
     df = df[pd.notnull(df['Description'])]
     df['category_id'] = df['Category'].factorize()[0]

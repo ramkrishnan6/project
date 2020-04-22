@@ -12,13 +12,13 @@ class Transaction(models.Model):
 
     categoryArray = [
         ('Automobile', 'Automobile'),
-        ('Bank_Transfer', 'Bank Transfer'),
-        ('Cash_Withdrawal', 'Cash Withdrawal'),
+        ('Bank Transfer', 'Bank Transfer'),
+        ('Cash Withdrawal', 'Cash Withdrawal'),
         ('Education', 'Education'),
         ('Entertainment', 'Entertainment'),
         ('Fine', 'Fine'),
         ('Food', 'Food'),
-        ('Health_Care', 'Health Care'),
+        ('Health Care', 'Health Care'),
         ('Paytm', 'PayTM'),
         ('Recharge', 'Recharge'),
         ('Shopping', 'Shopping'),
