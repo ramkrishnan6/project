@@ -21,7 +21,12 @@ def register(request):
 
 
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    transactions = Transaction.objects.filter(user_id=request.user.id)
+    final = 0
+    for transaction in transactions:
+        final = final + transaction.cost
+    print(final)
+    return render(request, 'dashboard.html', {'transactions': transactions, 'final': final})
 
 
 def manual(request):
