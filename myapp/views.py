@@ -3,6 +3,8 @@ from django.http.response import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+
+from myapp.models import Transaction
 from mysite.predict import predict
 
 
@@ -73,3 +75,22 @@ def handlePredict(request):
         return HttpResponseNotFound('<h1>Error 404 - Page not found</h1>')
     prediction = predict(transaction)
     return HttpResponse(prediction)
+
+
+def manualAdd(request):
+    if request.method == 'POST':
+        user = request.user
+        date = request.POST['dateOfTransaction']
+        description = request.POST['description']
+        cost = request.POST['cost']
+        category = request.POST['category']
+
+        if category == "":
+            category = predict(description)[0]
+
+        transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
+        transaction.save()
+
+    else:
+        return HttpResponseNotFound('<h1>Error 404 - Page not found</h1>')
+    return redirect("/myapp/dashboard")

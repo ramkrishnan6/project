@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path
 from . import views
 
@@ -16,4 +15,6 @@ urlpatterns = [
     path('manual', views.manual, name='manual'),
 
     path('predict', views.handlePredict, name='predict'),
+
+    path('manualAdd', views.manualAdd, name='manualAdd'),
 ]
