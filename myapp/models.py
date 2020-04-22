@@ -1,15 +1,13 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
-class User(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    username = models.CharField(max_length=30)
 
-
-class ManualInputDB(models.Model):
+class Transaction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    date = models.DateField('Date of Transaction')
     description = models.CharField(max_length=50)
-    category = models.CharField(max_length=20)
-    cost = models.AutoField
-    doft = models.DateField()
+    cost = models.IntegerField(default=0)
+    category = models.CharField(max_length=20, blank=True, null=True)
 
+    def __str__(self):
+        return self.description

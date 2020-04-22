@@ -1,8 +1,4 @@
 from django.contrib import admin
-from .models import User
-from .models import ManualInputDB
-# Register your models here.
+from .models import Transaction
 
-
-admin.site.register(User)
-admin.site.register(ManualInputDB)
+admin.site.register(Transaction)
