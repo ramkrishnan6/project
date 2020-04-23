@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     {% if user.is_authenticated %}
@@ -13,10 +13,16 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <!--===============================================================================================-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <!--===============================================================================================-->
+    <!-- Chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 
 <body>
-
 <h1>This is your Dashboard</h1>
 <p>
 <div class="container-login100-form-btn m-t-32">
@@ -42,7 +48,9 @@
             <button class="login100-form-btn" type="submit">
                 Predict
             </button>
+
         </div>
+                    <p>{{prediction}}</p>
     </form>
     <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/manual' method='post'>
         {% csrf_token %}
@@ -51,21 +59,32 @@
                 Manual Add
             </button>
         </div>
-        {% for transaction in transactions %}
 
-            {{transaction.date}}
-            {{transaction.description}}
-            {{transaction.category}}
-            {{transaction.cost}}
-
-            <br> <br> {% endfor %}
-        <br>
-            {{final}}
 
     </form>
 
 </div>
 </p>
+    <div class="login100-form validate-form p-b-33 p-t-5">
+        <h3>Category Wise Total ----></h3><br>
+        <br><span>Automobile: {{total_automobile}} </span>
+        <br><span>Bank Transfer: {{total_bank}} </span>
+        <br><span>Cash Withdrawal: {{total_cash}} </span>
+        <br><span>Education: {{total_education}} </span>
+        <br><span>Entertainment: {{total_entertainment}} </span>
+        <br><span>Fine: {{total_fine}} </span>
+        <br><span>Food: {{total_food}} </span>
+        <br><span>Health Care: {{total_health}} </span>
+        <br><span>Ignore: {{total_ignore}} </span>
+        <br><span>PayTM: {{total_paytm}} </span>
+        <br><span>Shopping: {{total_shopping}} </span>
+        <br><span>Travel: {{total_travel}} </span>
+        <br><span>UPI: {{total_upi}} </span>
+        <br><span>Recharge: {{total_recharge}} </span>
+        <br><h4>Total Expenditure: {{total}}</h4>
+    </div>
+
+
 
 
 {% else %}
@@ -73,6 +92,50 @@
 <h2>Kindly sign in, You will be redirected in 5 seconds</h2>
 <meta http-equiv="refresh" content="5; url = '/myapp/login' ">
 {% endif %}
+    <div class="login100-form validate-form p-b-33 p-t-5">
+    <span style="font-size:20px"> Hey </span>{{ request.user }}<span>, this is your Transaction Chart  </span><br>
+    <br>
+{% block scripts %}
+    <script>
+        $(document).ready(function(){
+        var ctx = document.getElementById('myChart');
+        var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [{% for category in categories %}'{{category}}',{% endfor %}],
+            datasets: [{
 
+                label: 'Amount',
+                data: [ {% for i in total_value %}{{ i }},{% endfor %}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        }
+
+    });
+    });
+    </script>
+{% endblock scripts %}
+
+{% block content %}
+    <canvas id="myChart" width="350" height="100"></canvas>
+{% endblock content %}
+
+    </div>
 </body>
 </html>
