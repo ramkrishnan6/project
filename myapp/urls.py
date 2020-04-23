@@ -17,4 +17,6 @@ urlpatterns = [
     path('predict', views.handlePredict, name='predict'),
 
     path('manualAdd', views.manualAdd, name='manualAdd'),
+
+    path('index', views.index, name='index'),
 ]

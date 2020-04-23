@@ -99,3 +99,7 @@ def manualAdd(request):
     else:
         return HttpResponseNotFound('<h1>Error 404 - Page not found</h1>')
     return redirect("/myapp/dashboard")
+
+
+def index(request):
+    return render(request, 'index.html')

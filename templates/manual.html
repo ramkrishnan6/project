@@ -25,18 +25,18 @@
             <form  action='/myapp/manualAdd' method='post' style="margin-bottom: 00px;">
                 {% csrf_token %}
                 <div class="form-tag-box" >
-                    <input  type="date" name="dateOfTransaction" placeholder="Date of Transaction (in yyyy-mm-dd only)">
+                    <input  type="date" name="dateOfTransaction" placeholder="Date of Transaction (in yyyy-mm-dd only)" required>
                 </div>
                 <div class="form-tag-box" >
-                    <input  type="text" name="description" placeholder="Description">
+                    <input  type="text" name="description" placeholder="Description" required>
                 </div>
                 <div class="form-tag-box">
-                    <input  type="number" step="0.50"  name="cost" placeholder="Cost">
+                    <input  type="number" step="0.50"  name="cost" placeholder="Cost"required>
                 </div>
                 <div class="form-tag-box">
                     <!--<input  type="text" name="category" placeholder="Category">-->
                     <label for="category">Choose a category</label>
-                    <select id="category" name="category">
+                    <select id="category" name="category" required>
                         <option value="Automobile">Automobile</option>
                         <option value="Bank Transfer">Bank Transfer</option>
                         <option value="Cash Withdrawal">Cash Withdrawal</option>
