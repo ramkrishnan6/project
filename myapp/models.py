@@ -7,7 +7,6 @@ class Transaction(models.Model):
     date = models.DateField('Date of Transaction')
     description = models.CharField(max_length=50)
     cost = models.IntegerField(default=0)
-    #category = models.CharField(max_length=20, blank=True, null=True)
 
 
     categoryArray = [
@@ -37,4 +36,4 @@ class Transaction(models.Model):
         return self.category
 
     def __str__(self):
-        return self.description
+        return "{} - {} - {}".format(self.user_id, self.category, self.cost)
