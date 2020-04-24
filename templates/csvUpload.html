@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Manager</title>
+</head>
+<body>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Upload a file</label>
+    <input type="file" name="file">
+    <p>ONLY accepts .csv file</p>
+    <button type="submit">Upload CSV</button>
+</form>
+
+
+</body>
+</html>

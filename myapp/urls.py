@@ -3,20 +3,13 @@ from . import views
 
 urlpatterns = [
     path('', views.home),
-    path('login', views.logIn, name='login'),
-    path('register', views.register, name='register'),
+    path('login', views.logIn),
+    path('register', views.register),
+    path('logout', views.logOut),
 
-    path('signup', views.handleSignup, name='handleSignup'),
-    path('signin', views.handleSignin, name='handleSignin'),
-    path('signout', views.handleSignout, name='handleSignout'),
-
-    path('dashboard', views.dashboard, name='dashboard'),
-
-    path('manual', views.manual, name='manual'),
-
-    path('predict', views.handlePredict, name='predict'),
-
-    path('manualAdd', views.manualAdd, name='manualAdd'),
-
-    path('index', views.index, name='index'),
+    path('dashboard', views.dashboard),
+    path('manual', views.manual),
+    path('predict', views.handlePredict),
+    path('manualAdd', views.manualAdd),
+    path('csv', views.csvUpload),
 ]

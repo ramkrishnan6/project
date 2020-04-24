@@ -1,4 +1,3 @@
-
 {% load static %}
 
 <html lang="en">
@@ -8,6 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <!--===============================================================================================-->
 </head>
 <body>
@@ -24,16 +25,17 @@
 <div class="box">
 
     <div class="form-box">
-        <form  action='/myapp/manualAdd' method='post' style="margin-bottom: 00px;">
+        <form action='/myapp/manualAdd' method='post' style="margin-bottom: 00px;">
             {% csrf_token %}
-            <div class="form-tag-box" >
-                <input  type="date" name="dateOfTransaction" placeholder="Date of Transaction (in yyyy-mm-dd only)" required>
-            </div>
-            <div class="form-tag-box" >
-                <input  type="text" name="description" placeholder="Description" required>
+            <div class="form-tag-box">
+                <input type="date" name="dateOfTransaction" placeholder="Date of Transaction (in yyyy-mm-dd only)"
+                       required>
             </div>
             <div class="form-tag-box">
-                <input  type="number" step="1"  name="cost" placeholder="Cost"required>
+                <input type="text" name="description" placeholder="Description" required>
+            </div>
+            <div class="form-tag-box">
+                <input type="number" step="1" name="cost" placeholder="Cost" required>
             </div>
             <div class="form-tag-box">
                 <!--<input  type="text" name="category" placeholder="Category">-->
@@ -56,7 +58,7 @@
                 </select>
             </div>
             <div class="submit">
-                <button  type="submit">
+                <button type="submit">
                     Add
                 </button>
             </div>
@@ -77,9 +79,18 @@
 {% endif %}
 
 
+<div class="container-login100-form-btn m-t-32">
+    <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/csv' method='get'>
 
+        <h2> Hi {{ request.user }}, you can also add your own CSV file here:</h2>
+        <div class="container-login100-form-btn m-t-32">
+            <button class="login100-form-btn" type="submit">
+                ADD CSV
+            </button>
+        </div>
 
-
+    </form>
+</div>
 
 </body>
 </html>

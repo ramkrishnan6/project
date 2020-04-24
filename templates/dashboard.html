@@ -28,7 +28,7 @@
 <p>
 
 <div class="container-login100-form-btn m-t-32">
-    <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/signout' method='get'>
+    <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/logout' method='get'>
 
         <h2> You are logged in as {{ request.user }}</h2>
         <div class="container-login100-form-btn m-t-32">
@@ -270,6 +270,8 @@
         </div>
     </form>
 </div>
+
+
 </p>
 {% else %}
 <h1>You are not signed in!</h1>

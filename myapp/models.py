@@ -5,11 +5,10 @@ from django.db import models
 class Transaction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     date = models.DateField('Date of Transaction')
-    description = models.CharField(max_length=50)
+    description = models.CharField(max_length=100)
     cost = models.IntegerField(default=0)
 
-
-    categoryArray = [
+    categories = [
         ('Automobile', 'Automobile'),
         ('Bank Transfer', 'Bank Transfer'),
         ('Cash Withdrawal', 'Cash Withdrawal'),
@@ -25,16 +24,13 @@ class Transaction(models.Model):
         ('Travel', 'Travel'),
         ('Unknown', 'Unknown'),
         ('UPI', 'UPI')
-
     ]
+
     category = models.CharField(
         max_length=30,
-        choices=categoryArray,
+        choices=categories,
         default='Unknown',
     )
-
-    def is_upperclass(self):
-        return self.category
 
     def __str__(self):
         return "{} - {} - {}".format(self.user_id, self.category, self.cost)

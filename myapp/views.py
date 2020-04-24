@@ -1,9 +1,11 @@
+import csv
+import io
+
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.http.response import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-
 
 from myapp.models import Transaction
 from mysite.predict import predict
@@ -14,11 +16,43 @@ def home(request):
 
 
 def logIn(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Successfully Logged in")
+            return redirect('/myapp/dashboard')
+        else:
+            messages.error(request, "Invalid credentials, please try again!")
+            return redirect('/myapp/login')
+    else:
+        return render(request, 'login.html')
 
 
 def register(request):
-    return render(request, 'register.html')
+    if request.method == 'POST':
+        firstName = request.POST['firstName']
+        lastName = request.POST['lastName']
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = User.objects.create_user(username, email, password)
+        user.first_name = firstName
+        user.last_name = lastName
+        user.save()
+        return redirect('/myapp/login')
+    else:
+        return render(request, 'register.html')
+
+
+def logOut(request):
+    logout(request)
+    messages.success(request, "Successfully Logged out")
+    return redirect('/myapp/login')
 
 
 def dashboard(request):
@@ -61,7 +95,7 @@ def dashboard(request):
     total_health = 0
     for transaction in transactions_health:
         total_health = total_health + transaction.cost
-#TODO - EXCHANGE IGNORE WITH OTHER
+
     transactions_other = Transaction.objects.filter(user_id=request.user.id, category="Other")
     total_other = 0
     for transaction in transactions_other:
@@ -104,12 +138,12 @@ def dashboard(request):
 
     categories = ['Automobile', 'Bank Transfer', 'Cash Withdrawal', 'Education',
                   'Entertainment', 'Fine', 'Food', 'Health Care',
-                   'Other', 'PayTM', 'Shopping', 'Travel',
-                   'UPI', 'Recharge']
+                  'Other', 'PayTM', 'Shopping', 'Travel',
+                  'UPI', 'Recharge']
 
     return render(request, 'dashboard.html', {
         'total_automobile': total_automobile,
-        'total_bank' : total_bank,
+        'total_bank': total_bank,
         'total_cash': total_cash,
         'total_education': total_education,
         'total_entertainment': total_entertainment,
@@ -126,52 +160,11 @@ def dashboard(request):
         'total_value': total_value,
         'transactions': transactions,
         'categories': categories,
-
     })
 
 
 def manual(request):
     return render(request, 'manual.html')
-
-
-def handleSignup(request):
-    if request.method == 'POST':
-        firstName = request.POST['firstName']
-        lastName = request.POST['lastName']
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['pass']
-
-        myuser = User.objects.create_user(username, email, password)
-        myuser.first_name = firstName
-        myuser.last_name = lastName
-        myuser.save()
-        return redirect('login')
-    else:
-        return HttpResponseNotFound('<h1>Error 404 - Page not found</h1>')
-
-
-def handleSignin(request):
-    if request.method == 'POST':
-        loginUsername = request.POST['loginUsername']
-        loginPassword = request.POST['loginPassword']
-
-        user = authenticate(username=loginUsername, password=loginPassword)
-        if user is not None:
-            login(request, user)
-            messages.success(request, "Successfully Logged in")
-            return redirect('dashboard')
-        else:
-            messages.error(request, "Invalid credentials, please try again!")
-            return redirect('login')
-    else:
-        return HttpResponseNotFound('<h1>Error 404 - Page not found</h1>')
-
-
-def handleSignout(request):
-    logout(request)
-    messages.success(request, "Successfully Logged out")
-    return redirect('login')
 
 
 def handlePredict(request):
@@ -180,7 +173,6 @@ def handlePredict(request):
     else:
         return HttpResponseNotFound('<h1>Error 404 - Page not found</h1>')
     prediction = predict(transaction)[0]
-    #return render(request, 'dashboard.html', {'prediction': prediction})
     return HttpResponse(prediction)
 
 
@@ -203,5 +195,20 @@ def manualAdd(request):
     return redirect("/myapp/dashboard")
 
 
-def index(request):
-    return render(request, 'index.html')
+def csvUpload(request):
+    if request.method == "GET":
+        return render(request, 'csvUpload.html')
+
+    csv_file = request.FILES['file']
+    dataset = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(dataset)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, transaction = Transaction.objects.update_or_create(
+            user=request.user,
+            date=column[1],
+            description=column[2],
+            cost=column[3],
+            category=column[4],
+        )
+    return render(request, 'csvUpload.html')
