@@ -9,7 +9,7 @@ urlpatterns = [
 
     path('dashboard', views.dashboard),
     path('manual', views.manual),
+
     path('predict', views.handlePredict),
-    path('manualAdd', views.manualAdd),
     path('csv', views.csvUpload),
 ]

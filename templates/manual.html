@@ -1,9 +1,22 @@
 {% load static %}
 
 <html lang="en">
+
+<link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
 <head>
+
+    <!-- Required meta tags -->
+    <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
     {% if user.is_authenticated %}
-    <title>Manual Input Page</title>
+    <title>Expense Manager</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -12,12 +25,45 @@
     <!--===============================================================================================-->
 </head>
 <body>
-<div class="MIP">
-            <span>
-                Manual Input Page
-            </span>
+
+
+<div class="container-fluid pb-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="/myapp/">
+            <img src="{% static 'images/icons/icon.ico' %}" width="30" height="30" class="d-inline-block align-top"
+                 alt="">
+            Expense Manager
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active pr-5">
+                    <button type="button" class="btn btn-outline-primary" onclick="newPage(1)">ADD CSV</button>
+                </li>
+                <li class="nav-item active pl-5">
+                    <button type="button" class="btn btn-outline-primary" onclick="newPage(0)">Back</button>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
 </div>
-<div class="box-1">
+<script type="text/javascript">
+    function newPage(num) {
+        var url = new Array();
+        url[0] = "/myapp/dashboard";
+        url[1] = "/myapp/csv";
+        window.location = url[num];
+        ``
+    }
+</script>
+
+
+<div class="box-1 pt-2">
     <span style="font-size:20px"> Hey </span>{{ request.user }}<span>, </span><br>
     <span style="font-size:15px">Enter your transaction manually.</span><br>
     <span style="font-size:15px">Choose a category you would like to put your transaction into. If you do not know the category, enter "UNKNOWN" in the category field.</span>
@@ -25,7 +71,7 @@
 <div class="box">
 
     <div class="form-box">
-        <form action='/myapp/manualAdd' method='post' style="margin-bottom: 00px;">
+        <form action='/myapp/manual' method='post' style="margin-bottom: 00px;">
             {% csrf_token %}
             <div class="form-tag-box">
                 <input type="date" name="dateOfTransaction" placeholder="Date of Transaction (in yyyy-mm-dd only)"
@@ -65,9 +111,6 @@
         </form>
     </div>
     <hr>
-    <div class="box-2">
-
-    </div>
 </div>
 
 <hr>
@@ -77,20 +120,6 @@
 <h2>Kindly sign in, You will be redirected in 5 seconds</h2>
 <meta http-equiv="refresh" content="5; url = '/myapp/login' ">
 {% endif %}
-
-
-<div class="container-login100-form-btn m-t-32">
-    <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/csv' method='get'>
-
-        <h2> Hi {{ request.user }}, you can also add your own CSV file here:</h2>
-        <div class="container-login100-form-btn m-t-32">
-            <button class="login100-form-btn" type="submit">
-                ADD CSV
-            </button>
-        </div>
-
-    </form>
-</div>
 
 </body>
 </html>
