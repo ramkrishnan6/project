@@ -12,6 +12,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <!--===============================================================================================-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <!--===============================================================================================-->
@@ -25,6 +26,7 @@
 <body>
 <h1>This is your Dashboard</h1>
 <p>
+
 <div class="container-login100-form-btn m-t-32">
     <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/signout' method='get'>
 
@@ -36,6 +38,212 @@
         </div>
 
     </form>
+
+    <div class="graph-container">
+        <div class="to-shorten" style="border-style: solid;">
+            <h3>Category Wise Total </h3><br>
+            <br><span>Automobile: {{total_automobile}} </span>
+            <br><span>Bank Transfer: {{total_bank}} </span>
+            <br><span>Cash Withdrawal: {{total_cash}} </span>
+            <br><span>Education: {{total_education}} </span>
+            <br><span>Entertainment: {{total_entertainment}} </span>
+            <br><span>Fine: {{total_fine}} </span>
+            <br><span>Food: {{total_food}} </span>
+            <br><span>Health Care: {{total_health}} </span>
+            <br><span>Other: {{total_other}} </span>
+            <br><span>Paytm: {{total_paytm}} </span>
+            <br><span>Shopping: {{total_shopping}} </span>
+            <br><span>Travel: {{total_travel}} </span>
+            <br><span>UPI: {{total_upi}} </span>
+            <br><span>Recharge: {{total_recharge}} </span>
+            <br><br>
+
+        </div>
+        <div style="border-style: solid;">
+            <div style="font-size:20px">
+                <span > Hey </span>{{ request.user }}<span>, these are your Transaction Charts  </span><br>
+            </div>
+            <br><br>
+            <div class="graph-box">
+                {% block content %}
+                <canvas id="myChart" width="400" height="400"></canvas>
+                {% endblock content %}
+                {% block content2 %}
+                <canvas id="myChart2" width="400" height="400"></canvas>
+                {% endblock content2 %}
+                {% block content3 %}
+                <canvas id="myChart3" width="400" height="400"></canvas>
+                {% endblock content3 %}
+
+            </div>
+            <h4 style="padding-left: 33%;"> Total Expenditure: {{total}}</h4><br>
+            <div>
+                {% block scripts %}
+                <script>
+                Chart.defaults.global.responsive = false;
+
+                $(document).ready(function(){
+                var ctx = document.getElementById('myChart');
+                var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                                "Food", "Health care", "Other", "PayTM", "Shopping", "Travel", "UPI", "Recharge"],
+                    datasets: [{
+
+                        label: 'Amount',
+                        data: [ {% for i in total_value %}{{ i }},{% endfor %}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+            });
+            </script>
+                {% endblock scripts %}
+            </div>
+
+            <div>
+                {% block scripts2 %}
+                <script>
+                $(document).ready(function(){
+                var ctx2 = document.getElementById('myChart2');
+                var myChart2 = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                                "Food", "Health care", "Other", "PayTM", "Shopping", "Travel", "UPI", "Recharge"],
+                    datasets: [{
+
+                        label: 'Amount',
+                        data: [ {% for i in total_value %}{{ i }},{% endfor %}],
+                       backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(150, 79, 164, 0.2)',
+                            'rgba(200, 100, 64, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(150, 79, 164, 1)',
+                            'rgba(200, 100, 64, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+
+            });
+            });
+            </script>
+                {% endblock scripts2 %}
+            </div>
+            <div>
+                {% block scripts3 %}
+                <script>
+                $(document).ready(function(){
+                var ctx3 = document.getElementById('myChart3');
+                var myChart3 = new Chart(ctx3, {
+                type: 'pie',
+                data: {
+                    labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                                "Food", "Health care", "Other", "PayTM", "Shopping", "Travel", "UPI", "Recharge"],
+                    datasets: [{
+
+                        label: 'Amount',
+                        data: [ {% for i in total_value %}{{ i }},{% endfor %}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(150, 79, 164, 0.2)',
+                            'rgba(200, 100, 64, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(150, 79, 164, 1)',
+                            'rgba(200, 100, 64, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+
+            });
+            });
+            </script>
+                {% endblock scripts3 %}
+            </div>
+        </div>
+    </div>
+
+
 
     <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/predict' method='post'>
         {% csrf_token %}
@@ -50,8 +258,9 @@
             </button>
 
         </div>
-                    <p>{{prediction}}</p>
+
     </form>
+
     <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/manual' method='post'>
         {% csrf_token %}
         <div class="container-login100-form-btn m-t-32">
@@ -59,83 +268,14 @@
                 Manual Add
             </button>
         </div>
-
-
     </form>
-
 </div>
 </p>
-    <div class="login100-form validate-form p-b-33 p-t-5">
-        <h3>Category Wise Total ----></h3><br>
-        <br><span>Automobile: {{total_automobile}} </span>
-        <br><span>Bank Transfer: {{total_bank}} </span>
-        <br><span>Cash Withdrawal: {{total_cash}} </span>
-        <br><span>Education: {{total_education}} </span>
-        <br><span>Entertainment: {{total_entertainment}} </span>
-        <br><span>Fine: {{total_fine}} </span>
-        <br><span>Food: {{total_food}} </span>
-        <br><span>Health Care: {{total_health}} </span>
-        <br><span>Ignore: {{total_ignore}} </span>
-        <br><span>PayTM: {{total_paytm}} </span>
-        <br><span>Shopping: {{total_shopping}} </span>
-        <br><span>Travel: {{total_travel}} </span>
-        <br><span>UPI: {{total_upi}} </span>
-        <br><span>Recharge: {{total_recharge}} </span>
-        <br><h4>Total Expenditure: {{total}}</h4>
-    </div>
-
-
-
-
 {% else %}
 <h1>You are not signed in!</h1>
 <h2>Kindly sign in, You will be redirected in 5 seconds</h2>
 <meta http-equiv="refresh" content="5; url = '/myapp/login' ">
 {% endif %}
-    <div class="login100-form validate-form p-b-33 p-t-5">
-    <span style="font-size:20px"> Hey </span>{{ request.user }}<span>, this is your Transaction Chart  </span><br>
-    <br>
-{% block scripts %}
-    <script>
-        $(document).ready(function(){
-        var ctx = document.getElementById('myChart');
-        var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: [{% for category in categories %}'{{category}}',{% endfor %}],
-            datasets: [{
 
-                label: 'Amount',
-                data: [ {% for i in total_value %}{{ i }},{% endfor %}],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        }
-
-    });
-    });
-    </script>
-{% endblock scripts %}
-
-{% block content %}
-    <canvas id="myChart" width="350" height="100"></canvas>
-{% endblock content %}
-
-    </div>
 </body>
 </html>

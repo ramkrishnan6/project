@@ -62,10 +62,10 @@ def dashboard(request):
     for transaction in transactions_health:
         total_health = total_health + transaction.cost
 #TODO - EXCHANGE IGNORE WITH OTHER
-    transactions_ignore = Transaction.objects.filter(user_id=request.user.id, category="Ignore")
-    total_ignore = 0
-    for transaction in transactions_ignore:
-        total_ignore = total_ignore + transaction.cost
+    transactions_other = Transaction.objects.filter(user_id=request.user.id, category="Other")
+    total_other = 0
+    for transaction in transactions_other:
+        total_other = total_other + transaction.cost
 
     transactions_paytm = Transaction.objects.filter(user_id=request.user.id, category="Paytm")
     total_paytm = 0
@@ -99,12 +99,12 @@ def dashboard(request):
 
     total_value = [total_automobile, total_bank, total_cash, total_education,
                    total_entertainment, total_fine, total_food, total_health,
-                   total_ignore, total_paytm, total_shopping, total_travel,
+                   total_other, total_paytm, total_shopping, total_travel,
                    total_upi, total_recharge]
 
     categories = ['Automobile', 'Bank Transfer', 'Cash Withdrawal', 'Education',
                   'Entertainment', 'Fine', 'Food', 'Health Care',
-                   'Ignore', 'PayTM', 'Shopping', 'Travel',
+                   'Other', 'PayTM', 'Shopping', 'Travel',
                    'UPI', 'Recharge']
 
     return render(request, 'dashboard.html', {
@@ -116,7 +116,7 @@ def dashboard(request):
         'total_fine': total_fine,
         'total_food': total_food,
         'total_health': total_health,
-        'total_ignore': total_ignore,
+        'total_other': total_other,
         'total_paytm': total_paytm,
         'total_shopping': total_shopping,
         'total_travel': total_travel,
@@ -180,8 +180,8 @@ def handlePredict(request):
     else:
         return HttpResponseNotFound('<h1>Error 404 - Page not found</h1>')
     prediction = predict(transaction)[0]
-    return render(request, 'dashboard.html', {'prediction': prediction})
-    #return HttpResponse(prediction)
+    #return render(request, 'dashboard.html', {'prediction': prediction})
+    return HttpResponse(prediction)
 
 
 def manualAdd(request):

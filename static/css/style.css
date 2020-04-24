@@ -150,6 +150,27 @@ body
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
+.graph-container{
+    margin: 0.9%;
+    background: #FDFEFE;
+    display: flex;
+    justify-content: space-between;
+}
+
+.graph-box{
+    display: flex;
+    justify-content: space-around;
+}
+
+.to-shorten{
+    font-size: 15px
+}
+
+
+
+
+
+
 
 
 
@@ -220,24 +241,3 @@ body
 	color: #FDFEFE;
 }
 
-span.subheading
-{	margin: 0;
-	padding: 0 0 20px;
-	text-align: center;
-	font-size: 30px;
-	font-weight: bold;
-}
-.sheading
-{	margin: 0;
-	padding: 5 5 5px;
-	text-align: left;
-	font-size: 25px;
-	background: transparent;
-	color: #FDFEFE;
-	
-}
-
- HEADING
-MAIN HEADING SIZE = 35
-SUB HEADING SIZE = 30
-SECONDARY HEADING SIZE = 25 -->
