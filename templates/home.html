@@ -48,6 +48,8 @@
 
 
 <body>
+
+
 <div class="container-fluid pb-3">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="/myapp/">
@@ -65,7 +67,13 @@
                     <a class="nav-link" href="#section1"> Our Team <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
-
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav ml-auto ">
+                <li class="nav-item active">
+                    <button type="button" class="btn btn-outline-primary mr-3" onclick="newPage(2)">Dashboard</button>
+                </li>
+            </ul>
+            {% else %}
             <ul class="navbar-nav ml-auto ">
                 <li class="nav-item active">
                     <button type="button" class="btn btn-outline-primary mr-3" onclick="newPage(0)">Login</button>
@@ -74,6 +82,7 @@
                     <button type="button" class="btn btn-outline-primary" onclick="newPage(1)">Register</button>
                 </li>
             </ul>
+            {% endif %}
         </div>
     </nav>
 </div>
@@ -83,6 +92,7 @@
         var url = new Array();
         url[0] = "/myapp/login";
         url[1] = "/myapp/register";
+        url[2] = "/myapp/dashboard";
         window.location = url[num];
         ``
     }
@@ -93,8 +103,12 @@
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner col-xs-8">
+            <div class="carousel-item">
+                <img src="{% static 'images/image3.png' %}" class="d-block w-100" width="800px" height="550px">
+            </div>
             <div class="carousel-item active">
                 <img src="{% static 'images/image1.png' %}" class="d-block w-100" width="800px" height="550px">
             </div>
@@ -116,7 +130,7 @@
 <div class="container-fluid mb-1">
     <h1><span id="typed1"></span></h1>
 </div>
-<div class="pb-2" id="section1"> </div>
+<div class="pb-2" id="section1"></div>
 <div class="container-fluid mt-1">
     <h1>Our Team</h1>
 </div>
@@ -160,19 +174,6 @@
 <!-- Typed.js DONT TOUCH THIS! -->
 <div id="typed-strings">
 </div>
-
-<script>
-    var typed = new Typed('#typed', {
-        strings: ["Welcome to Expense Manager", "If you want to save money, you are in the right place", "Let's get started!"],
-        backSpeed: 15,
-        smartBackspace: true,
-        backDelay: 1200,
-        startDelay: 1000,
-        typeSpeed: 25,
-        loop: false,
-
-    });
-</script>
 
 <script>
     var typed1 = new Typed('#typed1', {
