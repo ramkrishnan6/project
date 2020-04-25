@@ -4,7 +4,7 @@
 
 <head>
 
-       <!-- Required meta tags -->
+    <!-- Required meta tags -->
     <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,6 +51,7 @@
             <ul class="navbar-nav ml-auto ">
                 <li class="nav-item active">
                     <button type="button" class="btn btn-outline-primary mr-3" onclick="newPage(1)">MANUAL ADD</button>
+
                 </li>
                 <li class="nav-item active">
                     <button type="button" class="btn btn-outline-primary" onclick="newPage(0)">Logout</button>
@@ -79,27 +80,27 @@
 
     <div class="graph-container">
         <div class="to-shorten" style="border-style: solid;">
-            <h3>Category Wise Total </h3><br>
-            <br><span>Automobile: {{total_automobile}} </span>
-            <br><span>Bank Transfer: {{total_bank}} </span>
-            <br><span>Cash Withdrawal: {{total_cash}} </span>
-            <br><span>Education: {{total_education}} </span>
-            <br><span>Entertainment: {{total_entertainment}} </span>
-            <br><span>Fine: {{total_fine}} </span>
-            <br><span>Food: {{total_food}} </span>
-            <br><span>Health Care: {{total_health}} </span>
-            <br><span>Other: {{total_other}} </span>
-            <br><span>Paytm: {{total_paytm}} </span>
-            <br><span>Shopping: {{total_shopping}} </span>
-            <br><span>Travel: {{total_travel}} </span>
-            <br><span>UPI: {{total_upi}} </span>
-            <br><span>Recharge: {{total_recharge}} </span>
+            <h3>Category Wise Total </h3>
+            <hr>Automobile: {{ total_value.0 }}
+            <hr>Bank Transfer: {{ total_value.1 }}
+            <hr>Cash Withdrawal: {{ total_value.2 }}
+            <hr>Education: {{ total_value.3 }}
+            <hr>Entertainment: {{ total_value.4 }}
+            <hr>Fine: {{ total_value.5 }}
+            <hr>Food:  {{ total_value.6 }}
+            <hr>Health Care:  {{ total_value.7 }}
+            <hr>Other:  {{ total_value.8 }}
+            <hr>Paytm: {{ total_value.9 }}
+            <hr>Shopping: {{ total_value.10 }}
+            <hr>Travel: {{ total_value.11 }}
+            <hr>UPI: {{ total_value.12 }}
+            <hr>Recharge:  {{ total_value.13 }}
             <br><br>
 
         </div>
         <div style="border-style: solid;">
             <div style="font-size:20px">
-                <span > Hey </span>{{ request.user }}<span>, these are your Transaction Charts  </span><br>
+                <span > These are your Transaction Charts  </span><br>
             </div>
             <br><br>
             <div class="graph-box">
@@ -115,9 +116,30 @@
 
             </div>
             <h4 style="padding-left: 33%;"> Total Expenditure: {{total}}</h4><br>
-            <div>
-                {% block scripts %}
-                <script>
+
+
+
+            <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/predict' method='post'>
+                {% csrf_token %}
+                <div class="wrap-input100 validate-input" data-validate="Enter your Transaction">
+                    <input class="input100" type="text" name="transaction" placeholder="Transaction" required>
+                    <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                </div>
+
+                <div class="container-login100-form-btn m-t-32">
+                    <button class="btn btn-outline-dark" type="submit">
+                        Predict
+                    </button>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
                 Chart.defaults.global.responsive = false;
 
                 $(document).ready(function(){
@@ -131,33 +153,39 @@
 
                         label: 'Amount',
                         data: [ {% for i in total_value %}{{ i }},{% endfor %}],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
                         borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+
+                        ],
+                        backgroundColor: [
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+                            'rgba(253, 254, 254, 1)',
+
                         ],
                         borderWidth: 1
                     }]
@@ -165,12 +193,10 @@
             });
             });
             </script>
-                {% endblock scripts %}
-            </div>
+{% endblock scripts %}
 
-            <div>
-                {% block scripts2 %}
-                <script>
+{% block scripts2 %}
+<script>
                 $(document).ready(function(){
                 var ctx2 = document.getElementById('myChart2');
                 var myChart2 = new Chart(ctx2, {
@@ -182,50 +208,51 @@
 
                         label: 'Amount',
                         data: [ {% for i in total_value %}{{ i }},{% endfor %}],
-                       backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(150, 79, 164, 0.2)',
-                            'rgba(200, 100, 64, 0.2)',
+                       borderColor: [
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+                            'rgba(23, 32, 42, 1)',
+
                         ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(150, 79, 164, 1)',
-                            'rgba(200, 100, 64, 1)',
+                        backgroundColor: [
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(231, 76, 60, 1)',
+
                         ],
-                        borderWidth: 1
+                        borderWidth: 3
                     }]
                 }
 
             });
             });
             </script>
-                {% endblock scripts2 %}
-            </div>
-            <div>
-                {% block scripts3 %}
-                <script>
+{% endblock scripts2 %}
+
+{% block scripts3 %}
+<script>
                 $(document).ready(function(){
                 var ctx3 = document.getElementById('myChart3');
                 var myChart3 = new Chart(ctx3, {
@@ -276,31 +303,7 @@
             });
             });
             </script>
-                {% endblock scripts3 %}
-            </div>
-        </div>
-    </div>
-
-
-
-    <form class="login100-form validate-form p-b-33 p-t-5" action='/myapp/predict' method='post'>
-        {% csrf_token %}
-        <div class="wrap-input100 validate-input" data-validate="Enter your Transaction">
-            <input class="input100" type="text" name="transaction" placeholder="Transaction" required>
-            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
-        </div>
-
-        <div class="container-login100-form-btn m-t-32">
-            <button class="login100-form-btn" type="submit">
-                Predict
-            </button>
-
-        </div>
-
-    </form>
-
-</div>
-
+{% endblock scripts3 %}
 
 </p>
 {% else %}

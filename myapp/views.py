@@ -56,7 +56,7 @@ def logOut(request):
 
 
 def dashboard(request):
-    return showDashboard(request)
+    return showDashboard(request, 0)
 
 
 def manual(request):

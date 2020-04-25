@@ -3,7 +3,7 @@ from django.shortcuts import render
 from myapp.models import Transaction
 
 
-def showDashboard(request):
+def showDashboard(request, purpose):
     transactions_automobile = Transaction.objects.filter(user_id=request.user.id, category="Automobile")
     total_automobile = 0
     for transaction in transactions_automobile:
@@ -83,29 +83,10 @@ def showDashboard(request):
                    total_entertainment, total_fine, total_food, total_health,
                    total_other, total_paytm, total_shopping, total_travel,
                    total_upi, total_recharge]
-
-    categories = ['Automobile', 'Bank Transfer', 'Cash Withdrawal', 'Education',
-                  'Entertainment', 'Fine', 'Food', 'Health Care',
-                  'Other', 'PayTM', 'Shopping', 'Travel',
-                  'UPI', 'Recharge']
-
-    return render(request, 'dashboard.html', {
-        'total_automobile': total_automobile,
-        'total_bank': total_bank,
-        'total_cash': total_cash,
-        'total_education': total_education,
-        'total_entertainment': total_entertainment,
-        'total_fine': total_fine,
-        'total_food': total_food,
-        'total_health': total_health,
-        'total_other': total_other,
-        'total_paytm': total_paytm,
-        'total_shopping': total_shopping,
-        'total_travel': total_travel,
-        'total_upi': total_upi,
-        'total_recharge': total_recharge,
-        'total': total,
-        'total_value': total_value,
-        'transactions': transactions,
-        'categories': categories,
-    })
+    if purpose == 0:
+        return render(request, 'dashboard.html', {
+            'total': total,
+            'total_value': total_value,
+        })
+    if purpose == 1:
+        return total_value
