@@ -8,7 +8,9 @@ from django.http.response import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect
 from myapp.models import Transaction
 from mysite.predict import predict
+from mysite.predict import updateDataset
 from mysite.dashboard import showDashboard
+from django.core.files.storage import FileSystemStorage
 
 
 def home(request):
@@ -69,9 +71,12 @@ def manual(request):
 
         if category == "Unknown":
             category = predict(description)[0]
+        else:
+            updateDataset(date, description, cost, category)
 
         transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
         transaction.save()
+
         return redirect("/myapp/dashboard")
     else:
         return render(request, 'manual.html')
@@ -87,6 +92,7 @@ def handlePredict(request):
 
 
 def csvUpload(request):
+    context = {}
     if request.method == "GET":
         return render(request, 'csvUpload.html')
 
@@ -102,4 +108,8 @@ def csvUpload(request):
             cost=column[3],
             category=column[4],
         )
-    return render(request, 'csvUpload.html')
+    fs = FileSystemStorage()
+    name = fs.save(csv_file.name, csv_file)
+    context['url'] = fs.url(name)
+
+    return render(request, 'csvUpload.html', context)

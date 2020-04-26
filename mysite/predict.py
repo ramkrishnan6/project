@@ -5,6 +5,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.svm import LinearSVC
+import csv
+import datetime
 
 
 def predict(transaction):
@@ -36,3 +38,15 @@ def predict(transaction):
     clf = LinearSVC().fit(X_train_tfidf, y_train)
 
     return clf.predict(count_vect.transform([transaction]))
+
+
+def updateDataset(date, description, cost, category):
+
+    with open("D:\KUSH_DATA\SCOE\BE\Sem 1\Project\Sem 2\dataset.csv", 'r', encoding='UTF-8') as csvFile:
+        reader = csv.reader(csvFile, delimiter=',')
+        rows = list(reader)
+        rowId = len(rows)
+
+    with open("D:\KUSH_DATA\SCOE\BE\Sem 1\Project\Sem 2\dataset.csv", "a", newline="") as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([rowId, date, description, cost, category])
