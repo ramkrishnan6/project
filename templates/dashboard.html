@@ -1,353 +1,746 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 
 <head>
 
-    <!-- Required meta tags -->
-    <link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-
-    <!-- Bootstrap CSS -->
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" rel="stylesheet">
-
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
     {% if user.is_authenticated %}
     <title>Expense Manager</title>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <!--===============================================================================================-->
-    <link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
-    <!--===============================================================================================-->
-    <link href="{% static 'css/util.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-    <!--===============================================================================================-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <!--===============================================================================================-->
-    <!-- Chart js -->
-    <script crossorigin="anonymous"
-            integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
-          integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" rel="stylesheet"/>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <script src="https://use.fontawesome.com/aea125d216.js"></script>
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'imp/css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <style>
+        .carousel-control-prev, .carousel-control-next {
+            filter: invert(1);
+        }
+    </style>
+
+
 </head>
 
-<body>
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-<div class="container-fluid pb-3">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="/myapp/">
-            <img alt="" class="d-inline-block align-top" height="30" src="{% static 'images/icons/icon.ico' %}"
-                 width="30">
-            Expense Manager
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/myapp/">
+        <img src="{% static 'images/icons/icon.ico' %}" width="50">
+          <div class="sidebar-brand-text mr-3">Expense Manager</div>
+      </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="/myapp/dashboard">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- HEADING Transactions-->
+        <div class="sidebar-heading">
+            <h6>Transactions</h6>
+        </div>
+
+        <!-- Add Transactions Items -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-plus-circle"></i>
+                <span>Add Transactions</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/myapp/manual">Add Manually</a>
+                    <a class="collapse-item" href="/myapp/csv">Add CSV</a>
+                </div>
+            </div>
+        </li>
+
+        <!--View Transactions -->
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/transactions">
+                <i class="fa fa-eye"></i>
+                <span>View Transactions</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- HEADING STATISTICS -->
+        <div class="sidebar-heading">
+            <h6>STATISTICS</h6>
+        </div>
+
+        <!-- Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/charts">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Charts</span></a>
+        </li>
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- ADMIN ONLY PREDICT SECTION -->
+        {% if request.user.username == "admin" %}
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/predict">
+                <i class="fa fa-search-plus" aria-hidden="true"></i>
+                <span>Predict</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        {% endif %}
+        <!-- HEADING ACCOUNT -->
+        <div class="sidebar-heading">
+            <h6>ACCOUNT</h6>
+        </div>
+
+        <!-- Log Out -->
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/logout">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <span>Log Out</span></a>
+        </li>
+
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between my-4">
+                    <h1 class="h3 mb-0 text-gray-800">{{ request.user.first_name }}'s Dashboard</h1>
+                </div>
+
+                <!------------------------------------------------------------------------------------------------------------------------------>
+                <!--SLIDER FOR CATEGORIES STARTS  -->
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="inam" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <!-- FIRST SLIDER -->
+                                    <div class="carousel-item active">
+                                        <div class="container">
+                                            <div class="row">
+
+                                                <!-- Automobile Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Automobile
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.0 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Bank Transfer Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Bank Transfer
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.1 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Cash Withdrawal Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Cash Withdrawal
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.2 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Education Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Education
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.3 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- SECOND SLIDER-->
+
+                                    <div class="carousel-item">
+                                        <div class="container">
+                                            <div class="row">
+                                                <!-- Entertainment Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Entertainment
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.4 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Fine Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Fine
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.5 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Food Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Food
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.6 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Health Care Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Health Care
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.7 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- THIRD SLIDER -->
+
+                                    <div class="carousel-item">
+                                        <div class="container">
+                                            <div class="row">
+                                                <!-- Other Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Other
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.8 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Paytm Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Paytm
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.9 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Recharge Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Recharge
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.10 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Shopping Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Shopping
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.11 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- FOURTH SLIDER -->
+
+                                    <div class="carousel-item">
+                                        <div class="container">
+                                            <div class="row">
+                                                <!-- Travel Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        Travel
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.12 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- UPI Card -->
+                                                <div class="col-sm-12 col-lg-3">
+                                                    <div class="card border-left-primary shadow h-100 py-2">
+                                                        <div class="card-body">
+                                                            <div class="row no-gutters align-items-center">
+                                                                <div class="col mr-2">
+                                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                                        UPI
+                                                                    </div>
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                                        ₹ {{ total_value.13 }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-auto">
+                                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- ARROW KEYS -->
+
+                                <a href="#inam" class="carousel-control-prev" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" style="margin-right: 130px;"></span>
+                                </a>
+                                <a href="#inam" class="carousel-control-next" data-slide="next">
+                                    <span class="carousel-control-next-icon" style="margin-left: 130px;"></span>
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDER FOR CATEGORIES ENDS -->
+                <!------------------------------------------------------------------------------------------------------------------------->
+                <!-- TOTAL CARD STARTS -->
+
+                <div class="row ">
+
+                    <!-- Total Card -->
+                    <div class="col-lg-11 ml-5 mb-2">
+                        <div class="card border-bottom-danger shadow h-80 py-10 my-3">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-lg font-weight-bold text-danger text-uppercase mb-1">Total
+                                        </div>
+                                        <div class="h3 mb-0 font-weight-bold text-gray-800">₹ {{ total }}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TOTAL CARD ENDS -->
+                <!------------------------------------------------------------------------------------------------------------------------->
+                <!-- GRAPH AREA STARTS -->
+
+                <!-- Content Row -->
+
+                <div class="row container-fluid pt-4">
+
+                    <!-- Area Chart -->
+                    <div class="col-xl-12 col-lg-12">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">BAR CHART</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body mb-5" style="height: 30rem;" >
+
+                                <div class="chart-area mb-5 mx-auto">
+                                    <canvas id="barChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pie Chart -->
+                    <div class="col-xl-12 col-lg-12">
+                      <div class="card shadow mb-4">
+                          <!-- Card Header - Dropdown -->
+                          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                              <h6 class="m-0 font-weight-bold text-primary">PIE CHART</h6>
+                          </div>
+                          <!-- Card Body -->
+                          <div class="card-body" style=" height: 35rem;" >
+                              <div class="chart-area mx-auto">
+                                  <canvas id="pieChart"></canvas>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+                <!-- GRAPH AREA ENDS -->
+                <!-------------------------------------------------------------------------------------------------------------------------->
+
+            </div>
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; EXPENSE MANAGER 2020</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
         </a>
-        <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
-                data-target="#navbarNavDropdown" data-toggle="collapse" type="button">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto ">
-                <li class="nav-item active">
-                    <button type="button" class="btn btn-outline-primary mr-3" onclick="newPage(1)">MANUAL ADD</button>
-                </li>
-                <li class="nav-item active">
-                    <button type="button" class="btn btn-outline-primary" onclick="newPage(0)">Logout</button>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-<script type="text/javascript">
-    function newPage(num) {
-        var url = new Array();
-        url[0] = "/myapp/logout";
-        url[1] = "/myapp/manual";
-        window.location = url[num];
-        ``
-    }
+        {% else %}
+        <h1>You are not signed in!</h1>
+        <h2>Kindly sign in, You will be redirected in 5 seconds</h2>
+        <meta http-equiv="refresh" content="5; url = '/myapp/login' ">
+        {% endif %}
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="{% static 'imp/vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'imp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="{% static 'imp/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="{% static 'imp/js/sb-admin-2.min.js' %}"></script>
+
+        <!-- Page level plugins -->
+        <script src="{% static 'imp/vendor/chart.js/Chart.min.js' %}"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="{% static 'imp/js/demo/chart-area-demo.js' %}"></script>
+        <script src="{% static 'imp/js/demo/chart-pie-demo.js' %}"></script>
 
 
-</script>
+
+<!--SRIPTS FOR CHARTS STARTS-->
 
 
-<p>
+<!--BAR CHART-->
 
-<div class="container-login100-form-btn m-t-32">
-    <form action='/myapp/logout' class="login100-form validate-form p-b-33 p-t-5" method='get'>
-        <h2> Hi {{ request.user }}, Welcome to your Dashboard</h2>
-    </form>
-
-    <div class="graph-container">
-        <div class="to-shorten" style="border-style: solid;">
-            <h3>Category Wise Total </h3>
-            <hr>
-            Automobile: {{ total_value.0 }}
-            <hr>
-            Bank Transfer: {{ total_value.1 }}
-            <hr>
-            Cash Withdrawal: {{ total_value.2 }}
-            <hr>
-            Education: {{ total_value.3 }}
-            <hr>
-            Entertainment: {{ total_value.4 }}
-            <hr>
-            Fine: {{ total_value.5 }}
-            <hr>
-            Food: {{ total_value.6 }}
-            <hr>
-            Health Care: {{ total_value.7 }}
-            <hr>
-            Other: {{ total_value.8 }}
-            <hr>
-            Paytm: {{ total_value.9 }}
-            <hr>
-            Shopping: {{ total_value.10 }}
-            <hr>
-            Travel: {{ total_value.11 }}
-            <hr>
-            UPI: {{ total_value.12 }}
-            <hr>
-            Recharge: {{ total_value.13 }}
-            <br><br>
-
-        </div>
-        <div style="border-style: solid;">
-            <div style="font-size:20px">
-                <span> These are your Transaction Charts  </span><br>
-            </div>
-            <br><br>
-            <div class="graph-box">
-                {% block content %}
-                <canvas height="400" id="myChart" width="400"></canvas>
-                {% endblock content %}
-                {% block content2 %}
-                <canvas height="400" id="myChart2" width="400"></canvas>
-                {% endblock content2 %}
-                {% block content3 %}
-                <canvas height="400" id="myChart3" width="400"></canvas>
-                {% endblock content3 %}
-
-            </div>
-            <h4 style="padding-left: 33%;"> Total Expenditure: {{total}}</h4><br>
-
-
-            <form action='/myapp/predict' class="login100-form validate-form p-b-33 p-t-5" method='post'>
-                {% csrf_token %}
-                <div class="wrap-input100 validate-input" data-validate="Enter your Transaction">
-                    <input class="input100" name="transaction" placeholder="Transaction" required type="text">
-                    <span class="focus-input100" data-placeholder="&#xe82a;"></span>
-                </div>
-
-                <div class="container-login100-form-btn m-t-32">
-                    <button class="btn btn-outline-dark" type="submit">
-                        Predict
-                    </button>
-
-                </div>
-
-            </form>
-        </div>
-    </div>
-</div>
-
-{% block scripts %}
 <script>
-                Chart.defaults.global.responsive = false;
+  $(document).ready(function(){
+  var ctx2 = document.getElementById('barChart');
+  var myChart2 = new Chart(ctx2, {
+  type: 'bar',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Shopping", "Travel", "UPI", "Recharge"],
+      datasets: [{
 
-                $(document).ready(function(){
-                var ctx = document.getElementById('myChart');
-                var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
-                                "Food", "Health care", "Other", "PayTM", "Shopping", "Travel", "UPI", "Recharge"],
-                    datasets: [{
+          label: 'Amount',
+          data: [ {% for i in total_value %}{{ i }},{% endfor %}],
+         borderColor: [
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
 
-                        label: 'Amount',
-                        data: [ {% for i in total_value %}{{ i }},{% endfor %}],
-                        borderColor: [
-                            'rgba(99, 255, 222, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 255, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',//
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
+          ],
+          backgroundColor: [
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
 
-                        ],
-                        backgroundColor: [
-                            'rgba(99, 255, 222, 0.5)',
-                            'rgba(54, 162, 235, 0.5)',
-                            'rgba(255, 206, 86, 0.5)',
-                            'rgba(75, 192, 255, 0.5)',
-                            'rgba(153, 102, 255, 0.5)',
-                            'rgba(255, 159, 64, 0.5)',
-                            'rgba(253, 254, 254, 1)',
-                            'rgba(253, 254, 254, 1)',
-                            'rgba(253, 254, 254, 1)',
-                            'rgba(253, 254, 254, 1)',
-                            'rgba(253, 254, 254, 1)',
-                            'rgba(253, 254, 254, 1)',
-                            'rgba(253, 254, 254, 1)',
-                            'rgba(253, 254, 254, 1)',
+          ],
+          borderWidth: 3
+      }]
+  }
 
-                        ],
-                        borderWidth: 1
-                    }]
-                }
-            });
-            });
-
+});
+});
 
 </script>
-{% endblock scripts %}
 
-{% block scripts2 %}
+
+
+<!--PIE CHART-->
+
 <script>
-                $(document).ready(function(){
-                var ctx2 = document.getElementById('myChart2');
-                var myChart2 = new Chart(ctx2, {
-                type: 'bar',
-                data: {
-                    labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
-                                "Food", "Health care", "Other", "PayTM", "Shopping", "Travel", "UPI", "Recharge"],
-                    datasets: [{
 
-                        label: 'Amount',
-                        data: [ {% for i in total_value %}{{ i }},{% endfor %}],
-                       borderColor: [
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
-                            'rgba(23, 32, 42, 1)',
+  $(document).ready(function(){
+  var ctx3 = document.getElementById('pieChart');
+  var myChart3 = new Chart(ctx3, {
+  type: 'pie',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Shopping", "Travel", "UPI", "Recharge"],
+      datasets: [{
 
-                        ],
-                        backgroundColor: [
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
-                            'rgba(231, 76, 60, 1)',
+          label: 'Amount',
+          data: [ {% for i in total_value %}{{ i }},{% endfor %}],
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(150, 79, 164, 0.2)',
+              'rgba(200, 100, 64, 0.2)',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(150, 79, 164, 1)',
+              'rgba(200, 100, 64, 1)',
+          ],
+          borderWidth: 1
+      }]
+  }
 
-                        ],
-                        borderWidth: 3
-                    }]
-                }
-
-            });
-            });
-
-
-</script>
-{% endblock scripts2 %}
-
-{% block scripts3 %}
-<script>
-                $(document).ready(function(){
-                var ctx3 = document.getElementById('myChart3');
-                var myChart3 = new Chart(ctx3, {
-                type: 'pie',
-                data: {
-                    labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
-                                "Food", "Health care", "Other", "PayTM", "Shopping", "Travel", "UPI", "Recharge"],
-                    datasets: [{
-
-                        label: 'Amount',
-                        data: [ {% for i in total_value %}{{ i }},{% endfor %}],
-                        backgroundColor: [
-                            'rgba(26, 82, 118 , 1)',
-                            'rgba(99, 57, 116 , 1)',
-                            'rgba(86, 101, 115, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(241, 196, 15, 1)',
-                            'rgba(40, 180, 99, 1)',
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(150, 79, 164, 1)',
-                            'rgba(200, 100, 64, 1)',
-                        ],
-                        borderWidth: 1
-                    }]
-                }
-
-            });
-            });
+});
+});
 
 
 </script>
-{% endblock scripts3 %}
 
-</p>
-{% else %}
-<h1>You are not signed in!</h1>
-<h2>Kindly sign in, You will be redirected in 5 seconds</h2>
-<meta content="5; url = '/myapp/login' " http-equiv="refresh">
-{% endif %}
-
-
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
+<!--SRIPTS FOR CHARTS ENDS-->
 
 
 </body>
+
 </html>

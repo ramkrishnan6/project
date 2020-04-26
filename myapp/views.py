@@ -68,10 +68,9 @@ def manual(request):
         description = request.POST['description']
         cost = request.POST['cost']
         category = request.POST['category']
-
         if category == "Unknown":
             category = predict(description)[0]
-        else:
+        elif user.username == 'admin':
             updateDataset(date, description, cost, category)
 
         transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
@@ -85,9 +84,9 @@ def manual(request):
 def handlePredict(request):
     if request.method == 'POST':
         transaction = request.POST['transaction']
+        prediction = predict(transaction)[0]
     else:
-        return HttpResponseNotFound('<h1>Error 404 - Page not found</h1>')
-    prediction = predict(transaction)[0]
+        return render(request, 'tempPredict.html')
     return HttpResponse(prediction)
 
 
@@ -113,3 +112,14 @@ def csvUpload(request):
     context['url'] = fs.url(name)
 
     return render(request, 'csvUpload.html', context)
+
+
+def transactions(request):
+    transaction = Transaction.objects.filter(user_id=request.user.id)
+    return render(request, 'transactions.html', {'transactions': transaction})
+
+
+def charts(request):
+    total_value = showDashboard(request, 1)
+    return render(request, 'charts.html', {'total_value': total_value})
+

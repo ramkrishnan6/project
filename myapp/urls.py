@@ -12,6 +12,8 @@ urlpatterns = [
 
     path('dashboard', views.dashboard),
     path('manual', views.manual),
+    path('transactions', views.transactions),
+    path('charts', views.charts),
 
     path('predict', views.handlePredict),
     path('csv', views.csvUpload),
