@@ -97,17 +97,6 @@
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
-      <!-- ADMIN ONLY PREDICT SECTION -->
-      {% if request.user.username == "admin" %}
-      <li class="nav-item">
-          <a class="nav-link" href="/myapp/predict">
-              <i class="fa fa-search-plus" aria-hidden="true"></i>
-              <span>Predict</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-      {% endif %}
       <!-- HEADING ACCOUNT -->
       <div class="sidebar-heading">
           <h6>ACCOUNT</h6>

@@ -1,17 +1,17 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
+<link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
 <head>
 
     <!-- Required meta tags -->
-    <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
+    <link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="" name="author">
 
     <!-- Custom fonts for this template-->
     <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -40,6 +40,11 @@
         input[type=number] {
           -moz-appearance: textfield;
         }
+
+
+
+
+
 
     </style>
 
@@ -76,12 +81,12 @@
 
         <!-- Add Transactions Items -->
         <li class="nav-item active">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
+            <a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed" data-target="#collapseTwo"
+               data-toggle="collapse" href="#">
                 <i class="fas fa-plus-circle"></i>
                 <span>Add Transactions</span>
             </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/myapp/manual">Add Manually</a>
                     <a class="collapse-item" href="/myapp/csv">Add CSV</a>
@@ -115,17 +120,6 @@
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
-        <!-- ADMIN ONLY PREDICT SECTION -->
-        {% if request.user.username == "admin" %}
-        <li class="nav-item">
-            <a class="nav-link" href="/myapp/predict">
-                <i class="fa fa-search-plus" aria-hidden="true"></i>
-                <span>Predict</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-        {% endif %}
         <!-- HEADING ACCOUNT -->
         <div class="sidebar-heading">
             <h6>ACCOUNT</h6>
@@ -134,7 +128,7 @@
         <!-- Log Out -->
         <li class="nav-item">
             <a class="nav-link" href="/myapp/logout">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <i aria-hidden="true" class="fa fa-sign-out"></i>
                 <span>Log Out</span></a>
         </li>
 
@@ -147,7 +141,7 @@
     </ul>
     <!-- End of Sidebar -->
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div class="d-flex flex-column" id="content-wrapper">
 
         <!-- Main Content -->
         <div id="content">
@@ -169,31 +163,32 @@
                                 <h6 class="m-0 font-weight-bold ">
                                     <span>Enter your transactions manually.</span><br>
                                     <span>Choose a category you would like to put your transaction into.</span><br>
-                                    <span>If you do not know the category, enter "UNKNOWN" in the category field, and our app will predict it for you.</span></h6>
+                                    <span>If you do not know the category, enter "UNKNOWN" in the category field, and our app will predict it for you.</span>
+                                </h6>
 
                             </div>
                         </div>
 
                         <!-- Card Body -->
                         <div class="card-body shadow">
-
-
-
-                            <form class="user" action='/myapp/manual' method='post'>
+                            <form action='/myapp/manual' class="user" method='post'>
                                 {% csrf_token %}
-
                                 <div class="form-group">
-                                    <input type="date" class="form-control btn-user" name="dateOfTransaction" placeholder="Date of Transaction (in yyyy-mm-dd only)" required>
+                                    <input class="form-control btn-user" name="dateOfTransaction"
+                                           placeholder="Date of Transaction (in yyyy-mm-dd only)"
+                                           required type="date">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control btn-user" name="description" placeholder="Description" required>
+                                    <input class="form-control btn-user" name="description" placeholder="Description"
+                                           required type="text">
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" class="form-control btn-user py-1" name="cost" placeholder="Cost" required>
+                                    <input class="form-control btn-user py-1" name="cost" placeholder="Cost"
+                                           required type="number">
                                 </div>
                                 <div class="dropdown">
                                     <label for="category">Choose a category</label>
-                                    <select  class=" form-control btn-user py-1 " id="category" name="category" required>
+                                    <select class=" form-control btn-user py-1 " id="category" name="category" required>
                                         <option value="Automobile">Automobile</option>
                                         <option value="Bank Transfer">Bank Transfer</option>
                                         <option value="Cash Withdrawal">Cash Withdrawal</option>
@@ -213,16 +208,37 @@
                                 </div>
                                 <br>
                                 <div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    <button class="btn btn-primary btn-user btn-block" type="submit">
                                         Add
                                     </button>
                                 </div>
                             </form>
                         </div>
+
+                        <!------------------------------------------------------------------------------------------------------------->
+                       {% if user.id == 1 %}
+                        <hr>
+                        <div class="card-body shadow">
+                            <form action='/myapp/predict' class="user" method='post'>
+                                {% csrf_token %}
+
+                                <div class="form-group">
+                                    <input class="form-control btn-user" name="transaction" placeholder="Transaction"
+                                           required type="text">
+                                </div>
+
+                                <br>
+                                <div>
+                                    <button class="btn btn-primary btn-user btn-block" type="submit">
+                                        Predict
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-
 
 
         </div>
@@ -249,7 +265,7 @@
 {% else %}
 <h1>You are not signed in!</h1>
 <h2>Kindly sign in, You will be redirected in 5 seconds</h2>
-<meta http-equiv="refresh" content="5; url = '/myapp/login' ">
+<meta content="5; url = '/myapp/login' " http-equiv="refresh">
 {% endif %}
 
 <!-- Bootstrap core JavaScript-->
@@ -269,6 +285,19 @@
 <script src="{% static 'imp/js/demo/chart-area-demo.js' %}"></script>
 <script src="{% static 'imp/js/demo/chart-pie-demo.js' %}"></script>
 
+<script type="text/javascript">
+    function newPage(num) {
+        var url = new Array();
+        url[0] = "/myapp/dashboard";
+        window.location = url[num];
+        ``
+    }
+
+
+
+
+
+</script>
 
 </body>
 </html>

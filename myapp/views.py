@@ -85,8 +85,7 @@ def handlePredict(request):
     if request.method == 'POST':
         transaction = request.POST['transaction']
         prediction = predict(transaction)[0]
-    else:
-        return render(request, 'tempPredict.html')
+
     return HttpResponse(prediction)
 
 
