@@ -5,37 +5,23 @@
     <!-- Required meta tags -->
     <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'imp/css/sb-admin-2.min.css' %}" rel="stylesheet">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
     <!--Typed.js-->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typed.js"></script>
 
     <title>Expense Manager</title>
 
     <style>
-        .footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color: black;
-            color: white;
-            text-align: center;
-            display: block;
-        }
-
         .card-img-top {
             width: 100%;
             height: 30vw;
             object-fit: cover;
-        }
-
-        .ram {
-            background-color: #1c1a1a;
-            color: white;
         }
     </style>
 
@@ -51,7 +37,7 @@
 
 
 <div class="container-fluid pb-3">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark fixed-top">
         <a class="navbar-brand" href="/myapp/">
             <img src="{% static 'images/icons/icon.ico' %}" width="30" height="30" class="d-inline-block align-top"
                  alt="">
@@ -70,17 +56,47 @@
             {% if user.is_authenticated %}
             <ul class="navbar-nav ml-auto ">
                 <li class="nav-item active">
-                    <button type="button" class="btn btn-outline-primary mr-3" onclick="newPage(2)">Dashboard</button>
+                    <a href="#" class="btn btn-outline-primary btn-icon-split ml-3">
+                    <span class="icon text-gray-600" onclick="newPage(2)">
+                      <i class="fas fa-tachometer-alt"></i>
+                    </span>
+                        <span class="text" onclick="newPage(2)">Dashboard</span>
+                    </a>
                 </li>
+
+                <li class="nav-item active">
+                    <a href="#" class="btn btn-outline-primary btn-icon-split ml-3">
+                    <span class="icon text-gray-600" onclick="newPage(3)">
+                      <i class="fas fa-sign-out-alt"></i>
+                    </span>
+                        <span class="text" onclick="newPage(3)">Logout</span>
+                    </a>
+                </li>
+
             </ul>
+
             {% else %}
+
             <ul class="navbar-nav ml-auto ">
+
                 <li class="nav-item active">
-                    <button type="button" class="btn btn-outline-primary mr-3" onclick="newPage(0)">Login</button>
+                    <a href="#" class="btn btn-outline-primary btn-icon-split ml-3">
+                    <span class="icon text-gray-600" onclick="newPage(0)">
+                      <i class="fas fa-sign-in-alt"></i>
+                    </span>
+                        <span class="text" onclick="newPage(0)">Login</span>
+                    </a>
                 </li>
+
                 <li class="nav-item active">
-                    <button type="button" class="btn btn-outline-primary" onclick="newPage(1)">Register</button>
+                    <a href="#" class="btn btn-outline-primary btn-icon-split ml-3">
+                    <span class="icon text-gray-600" onclick="newPage(1)">
+                      <i class="fas fa-user-plus"></i>
+                    </span>
+                        <span class="text" onclick="newPage(1)">Register</span>
+                    </a>
                 </li>
+
             </ul>
             {% endif %}
         </div>
@@ -93,6 +109,7 @@
         url[0] = "/myapp/login";
         url[1] = "/myapp/register";
         url[2] = "/myapp/dashboard";
+        url[3] = "/myapp/logout";
         window.location = url[num];
         ``
     }
@@ -127,19 +144,21 @@
     </div>
 
 </div>
-<div class="container-fluid mb-1">
-    <h1><span id="typed1"></span></h1>
+<div class="container-fluid mb-1 text-gray-900"
+">
+<h1><span id="typed1"></span></h1>
 </div>
 <div class="pb-2" id="section1"></div>
-<div class="container-fluid mt-1">
-    <h1>Our Team</h1>
+<div class="container-fluid mt-1 text-gray-900"
+">
+<h1>Our Team</h1>
 </div>
 
 <div class="card-deck mx-1">
     <div class="card">
         <img src="{% static 'images/abhiraj.png' %}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h2 class="card-title">Abhiraj Kale</h2>
+            <h2 class="card-title text-gray-900"">Abhiraj Kale</h2>
         </div>
         <div class="card-footer">
             <small class="text-muted">Final year engineering student</small>
@@ -148,7 +167,7 @@
     <div class="card">
         <img src="{% static 'images/anurag.png' %}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h2 class="card-title">Anurag Mandal</h2>
+            <h2 class="card-title text-gray-900">Anurag Mandal</h2>
         </div>
         <div class="card-footer">
             <small class="text-muted">Final year engineering student</small>
@@ -157,7 +176,7 @@
     <div class="card">
         <img src="{% static 'images/ram.png' %}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h2 class="card-title">Ram Krishnan</h2>
+            <h2 class="card-title text-gray-900">Ram Krishnan</h2>
         </div>
         <div class="card-footer">
             <small class="text-muted">Final year engineering student</small>
@@ -191,8 +210,12 @@
 
 <!-- Footer-->
 
-<footer class="container mt-3 ">
-    <a>&#169 2020 ABHIRAJ ANURAG RAM </a>
+<footer class="sticky-footer bg-gradient-dark">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; EXPENSE MANAGER 2020</span>
+        </div>
+    </div>
 </footer>
 
 
@@ -209,4 +232,5 @@
         crossorigin="anonymous"></script>
 
 </body>
+
 </html>
