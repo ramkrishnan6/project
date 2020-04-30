@@ -70,7 +70,7 @@ def manual(request):
         category = request.POST['category']
         if category == "Unknown":
             category = predict(description)[0]
-        elif user.username == 'admin':
+        else:
             updateDataset(date, description, cost, category)
 
         transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
