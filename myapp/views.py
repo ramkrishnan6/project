@@ -116,7 +116,6 @@ def csvUpload(request):
 def transactions(request):
     transaction = Transaction.objects.filter(user_id=request.user.id)
     if request.method == "POST":
-        print(request.POST)
         if request.POST.get('delete'):
             for transaction in transaction:
                 if request.POST.get("t" + str(transaction.id)) == "clicked":
