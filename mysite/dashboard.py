@@ -81,8 +81,8 @@ def showDashboard(request, purpose):
 
     total_value = [total_automobile, total_bank, total_cash, total_education,
                    total_entertainment, total_fine, total_food, total_health,
-                   total_other, total_paytm, total_shopping, total_travel,
-                   total_upi, total_recharge]
+                   total_other, total_paytm, total_recharge, total_shopping,
+                   total_travel, total_upi]
     if purpose == 0:
         return render(request, 'dashboard.html', {
             'total': total,
