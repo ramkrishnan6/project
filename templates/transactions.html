@@ -12,6 +12,9 @@
     <meta content="" name="author">
     <link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
     <title>Expense Manager</title>
+
+        {% if user.is_authenticated %}
+
     <script src="https://use.fontawesome.com/aea125d216.js"></script>
     <!-- Custom fonts for this template -->
     <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -218,6 +221,14 @@
 
 <!-- Page level custom scripts -->
 <script src="{% static 'imp/js/demo/datatables-demo.js' %}"></script>
+
+
+{% else %}
+<h1>You are not signed in!</h1>
+<h2>Kindly sign in, You will be redirected in 5 seconds</h2>
+<meta content="5; url = '/myapp/login' " http-equiv="refresh">
+{% endif %}
+
 
 </body>
 

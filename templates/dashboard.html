@@ -10,8 +10,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
-    {% if user.is_authenticated %}
     <title>Expense Manager</title>
+
+    {% if user.is_authenticated %}
 
     <!-- Custom fonts for this template-->
     <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
