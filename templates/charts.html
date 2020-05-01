@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
     <title>Expense Manager</title>
 
-    {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
 
     <!-- Custom fonts for this template -->
     <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -215,14 +215,13 @@
 <script src="{% static 'imp/vendor/chart.js/Chart.min.js' %}"></script>
 
 
-{% else %}
-<h1>You are not signed in!</h1>
-<h2>Kindly sign in, You will be redirected in 5 seconds</h2>
-<meta content="5; url = '/myapp/login' " http-equiv="refresh">
-{% endif %}
-
-
 </body>
+
+        {% else %}
+        <h1>You are not signed in!</h1>
+        <h2>Kindly sign in, You will be redirected in 5 seconds</h2>
+        <meta http-equiv="refresh" content="5; url = '/myapp/login' ">
+        {% endif %}
 
 </html>
 
@@ -230,67 +229,55 @@
 <!-- SCRIPT FOR AREA CHART -->
 
 <script>
+  $(document).ready(function(){
+  var ctx3 = document.getElementById('areaChart');
+  var myChart3 = new Chart(ctx3, {
+  type: 'line',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
 
-    $(document).ready(function () {
-        var ctx3 = document.getElementById('areaChart');
-        var myChart3 = new Chart(ctx3, {
-            type: 'line',
-            data: {
-                labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
-                    "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
-                datasets: [{
+          label: 'Amount',
+          data: [ {% for i in total_value %}{{ i }},{% endfor %}],
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(150, 79, 164, 0.2)',
+              'rgba(200, 100, 64, 0.2)',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(150, 79, 164, 1)',
+              'rgba(200, 100, 64, 1)',
+          ],
+          borderWidth: 1
+      }]
+  }
 
-                    label: 'Amount',
-                    data: [{ % for i in total_value %
-                }{{i}
-            },
-        {%
-            endfor %
-        }
-    ],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(150, 79, 164, 0.2)',
-            'rgba(200, 100, 64, 0.2)',
-        ],
-            borderColor
-    :
-        [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(150, 79, 164, 1)',
-            'rgba(200, 100, 64, 1)',
-        ],
-            borderWidth
-    :
-        1
-    }]
-    }
-
-    })
-        ;
-    });
+});
+});
 
 </script>
 
@@ -300,65 +287,54 @@
 
 <script>
 
-    $(document).ready(function () {
-        var ctx3 = document.getElementById('donutChart');
-        var myChart3 = new Chart(ctx3, {
-            type: 'doughnut',
-            data: {
-                labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
-                    "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
-                datasets: [{
 
-                    label: 'Amount',
-                    data: [{ % for i in total_value %
-                }{{i}
-            },
-        {%
-            endfor %
-        }
-    ],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(150, 79, 164, 0.2)',
-            'rgba(200, 100, 64, 0.2)',
-        ],
-            borderColor
-    :
-        [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(150, 79, 164, 1)',
-            'rgba(200, 100, 64, 1)',
-        ],
-            borderWidth
-    :
-        1
-    }]
-    }
+  $(document).ready(function(){
+  var ctx3 = document.getElementById('donutChart');
+  var myChart3 = new Chart(ctx3, {
+  type: 'doughnut',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
 
-    })
-        ;
-    });
+          label: 'Amount',
+          data: [ {% for i in total_value %}{{ i }},{% endfor %}],
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(150, 79, 164, 0.2)',
+              'rgba(200, 100, 64, 0.2)',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(150, 79, 164, 1)',
+              'rgba(200, 100, 64, 1)',
+          ],
+          borderWidth: 1
+      }]
+  }
 
+});
+});
 </script>
