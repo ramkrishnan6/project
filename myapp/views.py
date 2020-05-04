@@ -1,5 +1,6 @@
 import csv
 import io
+import os
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -10,6 +11,7 @@ from myapp.models import Transaction
 from mysite.predict import predict
 from mysite.predict import updateDataset
 from mysite.dashboard import showDashboard
+from mysite.ocr import ocr1
 from django.core.files.storage import FileSystemStorage
 
 
@@ -129,3 +131,25 @@ def charts(request):
     total_value = showDashboard(request, 1)
     return render(request, 'charts.html', {'total_value': total_value})
 
+
+def ocr(request):
+    if request.method == 'GET':
+        return render(request, 'ocr.html')
+
+    image = request.FILES['file']
+    fs = FileSystemStorage()
+    file = fs.save(str(request.user.id) + '.jpeg', image)
+    file_path = os.path.abspath(file)
+    file_name = os.path.basename(file)
+
+    transaction = ocr1(file_path, file_name)
+
+    date = transaction[0]
+    description = transaction[1]
+    cost = transaction[2]
+    category = predict(transaction[1])[0]
+
+    transaction = Transaction(user=request.user, date=date, description=description, cost=cost, category=category)
+    transaction.save()
+
+    return redirect("/myapp/dashboard")
