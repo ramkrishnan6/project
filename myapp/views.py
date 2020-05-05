@@ -11,7 +11,7 @@ from myapp.models import Transaction
 from mysite.predict import predict
 from mysite.predict import updateDataset
 from mysite.dashboard import showDashboard
-from mysite.ocr import ocrMethod
+from mysite.ocr import ocr
 from django.core.files.storage import FileSystemStorage
 
 
@@ -132,9 +132,9 @@ def charts(request):
     return render(request, 'charts.html', {'total_value': total_value})
 
 
-def ocr(request):
+def bill(request):
     if request.method == 'GET':
-        return render(request, 'ocr.html')
+        return render(request, 'bill.html')
 
     image = request.FILES['file']
     fs = FileSystemStorage()
@@ -142,7 +142,7 @@ def ocr(request):
     file_path = os.path.abspath(file)
     file_name = os.path.basename(file)
 
-    transaction = ocrMethod(file_path, file_name)
+    transaction = ocr(file_path, file_name)
 
     date = transaction[0]
     description = transaction[1]

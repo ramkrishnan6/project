@@ -70,8 +70,8 @@
             <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/myapp/manual">Add Manually</a>
+                    <a class="collapse-item" href="/myapp/bill">Add Bill</a>
                     <a class="collapse-item" href="/myapp/csv">Add CSV</a>
-                    <a class="collapse-item" href="/myapp/ocr">Add Bill</a>
                 </div>
             </div>
         </li>
@@ -133,43 +133,44 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between my-4">
-                    <h1 class="h3 mb-0 text-gray-800">Upload Bill</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Upload Your Bill</h1>
                 </div>
                 <!-------------------------------------------------------------------------------------------------------------------------->
-            </div>
-        </div>
 
-        <div class="mx-auto">
-            <div class="col-xl-6 col-lg-6 mx-auto">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold ">
-                            <span>Upload a bill and we will extract the transaction information from it and add to your transactions</span>
-                        </h6>
-                    </div>
-                </div>
-
-                <!-- Card Body -->
-                <div class="card-body shadow">
-                    <form class="user"  method="post">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label>Upload a file</label>
-                            <br>
-                            <input accept=".png" class="form " name="file" required type="file">
-
-                            <p>ONLY accepts .png file</p>
-                            <div>
-                                <button class="btn btn-primary btn-user btn-block" name="ocr_submit"
-                                        type="submit">
-                                    Upload Image
-                                </button>
+                <div class="mx-auto">
+                    <div class="col-xl-6 col-lg-6 mx-auto">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold ">
+                                    <span>Upload a Bill and we will extract the information and Add it to your Transactions</span>
+                                </h6>
                             </div>
                         </div>
-                    </form>
+
+                        <!-- Card Body -->
+                        <div class="card-body shadow ">
+                            <form class="user" method="post" action="/myapp/bill" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label>Upload a file</label>
+                                    <br>
+                                    <input accept=".png, .jpg, .jpeg" class="form " name="file" required type="file">
+                                    <p>Accepts .png, .jpg and .jpeg files only</p>
+                                    <div>
+                                        <button class="btn btn-primary btn-user btn-block" name="ocr_submit"
+                                                type="submit">
+                                            Upload Bill
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
+
 
         <!-- End of Content Wrapper -->
 

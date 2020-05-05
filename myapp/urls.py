@@ -14,7 +14,7 @@ urlpatterns = [
     path('manual', views.manual),
     path('transactions', views.transactions),
     path('charts', views.charts),
-    path('ocr', views.ocr),
+    path('bill', views.bill),
 
     path('predict', views.handlePredict),
     path('csv', views.csvUpload),
