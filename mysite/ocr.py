@@ -3,7 +3,7 @@ import base64
 import datetime
 
 
-def ocr1(file_path, file_name):
+def ocrMethod(file_path, file_name):
     CLIENT_ID = "vrfD4T07rmVSSo23MhPSTsRAF9i7U38U2vSldo1"
     ENVIRONMENT_URL = "api.veryfi.com"
 
@@ -18,12 +18,12 @@ def ocr1(file_path, file_name):
     }
 
     # file path and file name
-    image_path = '/home/ram/mysite/media/' + file_name
+    image_path = "D:\KUSH_DATA\SCOE\BE\Sem 1\Project\Sem 2\project\media\\" + file_name
     file_name = file_name
 
     # convert image to Base64
     with open(image_path, "rb") as image_file:
-        base64_encoded_string = base64.b64encode(image_file.read())
+        base64_encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
 
     # You can send the list of categories that is relevant to your case
     # Veryfi will try to choose the best one that fits this file

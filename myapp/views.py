@@ -11,7 +11,7 @@ from myapp.models import Transaction
 from mysite.predict import predict
 from mysite.predict import updateDataset
 from mysite.dashboard import showDashboard
-from mysite.ocr import ocr1
+from mysite.ocr import ocrMethod
 from django.core.files.storage import FileSystemStorage
 
 
@@ -142,7 +142,7 @@ def ocr(request):
     file_path = os.path.abspath(file)
     file_name = os.path.basename(file)
 
-    transaction = ocr1(file_path, file_name)
+    transaction = ocrMethod(file_path, file_name)
 
     date = transaction[0]
     description = transaction[1]
