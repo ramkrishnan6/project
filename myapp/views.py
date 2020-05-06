@@ -5,7 +5,7 @@ import os
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http.response import HttpResponseNotFound, HttpResponse
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from myapp.models import Transaction
 from mysite.predict import predict
@@ -134,22 +134,32 @@ def charts(request):
 
 def bill(request):
     if request.method == 'GET':
-        return render(request, 'bill.html')
+        showBillCard = True
+        return render(request, 'bill.html', {"showBillCard": showBillCard})
 
-    image = request.FILES['file']
-    fs = FileSystemStorage()
-    file = fs.save(str(request.user.id) + '.jpeg', image)
-    file_path = os.path.abspath(file)
-    file_name = os.path.basename(file)
+    elif request.method == "POST":
 
-    transaction = ocr(file_path, file_name)
+        if request.POST.get("bill"):
 
-    date = transaction[0]
-    description = transaction[1]
-    cost = transaction[2]
-    category = predict(transaction[1])[0]
+            image = request.FILES['file']
+            fs = FileSystemStorage()
+            file = fs.save(str(request.user.id) + '.jpeg', image)
+            file_path = os.path.abspath(file)
+            file_name = os.path.basename(file)
+            transaction = ocr(file_path, file_name)
+            category = predict(transaction[1])[0]
+            # transaction = ['2019-05-07', "petrol", 700]
+            # category = "Travel"
+            showBillCard = False
+            return render(request, 'bill.html', {"transaction": transaction, "category": category, "showBillCard": showBillCard})
 
-    transaction = Transaction(user=request.user, date=date, description=description, cost=cost, category=category)
-    transaction.save()
-
-    return redirect("/myapp/dashboard")
+        elif request.POST.get("check"):
+            user = request.user
+            date = request.POST['dateOfTransaction']
+            description = request.POST['description']
+            cost = request.POST['cost']
+            category = request.POST['category']
+            transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
+            transaction.save()
+            updateDataset(date, description, cost, category)
+            return redirect("/myapp/dashboard")

@@ -1,14 +1,13 @@
 import requests
 import base64
-import datetime
 
 
 def ocr(file_path, file_name):
     CLIENT_ID = "vrfD4T07rmVSSo23MhPSTsRAF9i7U38U2vSldo1"
     ENVIRONMENT_URL = "api.veryfi.com"
 
-    username = "ikrishnanram"
-    api_key = "360e184691d26160a4e35aae13078464"
+    username = "checkproject55"
+    api_key = "629d84bed7f8e07ccab045455c0c57f8"
     process_image_url = 'https://{0}/api/v7/partner/documents/'.format(ENVIRONMENT_URL)
     headers = {
         "Content-Type": "application/json",
@@ -18,7 +17,7 @@ def ocr(file_path, file_name):
     }
 
     # file path and file name
-    image_path = "/home/ram/mysite/media/" + file_name
+    image_path = "D:\KUSH_DATA\SCOE\BE\Sem 1\Project\Sem 2\project\media\\" + file_name
     file_name = file_name
 
     # convert image to Base64
@@ -36,10 +35,9 @@ def ocr(file_path, file_name):
     response = requests.post(url=process_image_url, headers=headers, json=payload).json()
 
     description = response['vendor']['name']
-    cost = response['total']
-    date = response['date']
+    cost = int(response['total'])
+    date = response['date'][0:10]
 
-    date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S').date()
     transaction = [date, description, cost]
 
     return transaction
