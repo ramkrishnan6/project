@@ -3,7 +3,7 @@ import base64
 
 
 def ocr(file_path, file_name):
-    CLIENT_ID = "vrfD4T07rmVSSo23MhPSTsRAF9i7U38U2vSldo1"
+    CLIENT_ID = "vrf7TkGKGp57XTD2Y52xSZu4ucih2ekwkWevYPG"
     ENVIRONMENT_URL = "api.veryfi.com"
 
     username = "checkproject55"
