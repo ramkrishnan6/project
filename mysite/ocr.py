@@ -1,8 +1,12 @@
+import os
+
 import requests
 import base64
 
+from mysite import settings
 
-def ocr(file_path, file_name):
+
+def ocr(file_name):
     CLIENT_ID = "vrf7TkGKGp57XTD2Y52xSZu4ucih2ekwkWevYPG"
     ENVIRONMENT_URL = "api.veryfi.com"
 
@@ -17,8 +21,7 @@ def ocr(file_path, file_name):
     }
 
     # file path and file name
-    image_path = "D:\KUSH_DATA\SCOE\BE\Sem 1\Project\Sem 2\project\media\\" + file_name
-    file_name = file_name
+    image_path = os.path.join(settings.BASE_DIR + '/media/', file_name)
 
     # convert image to Base64
     with open(image_path, "rb") as image_file:

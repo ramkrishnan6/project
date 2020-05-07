@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_selection import chi2
@@ -7,9 +9,11 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.svm import LinearSVC
 import csv
 
+from mysite import settings
+
 
 def predict(transaction):
-    df = pd.read_csv('D:\KUSH_DATA\SCOE\BE\Sem 1\Project\Sem 2\dataset.csv')
+    df = pd.read_csv(os.path.join(settings.BASE_DIR + '/dataset/', 'dataset.csv'))
     df = df[['Category', 'Description']]
     df = df[pd.notnull(df['Description'])]
     df['category_id'] = df['Category'].factorize()[0]
@@ -41,11 +45,11 @@ def predict(transaction):
 
 def updateDataset(date, description, cost, category):
 
-    with open('D:\KUSH_DATA\SCOE\BE\Sem 1\Project\Sem 2\dataset.csv', 'r', encoding='UTF-8') as csvFile:
+    with open(os.path.join(settings.BASE_DIR + '/dataset/', 'dataset.csv'), 'r', encoding='UTF-8') as csvFile:
         reader = csv.reader(csvFile, delimiter=',')
         rows = list(reader)
         rowId = len(rows)
 
-    with open('D:\KUSH_DATA\SCOE\BE\Sem 1\Project\Sem 2\dataset.csv', 'a', newline="") as csvfile:
+    with open(os.path.join(settings.BASE_DIR + '/dataset/', 'dataset.csv'), 'a', newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow([rowId, date, description, cost, category])

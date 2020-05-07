@@ -144,9 +144,8 @@ def bill(request):
             image = request.FILES['file']
             fs = FileSystemStorage()
             file = fs.save(str(request.user.id) + '.jpeg', image)
-            file_path = os.path.abspath(file)
             file_name = os.path.basename(file)
-            transaction = ocr(file_path, file_name)
+            transaction = ocr(file_name)
             category = predict(transaction[1])[0]
             # transaction = ['2019-05-07', "petrol", 700]
             # category = "Travel"
