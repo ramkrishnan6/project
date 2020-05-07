@@ -13,6 +13,8 @@ from mysite.predict import updateDataset
 from mysite.dashboard import showDashboard
 from mysite.ocr import ocr
 from django.core.files.storage import FileSystemStorage
+from django.views.generic import UpdateView
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 def home(request):
@@ -150,7 +152,9 @@ def bill(request):
             # transaction = ['2019-05-07', "petrol", 700]
             # category = "Travel"
             showBillCard = False
-            return render(request, 'bill.html', {"transaction": transaction, "category": category, "showBillCard": showBillCard})
+            return render(request, 'bill.html',
+                          {"transaction": transaction, "category": category, "showBillCard": showBillCard}
+                          )
 
         elif request.POST.get("check"):
             user = request.user
@@ -162,3 +166,15 @@ def bill(request):
             transaction.save()
             updateDataset(date, description, cost, category)
             return redirect("/myapp/dashboard")
+
+
+class TransactionUpdateView(UserPassesTestMixin, UpdateView):
+    model = Transaction
+    fields = ['date', 'description', 'cost']
+    success_url = '/myapp/transactions'
+
+    def test_func(self):
+        transaction = self.get_object()
+        if self.request.user == transaction.user:
+            return True
+        return False

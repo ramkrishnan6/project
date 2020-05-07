@@ -134,7 +134,7 @@
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800 mt-4">Your Transactions</h1>
-                <p class="mb-4">All your transactions can be found here.</a></p>
+                <p class="mb-4">All your transactions can be found here. You can update them by clicking on the transactions.</a></p>
 
                 <!-- DataTables Example -->
                 <div class="card shadow mb-4">
@@ -158,9 +158,9 @@
                                     <tbody>
                                     {% for transaction in transactions %}
                                     <tr>
-                                        <td>{{ transaction.date }}</td>
-                                        <td>{{ transaction.description }}</td>
-                                        <td>{{ transaction.cost }}</td>
+                                        <td>  <a href="/myapp/transaction/{{transaction.id}}/update" style="color:gray;">{{ transaction.date }} </a> </td>
+                                        <td>  <a href="/myapp/transaction/{{transaction.id}}/update" style="color:gray;">{{ transaction.description }} </a> </td>
+                                        <td>  <a href="/myapp/transaction/{{transaction.id}}/update" style="color:gray;">{{ transaction.cost }} </a> </td>
                                         <td>{{ transaction.category }}</td>
                                         <td><input name="t{{transaction.id}}" type="checkbox" unchecked
                                                    value="clicked"></input></td>
