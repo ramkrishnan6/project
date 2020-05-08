@@ -23,8 +23,8 @@ def home(request):
 
 def logIn(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST['username'].replace(" ", "")
+        password = request.POST['password'].replace(" ", "")
         user = authenticate(username=username, password=password)
 
         if user is not None:
@@ -40,11 +40,11 @@ def logIn(request):
 
 def register(request):
     if request.method == 'POST':
-        firstName = request.POST['firstName']
-        lastName = request.POST['lastName']
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
+        firstName = request.POST['firstName'].replace(" ", "")
+        lastName = request.POST['lastName'].replace(" ", "")
+        username = request.POST['username'].replace(" ", "")
+        email = request.POST['email'].replace(" ", "")
+        password = request.POST['password'].replace(" ", "")
 
         user = User.objects.create_user(username, email, password)
         user.first_name = firstName
@@ -56,7 +56,7 @@ def register(request):
 
 
 def validate_username(request):
-    username = request.GET.get('username', None)
+    username = request.GET.get('username', None).replace(" ", "")
     data = {
         'is_taken': User.objects.filter(username__iexact=username).exists()
     }
