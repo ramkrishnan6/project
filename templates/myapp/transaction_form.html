@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -32,13 +33,13 @@
         /* Chrome, Safari, Edge, Opera */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
+            -webkit-appearance: none;
+            margin: 0;
         }
 
         /* Firefox */
         input[type=number] {
-          -moz-appearance: textfield;
+            -moz-appearance: textfield;
         }
 
     </style>
@@ -76,7 +77,7 @@
         </div>
 
         <!-- Add Transactions Items -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed" data-target="#collapseTwo"
                data-toggle="collapse" href="#">
                 <i class="fas fa-plus-circle"></i>
@@ -149,7 +150,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between my-4">
-                    <h1 class="h3 mb-0 text-gray-800">Add Transactions Manually</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Edit Transactions</h1>
                 </div>
                 <!-------------------------------------------------------------------------------------------------------------------------->
             </div>
@@ -159,85 +160,44 @@
                 <div class="col-xl-5 col-lg-5 mx-auto">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold ">
-                                <span>Enter your transactions manually.</span><br>
-                                <span>Choose a category you would like to put your transaction into.</span><br>
-                                <span>If you do not know the category, enter "UNKNOWN" in the category field, and our app will predict it for you.</span>
-                            </h6>
+                            <h5 class="m-0 font-weight-bold justify-content-center">
+                                Edit/Update your transactions here
+                            </h5>
 
                         </div>
                     </div>
+                </div>
 
+                <div class="col-xl-5 col-lg-5 mx-auto">
                     <!-- Card Body -->
                     <div class="card-body shadow">
-                        <form action='/myapp/manual' class="user" method='post'>
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <input class="form-control btn-user" name="dateOfTransaction"
-                                       placeholder="Date of Transaction"
-                                       required type="date">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control btn-user" name="description" placeholder="Description"
-                                       required type="text">
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control btn-user py-1" name="cost" placeholder="Cost"
-                                       required type="number">
-                            </div>
-                            <div class="dropdown">
-                                <label for="category">Choose a category</label>
-                                <select class=" form-control btn-user py-1 " id="category" name="category" required>
-                                    <option value="Automobile">Automobile</option>
-                                    <option value="Bank Transfer">Bank Transfer</option>
-                                    <option value="Cash Withdrawal">Cash Withdrawal</option>
-                                    <option value="Education">Education</option>
-                                    <option value="Entertainment">Entertainment</option>
-                                    <option value="Fine">Fine</option>
-                                    <option value="Food">Food</option>
-                                    <option value="Health Care">Health Care</option>
-                                    <option value="Other">Other</option>
-                                    <option value="Paytm">Paytm</option>
-                                    <option value="Recharge">Recharge</option>
-                                    <option value="Shopping">Shopping</option>
-                                    <option value="Travel">Travel</option>
-                                    <option value="UPI">UPI</option>
-                                    <option value="Unknown">UNKNOWN</option>
-                                </select>
-                            </div>
-                            <br>
-                            <div>
-                                <button class="btn btn-primary btn-user btn-block" type="submit">
-                                    Add
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!------------------------------------------------------------------------------------------------------------->
-                    {% if user.id == 1 %}
-                    <hr>
-                    <div class="card-body shadow">
-                        <form action='/myapp/predict' class="user" method='post'>
+                        <form class="user mx-5 px-5" method='post'>
                             {% csrf_token %}
 
-                            <div class="form-group">
-                                <input class="form-control btn-user" name="transaction" placeholder="Transaction"
-                                       required type="text">
+                            <div class="form-group btn-user">
+                                <div class="py-1">
+                                    {{ form.date|as_crispy_field }}
+                                </div>
+                                <div class="py-1">
+                                    {{ form.description|as_crispy_field }}
+                                </div>
+                                <div class="pt-1 pb-3">
+                                    {{ form.cost|as_crispy_field }}
+                                </div>
+
+                                </fieldset>
+                                <div>
+                                    <button class="btn btn-primary btn-user btn-block" type="submit">
+                                        Update
+                                    </button>
+                                </div>
                             </div>
 
-                            <br>
-                            <div>
-                                <button class="btn btn-primary btn-user btn-block" type="submit">
-                                    Predict
-                                </button>
-                            </div>
                         </form>
                     </div>
-                    {% endif %}
                 </div>
-            </div>
 
+            </div>
             <!-- End of Content Wrapper -->
         </div>
         <!-- Footer -->

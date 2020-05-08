@@ -5,7 +5,7 @@ import os
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from myapp.models import Transaction
 from myapp.models import Budget
@@ -15,6 +15,8 @@ from mysite.dashboard import calculateTotal
 from mysite.dashboard import showBudget
 from mysite.ocr import ocr
 from django.core.files.storage import FileSystemStorage
+from django.views.generic import UpdateView
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 def home(request):
@@ -23,8 +25,8 @@ def home(request):
 
 def logIn(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST['username'].replace(" ", "")
+        password = request.POST['password'].replace(" ", "")
         user = authenticate(username=username, password=password)
 
         if user is not None:
@@ -40,11 +42,11 @@ def logIn(request):
 
 def register(request):
     if request.method == 'POST':
-        firstName = request.POST['firstName']
-        lastName = request.POST['lastName']
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
+        firstName = request.POST['firstName'].replace(" ", "")
+        lastName = request.POST['lastName'].replace(" ", "")
+        username = request.POST['username'].replace(" ", "")
+        email = request.POST['email'].replace(" ", "")
+        password = request.POST['password'].replace(" ", "")
 
         user = User.objects.create_user(username, email, password)
         user.first_name = firstName
@@ -53,6 +55,14 @@ def register(request):
         return redirect('/myapp/login')
     else:
         return render(request, 'register.html')
+
+
+def validate_username(request):
+    username = request.GET.get('username', None).replace(" ", "")
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    return JsonResponse(data)
 
 
 def logOut(request):
@@ -164,7 +174,9 @@ def bill(request):
             # transaction = ['2019-05-07', "petrol", 700]
             # category = "Travel"
             showBillCard = False
-            return render(request, 'bill.html', {"transaction": transaction, "category": category, "showBillCard": showBillCard})
+            return render(request, 'bill.html',
+                          {"transaction": transaction, "category": category, "showBillCard": showBillCard}
+                          )
 
         elif request.POST.get("check"):
             user = request.user
@@ -176,3 +188,15 @@ def bill(request):
             transaction.save()
             updateDataset(date, description, cost, category)
             return redirect("/myapp/dashboard")
+
+
+class TransactionUpdateView(UserPassesTestMixin, UpdateView):
+    model = Transaction
+    fields = ['date', 'description', 'cost']
+    success_url = '/myapp/transactions'
+
+    def test_func(self):
+        transaction = self.get_object()
+        if self.request.user == transaction.user:
+            return True
+        return False
