@@ -38,11 +38,11 @@
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/myapp/">
-        <img src="{% static 'images/icons/icon.ico' %}" width="50">
-          <div class="sidebar-brand-text mr-3">Expense Manager</div>
-      </a>
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/myapp/">
+            <img src="{% static 'images/icons/icon.ico' %}" width="50">
+            <div class="sidebar-brand-text mr-3">Expense Manager</div>
+        </a>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
@@ -162,7 +162,7 @@
                                                                         Automobile
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.0 }}
+                                                                        ₹ {{ categoryTotal.0 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -183,7 +183,7 @@
                                                                         Bank Transfer
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.1 }}
+                                                                        ₹ {{ categoryTotal.1 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -204,7 +204,7 @@
                                                                         Cash Withdrawal
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.2 }}
+                                                                        ₹ {{ categoryTotal.2 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -225,7 +225,7 @@
                                                                         Education
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.3 }}
+                                                                        ₹ {{ categoryTotal.3 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -256,7 +256,7 @@
                                                                         Entertainment
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.4 }}
+                                                                        ₹ {{ categoryTotal.4 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -277,7 +277,7 @@
                                                                         Fine
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.5 }}
+                                                                        ₹ {{ categoryTotal.5 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -298,7 +298,7 @@
                                                                         Food
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.6 }}
+                                                                        ₹ {{ categoryTotal.6 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -319,7 +319,7 @@
                                                                         Health Care
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.7 }}
+                                                                        ₹ {{ categoryTotal.7 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -349,7 +349,7 @@
                                                                         Other
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.8 }}
+                                                                        ₹ {{ categoryTotal.8 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -370,7 +370,7 @@
                                                                         Paytm
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.9 }}
+                                                                        ₹ {{ categoryTotal.9 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -391,7 +391,7 @@
                                                                         Recharge
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.10 }}
+                                                                        ₹ {{ categoryTotal.10 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -412,7 +412,7 @@
                                                                         Shopping
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.11 }}
+                                                                        ₹ {{ categoryTotal.11 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -442,7 +442,7 @@
                                                                         Travel
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.12 }}
+                                                                        ₹ {{ categoryTotal.12 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -463,7 +463,7 @@
                                                                         UPI
                                                                     </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                        ₹ {{ total_value.13 }}
+                                                                        ₹ {{ categoryTotal.13 }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -547,67 +547,68 @@
 
                     <!-- Pie Chart -->
                     <div class="col-xl-12 col-lg-12">
-                      <div class="card shadow mb-4">
-                          <!-- Card Header - Dropdown -->
-                          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                              <h6 class="m-0 font-weight-bold text-primary">PIE CHART</h6>
-                          </div>
-                          <!-- Card Body -->
-                          <div class="card-body" style=" height: 35rem;" >
-                              <div class="chart-area mx-auto">
-                                  <canvas id="pieChart"></canvas>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">PIE CHART</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body" style=" height: 35rem;" >
+                                <div class="chart-area mx-auto">
+                                    <canvas id="pieChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- GRAPH AREA ENDS -->
                 <!-------------------------------------------------------------------------------------------------------------------------->
 
             </div>
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; EXPENSE MANAGER 2020</span>
-                        </div>
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; EXPENSE MANAGER 2020</span>
                     </div>
-                </footer>
-                <!-- End of Footer -->
-
-            </div>
-            <!-- End of Content Wrapper -->
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
-        <!-- End of Page Wrapper -->
+        <!-- End of Content Wrapper -->
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-        {% else %}
-        <h1>You are not signed in!</h1>
-        <h2>Kindly sign in, You will be redirected in 5 seconds</h2>
-        <meta http-equiv="refresh" content="5; url = '/myapp/login' ">
-        {% endif %}
+    </div>
+    <!-- End of Page Wrapper -->
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="{% static 'imp/vendor/jquery/jquery.min.js' %}"></script>
-        <script src="{% static 'imp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</div>
+{% else %}
+<h1>You are not signed in!</h1>
+<h2>Kindly sign in, You will be redirected in 5 seconds</h2>
+<meta http-equiv="refresh" content="5; url = '/myapp/login' ">
+{% endif %}
 
-        <!-- Core plugin JavaScript-->
-        <script src="{% static 'imp/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="{% static 'imp/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'imp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="{% static 'imp/js/sb-admin-2.min.js' %}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{% static 'imp/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
-        <!-- Page level plugins -->
-        <script src="{% static 'imp/vendor/chart.js/Chart.min.js' %}"></script>
+<!-- Custom scripts for all pages-->
+<script src="{% static 'imp/js/sb-admin-2.min.js' %}"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="{% static 'imp/js/demo/chart-area-demo.js' %}"></script>
-        <script src="{% static 'imp/js/demo/chart-pie-demo.js' %}"></script>
+<!-- Page level plugins -->
+<script src="{% static 'imp/vendor/chart.js/Chart.min.js' %}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{% static 'imp/js/demo/chart-area-demo.js' %}"></script>
+<script src="{% static 'imp/js/demo/chart-pie-demo.js' %}"></script>
 
 
 
@@ -627,7 +628,7 @@
       datasets: [{
 
           label: 'Amount',
-          data: [ {% for i in total_value %}{{ i }},{% endfor %}],
+          data: [ {% for i in categoryTotal  %}{{ i }},{% endfor %}],
          borderColor: [
               'rgba(23, 32, 42, 1)',
               'rgba(23, 32, 42, 1)',
@@ -687,7 +688,7 @@
       datasets: [{
 
           label: 'Amount',
-          data: [ {% for i in total_value %}{{ i }},{% endfor %}],
+          data: [ {% for i in categoryTotal %}{{ i }},{% endfor %}],
           backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -729,9 +730,7 @@
 
 
 </script>
-
-<!--SRIPTS FOR CHARTS ENDS-->
-
+<!--SCRIPTS FOR CHARTS ENDS-->
 
 </body>
 

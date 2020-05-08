@@ -8,9 +8,11 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from myapp.models import Transaction
+from myapp.models import Budget
 from mysite.predict import predict
 from mysite.predict import updateDataset
-from mysite.dashboard import showDashboard
+from mysite.dashboard import calculateTotal
+from mysite.dashboard import showBudget
 from mysite.ocr import ocr
 from django.core.files.storage import FileSystemStorage
 
@@ -60,7 +62,13 @@ def logOut(request):
 
 
 def dashboard(request):
-    return showDashboard(request, 0)
+    categoryTotal = calculateTotal(request)["categoryTotal"]
+    total = calculateTotal(request)["total"]
+
+    return render(request, 'dashboard.html', {
+        'categoryTotal': categoryTotal,
+        'total': total,
+    })
 
 
 def manual(request):
@@ -128,8 +136,14 @@ def transactions(request):
 
 
 def charts(request):
-    total_value = showDashboard(request, 1)
-    return render(request, 'charts.html', {'total_value': total_value})
+
+    budgetValues = showBudget(request)
+    categoryTotal = calculateTotal(request)["categoryTotal"]
+
+    return render(request, 'charts.html', {
+        'categoryTotal': categoryTotal,
+        'budgetValues': budgetValues
+    })
 
 
 def bill(request):
