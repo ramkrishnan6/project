@@ -5,7 +5,7 @@ import os
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from myapp.models import Transaction
 from mysite.predict import predict
@@ -53,6 +53,14 @@ def register(request):
         return redirect('/myapp/login')
     else:
         return render(request, 'register.html')
+
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    return JsonResponse(data)
 
 
 def logOut(request):

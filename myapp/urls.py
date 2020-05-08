@@ -19,6 +19,7 @@ urlpatterns = [
 
     path('predict', views.handlePredict),
     path('csv', views.csvUpload),
+    path('validate_username', views.validate_username),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
