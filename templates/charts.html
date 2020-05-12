@@ -146,12 +146,23 @@
                                 <h6 class="m-0 font-weight-bold text-primary">AREA CHART</h6>
                             </div>
                             <!-- Card Body -->
+                            {% if isEmpty == False %}
                             <div class="card-body mb-5" style="height: 30rem;">
-
                                 <div class="chart-area mb-5 mx-auto">
                                     <canvas id="areaChart"></canvas>
                                 </div>
                             </div>
+                            {% endif %}
+                            {% if isEmpty == True %}
+                            <div class="card-body mb-5" style="height: 2rem;">
+                                <div class="chart-area mb-5 mx-auto">
+                                <p>You have not recorded any transactions yet. You can either
+                                    <a href="manual">Add Transactions Manually</a> or
+                                    <a href="bill">Add Transactions from Bills</a>.
+                                </p>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -163,12 +174,24 @@
                                 <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
                             </div>
                             <!-- Card Body -->
+                            {% if isEmpty == False %}
                             <div class="card-body mb-5" style="height: 30rem;">
-
                                 <div class="chart-area mb-5 mx-auto">
                                     <canvas id="donutChart"></canvas>
                                 </div>
                             </div>
+                            {% endif %}
+                            {% if isEmpty == True %}
+                            <div class="card-body mb-5" style="height: 2rem;">
+                                <div>
+                                <p>You have not recorded any transactions yet. You can either
+                                    <a href="manual">Add Transactions Manually</a> or
+                                    <a href="bill">Add Transactions from Bills</a>.
+                                </p>
+                                </div>
+                            </div>
+                            {% endif %}
+
                         </div>
                     </div>
 
@@ -190,10 +213,8 @@
             </div>
         </footer>
         <!-- End of Footer -->
-
     </div>
     <!-- End of Content Wrapper -->
-
 </div>
 <!-- End of Page Wrapper -->
 

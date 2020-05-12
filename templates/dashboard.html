@@ -536,12 +536,23 @@
                                 <h6 class="m-0 font-weight-bold text-primary">BAR CHART</h6>
                             </div>
                             <!-- Card Body -->
-                            <div class="card-body mb-5" style="height: 30rem;" >
-
+                            {% if isEmpty == False %}
+                            <div class="card-body mb-5" style="height: 30rem;">
                                 <div class="chart-area mb-5 mx-auto">
                                     <canvas id="barChart"></canvas>
                                 </div>
                             </div>
+                            {% endif %}
+                            {% if isEmpty == True %}
+                            <div class="card-body mb-5" style="height: 2rem;">
+                                <div>
+                                <p>You have not recorded any transactions yet. You can either
+                                    <a href="manual">Add Transactions Manually</a> or
+                                    <a href="bill">Add Transactions from Bills</a>.
+                                </p>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -553,11 +564,24 @@
                                 <h6 class="m-0 font-weight-bold text-primary">PIE CHART</h6>
                             </div>
                             <!-- Card Body -->
-                            <div class="card-body" style=" height: 35rem;" >
-                                <div class="chart-area mx-auto">
+                            {% if isEmpty == False %}
+                            <div class="card-body mb-5" style="height: 30rem;">
+                                <div class="chart-area mb-5 mx-auto">
                                     <canvas id="pieChart"></canvas>
                                 </div>
                             </div>
+                            {% endif %}
+                            {% if isEmpty == True %}
+                            <div class="card-body mb-5" style="height: 2rem;">
+                                <div>
+                                <p>You have not recorded any transactions yet. You can either
+                                    <a href="manual">Add Transactions Manually</a> or
+                                    <a href="bill">Add Transactions from Bills</a>.
+                                </p>
+                                </div>
+                            </div>
+                            {% endif %}
+
                         </div>
                     </div>
 

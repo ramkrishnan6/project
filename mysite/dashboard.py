@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from myapp.models import Transaction
 from myapp.models import Budget
 
