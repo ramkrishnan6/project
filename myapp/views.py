@@ -82,7 +82,11 @@ def dashboard(request):
 
 
 def manual(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
+        showManualCard = True
+        return render(request, 'manual.html', {'showManualCard': showManualCard})
+
+    if request.POST.get('manualAdd'):
         user = request.user
         date = request.POST['dateOfTransaction']
         description = request.POST['description']
@@ -90,15 +94,31 @@ def manual(request):
         category = request.POST['category']
         if category == "Unknown":
             category = predict(description)[0]
+            showManualCard = False
+            return render(request, 'manual.html',
+                          {'user': user,
+                           'date': date,
+                           'description': description,
+                           'cost': cost,
+                           'category': category,
+                           'showManualCard': showManualCard
+                           })
         else:
             updateDataset(date, description, cost, category)
+            transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
+            transaction.save()
+            return redirect("/myapp/dashboard")
 
+    if request.POST.get('confirmCategory'):
+        user = request.user
+        date = request.POST['dateOfTransaction']
+        description = request.POST['description']
+        cost = request.POST['cost']
+        category = request.POST['category']
+        updateDataset(date, description, cost, category)
         transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
         transaction.save()
-
         return redirect("/myapp/dashboard")
-    else:
-        return render(request, 'manual.html')
 
 
 def handlePredict(request):
