@@ -74,7 +74,6 @@ def logOut(request):
 def dashboard(request):
     categoryTotal = calculateTotal(request)["categoryTotal"]
     total = calculateTotal(request)["total"]
-    categoryTotal = calculateTotal(request)["categoryTotal"]
     isEmpty = all(total == 0 for total in categoryTotal)
     return render(request, 'dashboard.html', {
         'categoryTotal': categoryTotal,
@@ -168,13 +167,10 @@ def transactions(request):
 
 
 def charts(request):
-
-    budgetValues = showBudget(request)
     categoryTotal = calculateTotal(request)["categoryTotal"]
     isEmpty = all(total == 0 for total in categoryTotal)
     return render(request, 'charts.html', {
         'categoryTotal': categoryTotal,
-        'budgetValues': budgetValues,
         'isEmpty': isEmpty
     })
 
