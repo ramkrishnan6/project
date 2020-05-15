@@ -43,7 +43,7 @@ def predict(transaction):
     return clf.predict(count_vect.transform([transaction]))
 
 
-def updateDataset(date, description, cost, category):
+def updateDataset(description, category):
 
     with open(os.path.join(settings.BASE_DIR + '/dataset/', 'dataset.csv'), 'r', encoding='UTF-8') as csvFile:
         reader = csv.reader(csvFile, delimiter=',')
@@ -52,4 +52,4 @@ def updateDataset(date, description, cost, category):
 
     with open(os.path.join(settings.BASE_DIR + '/dataset/', 'dataset.csv'), 'a', newline="") as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow([rowId, date, description, cost, category])
+        writer.writerow([rowId, description, category])

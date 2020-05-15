@@ -4,18 +4,18 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
     <title>Expense Manager</title>
 
     <!-- Custom fonts for this template-->
     <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
-    <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
+    <link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
     <!-- Custom styles for this template-->
     <link href="{% static 'imp/css/sb-admin-2.min.css' %}" rel="stylesheet">
 
@@ -27,8 +27,8 @@
 <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark bg-gray-900  fixed-top">
         <a class="navbar-brand" href="/myapp/">
-            <img src="{% static 'images/icons/icon.ico' %}" width="30" height="30" class="d-inline-block align-top"
-                 alt="">
+            <img alt="" class="d-inline-block align-top" height="30" src="{% static 'images/icons/icon.ico' %}"
+                 width="30">
             Expense Manager
         </a>
     </nav>
@@ -49,6 +49,7 @@
                                 border-left: 2px solid green;
                                 height: 500px;
                             }
+
                         </style>
                         <div class="col-lg-0.25 vl pr-2 d-none d-lg-block"></div>
                         <div class="col-lg-6 col-xl-12">
@@ -57,30 +58,30 @@
                                 <div class="text-center">
                                     <h1 class="h2 text-gray-900 mb-4">Create an Account</h1>
                                 </div>
-                                <form class="user" action="/myapp/register" method="post">
+                                <form action="/myapp/register" class="user" method="post">
                                     {% csrf_token %}
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control form-control-user" name="firstName"
-                                                   placeholder="First Name" required>
+                                            <input class="form-control form-control-user" name="firstName" placeholder="First Name"
+                                                   required type="text">
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" class="form-control form-control-user" name="lastName"
-                                                   placeholder="Last Name" required>
+                                            <input class="form-control form-control-user" name="lastName" placeholder="Last Name"
+                                                   required type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" name="email"
-                                               placeholder="Email Address" required>
+                                        <input class="form-control form-control-user" name="email" placeholder="Email Address"
+                                               required type="email">
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control form-control-user" name="username"
-                                                   id = "id_username" placeholder="Username" required>
+                                            <input class="form-control form-control-user" id="id_username" name="username"
+                                                   placeholder="Username" required type="text">
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="password" class="form-control form-control-user"
-                                                   name="password" placeholder="Password" required>
+                                            <input class="form-control form-control-user" name="password"
+                                                   placeholder="Password" required type="password">
                                         </div>
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block">
@@ -113,7 +114,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Logic to check if username already exists -->
 {% block javascript %}
-  <script>
+<script>
     $("#id_username").change(function () {
       var username = $(this).val();
 
@@ -134,7 +135,8 @@
       });
 
     });
-  </script>
+
+</script>
 {% endblock %}
 
 </body>

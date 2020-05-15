@@ -27,13 +27,8 @@
     <!-- Custom styles for this page -->
     <link href="{% static 'imp/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
 
-<style>
-    .mystyle {
-     width: 100%;
-     background-color: black;
-     color: grey;
-     box-sizing: border-box;
-    }
+    <style>
+
     .carousel-control-prev, .carousel-control-next {
     filter: invert(1);
     }
@@ -45,7 +40,7 @@
     }
 
 </style>
-<style>
+    <style>
     .carousel-control-prev, .carousel-control-next {
         filter: invert(1);
     }
@@ -189,7 +184,7 @@
 
         <!-- Main Content -->
         <div id="content">
-            <button onclick="myFunction()">Dark Mode</button>
+
             <!-- Begin Page Content -->
             {% block content %}
             {% endblock %}
@@ -233,13 +228,6 @@
 
 <!-- Page level custom scripts -->
 <script src="{% static 'imp/js/demo/datatables-demo.js' %}"></script>
-
-<script>
-function myFunction() {
-   var element = document.getElementById("content");
-   element.classList.toggle("mystyle");
-}
-</script>
 
 {% else %}
 <h1>You are not signed in!</h1>
