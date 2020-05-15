@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
     <title>Expense Manager</title>
 
-        {% if user.is_authenticated %}
+    {% if user.is_authenticated %}
 
     <!-- Custom fonts for this template -->
     <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -107,6 +107,12 @@
             <h6>ACCOUNT</h6>
         </div>
 
+        <!-- Profile -->
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/profile">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Profile</span></a>
+        </li>
         <!-- Log Out -->
         <li class="nav-item">
             <a class="nav-link" href="/myapp/logout">
@@ -139,73 +145,37 @@
                 <!-- Content Row -->
                 <div class="row container-fluid pt-4">
                     <!-- Area Chart -->
-                    <div class="col-xl-12 col-xs-12">
-                        {% if isEmpty == False %}
+                    <div class="col-xl-12 col-lg-12">
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">AREA CHART</h6>
                             </div>
                             <!-- Card Body -->
-                            <div class="card-body mb-5 d-none d-lg-block" style="height: 35rem;">
-                                <div class="chart-pie pt-4 pb-2 ">
+                            <div class="card-body mb-5" style="height: 30rem;">
+
+                                <div class="chart-area mb-5 mx-auto">
                                     <canvas id="areaChart"></canvas>
                                 </div>
                             </div>
-                            <div class="card-body mb-5 d-xl-none" style="height: 16rem;">
-                                <div class="chart-pie pt-4 pb-2 ">
-                                    <canvas id="areaChartPhone"></canvas>
-                                </div>
-                            </div>
                         </div>
-                        {% else %}
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                              <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
-                            </div>
-                            <div class="card-body">
-                              <p>You have not recorded any transactions yet. You can
-                                  <a href="/myapp/manual">Add Transactions Manually</a> or
-                                  <a href="/myapp/bill">Add Transactions from bill.</a>
-                              </p>
-                            </div>
-                        </div>
-                        {% endif %}
                     </div>
 
                     <!-- Donut Chart -->
-                    <div class="col-xl-12 col-xs-12">
-                        {% if isEmpty == False %}
+                    <div class="col-xl-12 col-lg-12">
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
                             </div>
                             <!-- Card Body -->
-                            <div class="card-body mb-5 d-none d-lg-block" style="height: 35rem;">
-                                <div class="chart-pie pt-4 pb-2 ">
+                            <div class="card-body mb-5" style="height: 30rem;">
+
+                                <div class="chart-area mb-5 mx-auto">
                                     <canvas id="donutChart"></canvas>
                                 </div>
                             </div>
-                            <div class="card-body mb-5 d-xl-none" style="height: 16rem;">
-                                <div class="chart-pie pt-4 pb-2 ">
-                                    <canvas id="donutChartPhone"></canvas>
-                                </div>
-                            </div>
                         </div>
-                        {% else %}
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                              <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
-                            </div>
-                            <div class="card-body">
-                              <p>You have not recorded any transactions yet. You can
-                                  <a href="/myapp/manual">Add Transactions Manually</a> or
-                                  <a href="/myapp/bill">Add Transactions from bill.</a>
-                              </p>
-                            </div>
-                        </div>
-                        {% endif %}
                     </div>
 
                 </div>
@@ -226,8 +196,10 @@
             </div>
         </footer>
         <!-- End of Footer -->
+
     </div>
     <!-- End of Content Wrapper -->
+
 </div>
 <!-- End of Page Wrapper -->
 
@@ -249,106 +221,121 @@
 <!-- Page level plugins -->
 <script src="{% static 'imp/vendor/chart.js/Chart.min.js' %}"></script>
 
-<!--SCRIPTS FOR LAPTOP WEB CHARTS STARTS-->
 
-<!--SCRIPT FOR AREA CHART-->
+</body>
+
+{% else %}
+<h1>You are not signed in!</h1>
+<h2>Kindly sign in, You will be redirected in 5 seconds</h2>
+<meta http-equiv="refresh" content="5; url = '/myapp/login' ">
+{% endif %}
+
+</html>
+
+
+<!-- SCRIPT FOR AREA CHART -->
+
 <script>
-  var categoryTotal =  {{ categoryTotal }};
-  var ctx2 = document.getElementById('areaChart');
-  var myChart2 = new Chart(ctx2, {
+  $(document).ready(function(){
+  var ctx3 = document.getElementById('areaChart');
+  var myChart3 = new Chart(ctx3, {
   type: 'line',
   data: {
       labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
                   "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
       datasets: [{
 
-          label: 'Expenditure',
-          data: categoryTotal,
-         borderColor: [
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-
-          ],
+          label: 'Amount',
+          data: [ {% for i in categoryTotal %}{{ i }},{% endfor %}],
           backgroundColor: [
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(150, 79, 164, 0.2)',
+              'rgba(200, 100, 64, 0.2)',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(150, 79, 164, 1)',
+              'rgba(200, 100, 64, 1)',
+          ],
+          borderWidth: 1
+      },
+      {
+        label: 'budget',
+        data: [{% for x in budgetValues %} {{ x.value }},{% endfor %}],
+        backgroundColor: [
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+              'rgba(0, 128, 0, 1)',
+
+
+
 
           ],
-          borderWidth: 3
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(150, 79, 164, 1)',
+              'rgba(200, 100, 64, 1)',
+          ],
+          borderWidth: 1
       }]
-  },
-  options: {
-    maintainAspectRatio: true,
-    layout: {
-      padding: {
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 14
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(234, 236, 244)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
-    },
-    legend: {
-      display: true
-    },
-      }
+  }
+
+});
 });
 
 </script>
 
-<!-- SCRIPT FOR AREA CHART -->
+
+<!-- SCRIPT FOR DONUT CHART -->
+
+
 <script>
-  var categoryTotal =  {{ categoryTotal }};
+
+
+  $(document).ready(function(){
   var ctx3 = document.getElementById('donutChart');
   var myChart3 = new Chart(ctx3, {
   type: 'doughnut',
@@ -356,8 +343,9 @@
       labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
                   "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
       datasets: [{
-          label: 'Expenditure',
-          data: categoryTotal,
+
+          label: 'Amount',
+          data: [ {% for i in categoryTotal %}{{ i }},{% endfor %}],
           backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -390,191 +378,10 @@
               'rgba(150, 79, 164, 1)',
               'rgba(200, 100, 64, 1)',
           ],
-          borderWidth: 1,
-      }],
-  },
-  options: {
-    maintainAspectRatio: true,
-    legend: {
-      display: true
-    },
-    cutoutPercentage: 50,
-  }
-
-});
-
-</script>
-
-<!--SCRIPTS FOR LAPTOP WEB CHARTS ENDS-->
-
-
-<!--SCRIPTS FOR MOBILE CHARTS STARTS-->
-
-<!--SCRIPT FOR AREA CHART -->
-<script>
-  var categoryTotal =  {{ categoryTotal }};
-  var ctx2 = document.getElementById('areaChartPhone');
-  var myChart2 = new Chart(ctx2, {
-  type: 'line',
-  data: {
-      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
-                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
-      datasets: [{
-
-          label: 'Expenditure',
-          data: categoryTotal,
-         borderColor: [
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-              'rgba(23, 32, 42, 1)',
-
-          ],
-          backgroundColor: [
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-
-          ],
-          borderWidth: 3
+          borderWidth: 1
       }]
-  },
-  options: {
-    maintainAspectRatio: false,
-    layout: {
-      padding: {
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        ticks: {
-          maxTicksLimit: 14
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(234, 236, 244)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
-    },
-    legend: {
-      display: false
-    },
-      }
-});
-
-</script>
-
-
-<!--SCRIPT FOR DONUT CHART -->
-
-
-<script>
-  var categoryTotal =  {{ categoryTotal }};
-  var ctx3 = document.getElementById('donutChartPhone');
-  var myChart3 = new Chart(ctx3, {
-  type: 'pie',
-  data: {
-      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
-                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
-      datasets: [{
-          label: 'Expenditure',
-          data: categoryTotal,
-          backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(150, 79, 164, 0.2)',
-              'rgba(200, 100, 64, 0.2)',
-          ],
-          borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(150, 79, 164, 1)',
-              'rgba(200, 100, 64, 1)',
-          ],
-          borderWidth: 1,
-      }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 50,
   }
 
 });
-
+});
 </script>
-<!--SCRIPTS FOR MOBILE CHARTS ENDS-->
-
-
-</body>
-
-        {% else %}
-        <h1>You are not signed in!</h1>
-        <h2>Kindly sign in, You will be redirected in 5 seconds</h2>
-        <meta http-equiv="refresh" content="5; url = '/myapp/login' ">
-        {% endif %}
-
-</html>

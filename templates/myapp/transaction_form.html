@@ -1,254 +1,69 @@
-{% load crispy_forms_tags %}
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
-<head>
+{% load crispy_forms_tags %}
 
-    <!-- Required meta tags -->
-    <link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta charset="UTF-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="" name="description">
-    <meta content="" name="author">
+{% block navbar_view_transactions %}
+<!--View Transactions -->
+<li class="nav-item active">
+    <a class="nav-link" href="/myapp/transactions">
+        <i class="fa fa-eye"></i>
+        <span>View Transactions</span></a>
+</li>
+{% endblock %}
 
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
-    <title>Expense Manager</title>
+{% block content %}
 
-    {% if user.is_authenticated %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-    <script src="https://use.fontawesome.com/aea125d216.js"></script>
-    <!-- Custom styles for this template-->
-    <link href="{% static 'imp/css/sb-admin-2.min.css' %}" rel="stylesheet">
-    <style>
-        .carousel-control-prev, .carousel-control-next {
-            filter: invert(1);
-        }
-
-        /* Chrome, Safari, Edge, Opera */
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        /* Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-
-    </style>
-</head>
-
-<body id="page-top">
-
-<!-- Page Wrapper -->
-<div id="wrapper">
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/myapp/">
-            <img src="{% static 'images/icons/icon.ico' %}" width="50">
-            <div class="sidebar-brand-text mr-3">Expense Manager</div>
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="/myapp/dashboard">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- HEADING Transactions-->
-        <div class="sidebar-heading">
-            <h6>Transactions</h6>
-        </div>
-
-        <!-- Add Transactions Items -->
-        <li class="nav-item">
-            <a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed" data-target="#collapseTwo"
-               data-toggle="collapse" href="#">
-                <i class="fas fa-plus-circle"></i>
-                <span>Add Transactions</span>
-            </a>
-            <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/myapp/manual">Add Manually</a>
-                    <a class="collapse-item" href="/myapp/bill">Add Bill</a>
-                    <a class="collapse-item" href="/myapp/csv">Add CSV</a>
-                </div>
-            </div>
-        </li>
-
-        <!--View Transactions -->
-        <li class="nav-item">
-            <a class="nav-link" href="/myapp/transactions">
-                <i class="fa fa-eye"></i>
-                <span>View Transactions</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- HEADING STATISTICS -->
-        <div class="sidebar-heading">
-            <h6>STATISTICS</h6>
-        </div>
-
-        <!-- Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="/myapp/charts">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
-        </li>
-
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- HEADING ACCOUNT -->
-        <div class="sidebar-heading">
-            <h6>ACCOUNT</h6>
-        </div>
-
-        <!-- Log Out -->
-        <li class="nav-item">
-            <a class="nav-link" href="/myapp/logout">
-                <i aria-hidden="true" class="fa fa-sign-out"></i>
-                <span>Log Out</span></a>
-        </li>
-
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div class="d-flex flex-column" id="content-wrapper">
-
-        <!-- Main Content -->
-        <div id="content">
-
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between my-4">
-                    <h1 class="h3 mb-0 text-gray-800">Edit Transactions</h1>
-                </div>
-                <!-------------------------------------------------------------------------------------------------------------------------->
-            </div>
-
-
-            <div class="mx-auto">
-                <div class="col-xl-5 col-lg-5 mx-auto">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h5 class="m-0 font-weight-bold justify-content-center">
-                                Edit/Update your transactions here
-                            </h5>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-5 col-lg-5 mx-auto">
-                    <!-- Card Body -->
-                    <div class="card-body shadow">
-                        <form class="user mx-5 px-5" method='post'>
-                            {% csrf_token %}
-
-                            <div class="form-group btn-user">
-                                <div class="py-1">
-                                    {{ form.date|as_crispy_field }}
-                                </div>
-                                <div class="py-1">
-                                    {{ form.description|as_crispy_field }}
-                                </div>
-                                <div class="pt-1 pb-3">
-                                    {{ form.cost|as_crispy_field }}
-                                </div>
-
-                                </fieldset>
-                                <div>
-                                    <button class="btn btn-primary btn-user btn-block" type="submit">
-                                        Update
-                                    </button>
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-            <!-- End of Content Wrapper -->
-        </div>
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white mt-4">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; EXPENSE MANAGER 2020</span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between my-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit Transactions</h1>
     </div>
-    <!-- End of Page Wrapper -->
-
+    <!-------------------------------------------------------------------------------------------------------------------------->
 </div>
 
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-{% else %}
-<h1>You are not signed in!</h1>
-<h2>Kindly sign in, You will be redirected in 5 seconds</h2>
-<meta content="5; url = '/myapp/login' " http-equiv="refresh">
-{% endif %}
+<div class="mx-auto">
+    <div class="col-xl-5 col-lg-5 mx-auto">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h5 class="m-0 font-weight-bold justify-content-center">
+                    Edit/Update your transactions here
+                </h5>
 
-<!-- Bootstrap core JavaScript-->
-<script src="{% static 'imp/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'imp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+            </div>
+        </div>
+    </div>
 
-<!-- Core plugin JavaScript-->
-<script src="{% static 'imp/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <div class="col-xl-5 col-lg-5 mx-auto">
+        <!-- Card Body -->
+        <div class="card-body shadow">
+            <form class="user mx-5 px-5" method='post'>
+                {% csrf_token %}
 
-<!-- Custom scripts for all pages-->
-<script src="{% static 'imp/js/sb-admin-2.min.js' %}"></script>
+                <div class="form-group btn-user">
+                    <div class="py-1">
+                        {{ form.date|as_crispy_field }}
+                    </div>
+                    <div class="py-1">
+                        {{ form.description|as_crispy_field }}
+                    </div>
+                    <div class="pt-1 pb-3">
+                        {{ form.cost|as_crispy_field }}
+                    </div>
+                    <div>
+                        <button class="btn btn-primary btn-user btn-block" type="submit">
+                            Update
+                        </button>
+                    </div>
+                </div>
 
-<!-- Page level plugins -->
-<script src="{% static 'imp/vendor/chart.js/Chart.min.js' %}"></script>
+            </form>
+        </div>
+    </div>
 
-<!-- Page level custom scripts -->
-<script src="{% static 'imp/js/demo/chart-area-demo.js' %}"></script>
-<script src="{% static 'imp/js/demo/chart-pie-demo.js' %}"></script>
+</div>
+<!-- End of Content Wrapper -->
 
-<script type="text/javascript">
-    function newPage(num) {
-        var url = new Array();
-        url[0] = "/myapp/dashboard";
-        window.location = url[num];
-        ``
-    }
-</script>
-</body>
-</html>
+{% endblock %}

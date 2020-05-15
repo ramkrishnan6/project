@@ -1,0 +1,253 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
+    <title>Expense Manager</title>
+
+    {% if user.is_authenticated %}
+
+    <script src="https://use.fontawesome.com/aea125d216.js"></script>
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'imp/css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <script src="https://use.fontawesome.com/aea125d216.js"></script>
+    <!-- Custom styles for this page -->
+    <link href="{% static 'imp/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+<style>
+    .mystyle {
+     width: 100%;
+     background-color: black;
+     color: grey;
+     box-sizing: border-box;
+    }
+    .carousel-control-prev, .carousel-control-next {
+    filter: invert(1);
+    }
+    .avatar {
+      vertical-align: middle;
+      width: 50px;
+      height: 50px;
+      border-radius: 70%;
+    }
+
+</style>
+<style>
+    .carousel-control-prev, .carousel-control-next {
+        filter: invert(1);
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+</style>
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/myapp/">
+            <img src="{% static 'images/icons/icon.ico' %}" width="50">
+            <div class="sidebar-brand-text mr-3">Expense Manager</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        {% block navbar_dashboard %}
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/dashboard">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+        {% endblock %}
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- HEADING Transactions-->
+        <div class="sidebar-heading">
+            <h6>Transactions</h6>
+        </div>
+
+        {% block navbar_add_transactions %}
+        <!-- Add Transactions Items -->
+        <li class="nav-item">
+            <a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed" data-target="#collapseTwo"
+               data-toggle="collapse" href="#">
+                <i class="fas fa-plus-circle"></i>
+                <span>Add Transactions</span>
+            </a>
+            <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/myapp/manual">Add Manually</a>
+                    <a class="collapse-item" href="/myapp/bill">Add Bill</a>
+                    <a class="collapse-item" href="/myapp/csv">Add CSV</a>
+                </div>
+            </div>
+        </li>
+        {% endblock %}
+
+        {% block navbar_view_transactions %}
+        <!--View Transactions -->
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/transactions">
+                <i class="fa fa-eye"></i>
+                <span>View Transactions</span></a>
+        </li>
+        {% endblock %}
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- HEADING STATISTICS -->
+        <div class="sidebar-heading">
+            <h6>STATISTICS</h6>
+        </div>
+
+        {% block navbar_Charts %}
+        <!-- Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/charts">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Charts</span></a>
+        </li>
+        {% endblock %}
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+        <!-- HEADING ACCOUNT -->
+        <div class="sidebar-heading">
+            <h6>ACCOUNT</h6>
+        </div>
+
+        {% block navbar_profile %}
+        <!-- Profile -->
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/profile">
+                <i class="fa fa-user"></i>
+                <span>Profile</span></a>
+        </li>
+        {% endblock %}
+
+
+        {% block navbar_budget %}
+        <!-- Budget -->
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/budget">
+                <i class="fa fa-calculator"></i>
+                <span>Budget</span></a>
+        </li>
+        {% endblock %}
+        <!-- Log Out -->
+        <li class="nav-item">
+            <a class="nav-link" href="/myapp/logout">
+                <i aria-hidden="true" class="fa fa-sign-out"></i>
+                <span>Log Out</span></a>
+        </li>
+
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+
+        <!-- Main Content -->
+        <div id="content">
+            <button onclick="myFunction()">Dark Mode</button>
+            <!-- Begin Page Content -->
+            {% block content %}
+            {% endblock %}
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; EXPENSE MANAGER 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Bootstrap core JavaScript-->
+<script src="{% static 'imp/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'imp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{% static 'imp/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="{% static 'imp/js/sb-admin-2.min.js' %}"></script>
+
+<!-- Page level plugins -->
+<script src="{% static 'imp/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'imp/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{% static 'imp/js/demo/datatables-demo.js' %}"></script>
+
+<script>
+function myFunction() {
+   var element = document.getElementById("content");
+   element.classList.toggle("mystyle");
+}
+</script>
+
+{% else %}
+<h1>You are not signed in!</h1>
+<h2>Kindly sign in, You will be redirected in 5 seconds</h2>
+<meta content="5; url = '/myapp/login' " http-equiv="refresh">
+{% endif %}
+
+
+</body>
+
+</html>

@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from myapp.models import Transaction
-from myapp.models import Budget
+
 from mysite.predict import predict
 from mysite.predict import updateDataset
 from mysite.dashboard import calculateTotal
@@ -17,6 +17,7 @@ from mysite.ocr import ocr
 from django.core.files.storage import FileSystemStorage
 from django.views.generic import UpdateView
 from django.contrib.auth.mixins import UserPassesTestMixin
+from .forms import UserUpdateForm, ProfileUpdateForm, GetBudgetForm
 
 
 def home(request):
@@ -74,20 +75,15 @@ def logOut(request):
 def dashboard(request):
     categoryTotal = calculateTotal(request)["categoryTotal"]
     total = calculateTotal(request)["total"]
-    isEmpty = all(total == 0 for total in categoryTotal)
+
     return render(request, 'dashboard.html', {
         'categoryTotal': categoryTotal,
         'total': total,
-        'isEmpty': isEmpty
     })
 
 
 def manual(request):
-    if request.method == 'GET':
-        showManualCard = True
-        return render(request, 'manual.html', {'showManualCard': showManualCard})
-
-    if request.POST.get('manualAdd'):
+    if request.method == 'POST':
         user = request.user
         date = request.POST['dateOfTransaction']
         description = request.POST['description']
@@ -95,31 +91,15 @@ def manual(request):
         category = request.POST['category']
         if category == "Unknown":
             category = predict(description)[0]
-            showManualCard = False
-            return render(request, 'manual.html',
-                          {'user': user,
-                           'date': date,
-                           'description': description,
-                           'cost': cost,
-                           'category': category,
-                           'showManualCard': showManualCard
-                           })
         else:
-            updateDataset(date, description, cost, category)
-            transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
-            transaction.save()
-            return redirect("/myapp/dashboard")
+            updateDataset(description, category)
 
-    if request.POST.get('confirmCategory'):
-        user = request.user
-        date = request.POST['dateOfTransaction']
-        description = request.POST['description']
-        cost = request.POST['cost']
-        category = request.POST['category']
-        updateDataset(date, description, cost, category)
         transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
         transaction.save()
+
         return redirect("/myapp/dashboard")
+    else:
+        return render(request, 'manual.html')
 
 
 def handlePredict(request):
@@ -167,11 +147,13 @@ def transactions(request):
 
 
 def charts(request):
+
+    budgetValues = showBudget(request)
     categoryTotal = calculateTotal(request)["categoryTotal"]
-    isEmpty = all(total == 0 for total in categoryTotal)
+
     return render(request, 'charts.html', {
         'categoryTotal': categoryTotal,
-        'isEmpty': isEmpty
+        'budgetValues': budgetValues
     })
 
 
@@ -205,7 +187,7 @@ def bill(request):
             category = request.POST['category']
             transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
             transaction.save()
-            updateDataset(date, description, cost, category)
+            updateDataset(description, category)
             return redirect("/myapp/dashboard")
 
 
@@ -219,3 +201,58 @@ class TransactionUpdateView(UserPassesTestMixin, UpdateView):
         if self.request.user == transaction.user:
             return True
         return False
+
+
+def profile(request):
+    if request.method == "GET":
+        #image = request.FILES['file']
+        #fs = FileSystemStorage()
+        #file = fs.save(str(request.user.id) + '.jpeg', image)
+        img = User.objects.filter(id=request.user.id).first()
+        #file_name = os.path.basename(img)
+        #image_path = os.path.join(settings.BASE_DIR + '/media/', file_name)
+
+        return render(request, 'profile.html', {'img': img})
+
+        #elif request.POST.get("check"):
+        #    user = request.user
+        #    date = request.POST['dateOfTransaction']
+        #    description = request.POST['description']
+        #    cost = request.POST['cost']
+        #    category = request.POST['category']
+        #    transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
+        #    transaction.save()
+        #    updateDataset(description, category)
+    return render(request, 'profile.html')
+
+
+def ProfileUpdate(request):
+    if request.method == 'POST':
+        user_update_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_update_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_update_form.is_valid() and profile_update_form.is_valid():
+            user_update_form.save()
+            profile_update_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('/myapp/profile')
+    else:
+        user_update_form = UserUpdateForm(instance=request.user)
+        profile_update_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'user_update_form': user_update_form,
+        'profile_update_form': profile_update_form,
+    }
+    return render(request, 'profile_form.html', context)
+
+
+def Budget(request):
+    if request.method == 'POST':
+        form = GetBudgetForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'You have successfully updated your budget!')
+            return redirect('/myapp/dashboard')
+    else:
+        form = GetBudgetForm()
+    return render(request, 'budget.html', {'form': form})

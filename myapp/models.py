@@ -71,11 +71,15 @@ class Budget(models.Model):
         choices=months,
         default='None',
     )
+
     def __str__(self):
-        return "{} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {}".format(
-            self.user, self.automobile, self.bank, self.cash,
-             self.education, self.entertainment, self.fine,
-             self.food, self.health, self.other, self.paytm,
-             self.recharge, self.shopping, self.travel, self.upi,
-             self.month
-        )
+        return "{} - {}".format(self.user, self.month)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
+

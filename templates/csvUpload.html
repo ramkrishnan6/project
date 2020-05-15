@@ -1,19 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Expense Manager</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label>Upload a file</label>
-    <input type="file" name="file" accept=".csv">
-    <p>ONLY accepts .csv file</p>
-    <button type="submit">Upload CSV</button>
-</form>
+{% block navbar_add_transactions %}
+<!-- Add Transactions Items -->
+<li class="nav-item active">
+    <a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed" data-target="#collapseTwo"
+       data-toggle="collapse" href="#">
+        <i class="fas fa-plus-circle"></i>
+        <span>Add Transactions</span>
+    </a>
+    <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/myapp/manual">Add Manually</a>
+            <a class="collapse-item" href="/myapp/bill">Add Bill</a>
+            <a class="collapse-item" href="/myapp/csv">Add CSV</a>
+        </div>
+    </div>
+</li>
+{% endblock %}
+{% block content %}
+<div class="mx-auto">
+    <div class="col-xl-5 col-lg-5 mx-auto">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h5 class="m-0 font-weight-bold justify-content-center">
+                    Upload your CSV file here
+                </h5>
 
+            </div>
+        </div>
+    </div>
 
-</body>
-</html>
+    <div class="col-xl-5 col-lg-5 mx-auto">
+        <!-- Card Body -->
+        <div class="card-body shadow">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Upload a file</label>
+                <input type="file" name="file" accept=".csv">
+                <p>ONLY accepts .csv file</p>
+                <div>
+                        <button class="btn btn-primary btn-user btn-block" type="submit">
+                            Upload CSV
+                        </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!-- End of Content Wrapper -->
+
+{% endblock %}
