@@ -36,20 +36,20 @@ class Transaction(models.Model):
 
 class Budget(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    automobile = models.IntegerField(default=0)
-    bank = models.IntegerField(default=0)
-    cash = models.IntegerField(default=0)
-    education = models.IntegerField(default=0)
-    entertainment = models.IntegerField(default=0)
-    fine = models.IntegerField(default=0)
-    food = models.IntegerField(default=0)
-    health = models.IntegerField(default=0)
-    other = models.IntegerField(default=0)
-    paytm = models.IntegerField(default=0)
-    recharge = models.IntegerField(default=0)
-    shopping = models.IntegerField(default=0)
-    travel = models.IntegerField(default=0)
-    upi = models.IntegerField(default=0)
+    automobile = models.IntegerField(default=1000)
+    bank = models.IntegerField(default=1000)
+    cash = models.IntegerField(default=1000)
+    education = models.IntegerField(default=1000)
+    entertainment = models.IntegerField(default=1000)
+    fine = models.IntegerField(default=1000)
+    food = models.IntegerField(default=1000)
+    health = models.IntegerField(default=1000)
+    other = models.IntegerField(default=1000)
+    paytm = models.IntegerField(default=1000)
+    recharge = models.IntegerField(default=1000)
+    shopping = models.IntegerField(default=1000)
+    travel = models.IntegerField(default=1000)
+    upi = models.IntegerField(default=1000)
 
     months = [
         ('Jan', 'Jan'),
@@ -73,7 +73,10 @@ class Budget(models.Model):
     )
 
     def __str__(self):
-        return "{} - {}".format(self.user, self.month)
+        return "{} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {}".format(
+            self.user, self.automobile, self.bank, self.cash, self.education, self.entertainment,
+            self.fine, self.food, self.health, self.other, self.paytm, self.recharge, self.shopping,
+            self.travel, self.upi, self.month)
 
 
 class Profile(models.Model):

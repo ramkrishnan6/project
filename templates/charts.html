@@ -1,341 +1,205 @@
+{% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block navbar_Charts %}
+<!-- Charts -->
+<li class="nav-item active">
+    <a class="nav-link" href="/myapp/charts">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Charts</span></a>
+</li>
+{% endblock %}
 
-<head>
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
-    <title>Expense Manager</title>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 mt-4">Charts</h1>
 
-    {% if user.is_authenticated %}
-
-    <!-- Custom fonts for this template -->
-    <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="{% static 'imp/css/sb-admin-2.min.css' %}" rel="stylesheet">
-    <script src="https://use.fontawesome.com/aea125d216.js"></script>
-    <!-- Custom styles for this page -->
-    <link href="{% static 'imp/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
-
-</head>
-
-<body id="page-top">
-
-<!-- Page Wrapper -->
-<div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/myapp/">
-            <img src="{% static 'images/icons/icon.ico' %}" width="50">
-            <div class="sidebar-brand-text mr-3">Expense Manager</div>
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="/myapp/dashboard">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- HEADING Transactions-->
-        <div class="sidebar-heading">
-            <h6>Transactions</h6>
-        </div>
-
-        <!-- Add Transactions Items -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-plus-circle"></i>
-                <span>Add Transactions</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/myapp/manual">Add Manually</a>
-                    <a class="collapse-item" href="/myapp/bill">Add Bill</a>
-                    <a class="collapse-item" href="/myapp/csv">Add CSV</a>
+    <!-- Content Row -->
+    <div class="row container-fluid pt-4">
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-xs-12">
+            {% if isEmpty == False %}
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">AREA CHART</h6>
                 </div>
-            </div>
-        </li>
-
-        <!--View Transactions -->
-        <li class="nav-item">
-            <a class="nav-link" href="/myapp/transactions">
-                <i class="fa fa-eye"></i>
-                <span>View Transactions</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- HEADING STATISTICS -->
-        <div class="sidebar-heading">
-            <h6>STATISTICS</h6>
-        </div>
-
-        <!-- Charts -->
-        <li class="nav-item active">
-            <a class="nav-link" href="/myapp/charts">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
-        </li>
-
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- HEADING ACCOUNT -->
-        <div class="sidebar-heading">
-            <h6>ACCOUNT</h6>
-        </div>
-
-        <!-- Profile -->
-        <li class="nav-item">
-            <a class="nav-link" href="/myapp/profile">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Profile</span></a>
-        </li>
-        <!-- Log Out -->
-        <li class="nav-item">
-            <a class="nav-link" href="/myapp/logout">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                <span>Log Out</span></a>
-        </li>
-
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-        <!-- Main Content -->
-        <div id="content">
-
-
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800 mt-4">Charts</h1>
-
-                <!-- Content Row -->
-                <div class="row container-fluid pt-4">
-                    <!-- Area Chart -->
-                    <div class="col-xl-12 col-lg-12">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">AREA CHART</h6>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body mb-5" style="height: 30rem;">
-
-                                <div class="chart-area mb-5 mx-auto">
-                                    <canvas id="areaChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Card Body -->
+                <div class="card-body mb-5 d-none d-lg-block" style="height: 35rem;">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="areaChart"></canvas>
                     </div>
-
-                    <!-- Donut Chart -->
-                    <div class="col-xl-12 col-lg-12">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body mb-5" style="height: 30rem;">
-
-                                <div class="chart-area mb-5 mx-auto">
-                                    <canvas id="donutChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="card-body mb-5 d-xl-none" style="height: 16rem;">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="areaChartPhone"></canvas>
                     </div>
-
                 </div>
-
-
             </div>
-            <!-- /.container-fluid -->
-
+            {% else %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
+                </div>
+                <div class="card-body">
+                    <p>You have not recorded any transactions yet. You can
+                        <a href="/myapp/manual">Add Transactions Manually</a> or
+                        <a href="/myapp/bill">Add Transactions from bill.</a>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
         </div>
-        <!-- End of Main Content -->
 
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; EXPENSE MANAGER 2020</span>
+        <!-- Donut Chart -->
+        <div class="col-xl-12 col-xs-12">
+            {% if isEmpty == False %}
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body mb-5 d-none d-lg-block" style="height: 35rem;">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="donutChart"></canvas>
+                    </div>
+                </div>
+                <div class="card-body mb-5 d-xl-none" style="height: 16rem;">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="donutChartPhone"></canvas>
+                    </div>
                 </div>
             </div>
-        </footer>
-        <!-- End of Footer -->
+            {% else %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
+                </div>
+                <div class="card-body">
+                    <p>You have not recorded any transactions yet. You can
+                        <a href="/myapp/manual">Add Transactions Manually</a> or
+                        <a href="/myapp/bill">Add Transactions from bill.</a>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
 
     </div>
-    <!-- End of Content Wrapper -->
+
 
 </div>
-<!-- End of Page Wrapper -->
+<!-- /.container-fluid -->
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Bootstrap core JavaScript-->
-<script src="{% static 'imp/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'imp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="{% static 'imp/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="{% static 'imp/js/sb-admin-2.min.js' %}"></script>
 
 <!-- Page level plugins -->
 <script src="{% static 'imp/vendor/chart.js/Chart.min.js' %}"></script>
 
+<!--SCRIPTS FOR LAPTOP WEB CHARTS STARTS-->
 
-</body>
-
-{% else %}
-<h1>You are not signed in!</h1>
-<h2>Kindly sign in, You will be redirected in 5 seconds</h2>
-<meta http-equiv="refresh" content="5; url = '/myapp/login' ">
-{% endif %}
-
-</html>
-
-
-<!-- SCRIPT FOR AREA CHART -->
-
+<!--SCRIPT FOR AREA CHART-->
 <script>
-  $(document).ready(function(){
-  var ctx3 = document.getElementById('areaChart');
-  var myChart3 = new Chart(ctx3, {
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx2 = document.getElementById('areaChart');
+  var myChart2 = new Chart(ctx2, {
   type: 'line',
   data: {
       labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
                   "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
       datasets: [{
 
-          label: 'Amount',
-          data: [ {% for i in categoryTotal %}{{ i }},{% endfor %}],
+          label: 'Expenditure',
+          data: categoryTotal,
+         borderColor: [
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+
+          ],
           backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(150, 79, 164, 0.2)',
-              'rgba(200, 100, 64, 0.2)',
-          ],
-          borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(150, 79, 164, 1)',
-              'rgba(200, 100, 64, 1)',
-          ],
-          borderWidth: 1
-      },
-      {
-        label: 'budget',
-        data: [{% for x in budgetValues %} {{ x.value }},{% endfor %}],
-        backgroundColor: [
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-              'rgba(0, 128, 0, 1)',
-
-
-
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
 
           ],
-          borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(150, 79, 164, 1)',
-              'rgba(200, 100, 64, 1)',
-          ],
-          borderWidth: 1
+          borderWidth: 3
       }]
-  }
-
-});
+  },
+  options: {
+    maintainAspectRatio: true,
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 14
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(234, 236, 244)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: true
+    },
+      }
 });
 
 </script>
 
-
-<!-- SCRIPT FOR DONUT CHART -->
-
-
+<!-- SCRIPT FOR AREA CHART -->
 <script>
-
-
-  $(document).ready(function(){
+  var categoryTotal =  {{ categoryTotal }};
   var ctx3 = document.getElementById('donutChart');
   var myChart3 = new Chart(ctx3, {
   type: 'doughnut',
@@ -343,9 +207,8 @@
       labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
                   "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
       datasets: [{
-
-          label: 'Amount',
-          data: [ {% for i in categoryTotal %}{{ i }},{% endfor %}],
+          label: 'Expenditure',
+          data: categoryTotal,
           backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -378,10 +241,182 @@
               'rgba(150, 79, 164, 1)',
               'rgba(200, 100, 64, 1)',
           ],
-          borderWidth: 1
-      }]
+          borderWidth: 1,
+      }],
+  },
+  options: {
+    maintainAspectRatio: true,
+    legend: {
+      display: true
+    },
+    cutoutPercentage: 50,
   }
 
 });
-});
+
 </script>
+
+<!--SCRIPTS FOR LAPTOP WEB CHARTS ENDS-->
+
+
+<!--SCRIPTS FOR MOBILE CHARTS STARTS-->
+
+<!--SCRIPT FOR AREA CHART -->
+<script>
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx2 = document.getElementById('areaChartPhone');
+  var myChart2 = new Chart(ctx2, {
+  type: 'line',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
+
+          label: 'Expenditure',
+          data: categoryTotal,
+         borderColor: [
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+
+          ],
+          backgroundColor: [
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+
+          ],
+          borderWidth: 3
+      }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 14
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(234, 236, 244)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+      }
+});
+
+</script>
+
+
+<!--SCRIPT FOR DONUT CHART -->
+
+
+<script>
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx3 = document.getElementById('donutChartPhone');
+  var myChart3 = new Chart(ctx3, {
+  type: 'pie',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
+          label: 'Expenditure',
+          data: categoryTotal,
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(150, 79, 164, 0.2)',
+              'rgba(200, 100, 64, 0.2)',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(150, 79, 164, 1)',
+              'rgba(200, 100, 64, 1)',
+          ],
+          borderWidth: 1,
+      }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    legend: {
+      display: false
+    },
+    cutoutPercentage: 50,
+  }
+
+});
+
+</script>
+<!--SCRIPTS FOR MOBILE CHARTS ENDS-->
+
+{% endblock %}

@@ -2,8 +2,7 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import TransactionUpdateView
-
+from .views import TransactionUpdateView, BudgetUpdateView, BudgetCreateView
 
 urlpatterns = [
     path('', views.home),
@@ -24,7 +23,9 @@ urlpatterns = [
     path('validate_username', views.validate_username),
 
     path('profile', views.profile),
-    path('budget', views.Budget),
+    path('budget', views.BudgetPage),
+    path('budget/<int:pk>/update', BudgetUpdateView.as_view(), name='budget-update'),
+    path('budget/create', BudgetCreateView.as_view(), name='budget-create'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

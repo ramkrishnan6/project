@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from myapp.models import Transaction
+from myapp.models import Transaction, Budget
 
 from mysite.predict import predict
 from mysite.predict import updateDataset
@@ -15,9 +15,9 @@ from mysite.dashboard import calculateTotal
 from mysite.dashboard import showBudget
 from mysite.ocr import ocr
 from django.core.files.storage import FileSystemStorage
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.mixins import UserPassesTestMixin
-from .forms import UserUpdateForm, ProfileUpdateForm, GetBudgetForm
+from .forms import UserUpdateForm, ProfileUpdateForm
 
 
 def home(request):
@@ -75,15 +75,20 @@ def logOut(request):
 def dashboard(request):
     categoryTotal = calculateTotal(request)["categoryTotal"]
     total = calculateTotal(request)["total"]
-
+    isEmpty = all(total == 0 for total in categoryTotal)
     return render(request, 'dashboard.html', {
         'categoryTotal': categoryTotal,
         'total': total,
+        'isEmpty': isEmpty
     })
 
 
 def manual(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
+        showManualCard = True
+        return render(request, 'manual.html', {'showManualCard': showManualCard})
+
+    if request.POST.get('manualAdd'):
         user = request.user
         date = request.POST['dateOfTransaction']
         description = request.POST['description']
@@ -91,15 +96,31 @@ def manual(request):
         category = request.POST['category']
         if category == "Unknown":
             category = predict(description)[0]
+            showManualCard = False
+            return render(request, 'manual.html',
+                          {'user': user,
+                           'date': date,
+                           'description': description,
+                           'cost': cost,
+                           'category': category,
+                           'showManualCard': showManualCard
+                           })
         else:
             updateDataset(description, category)
+            transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
+            transaction.save()
+            return redirect("/myapp/dashboard")
 
+    if request.POST.get('confirmCategory'):
+        user = request.user
+        date = request.POST['dateOfTransaction']
+        description = request.POST['description']
+        cost = request.POST['cost']
+        category = request.POST['category']
+        updateDataset(description, category)
         transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
         transaction.save()
-
         return redirect("/myapp/dashboard")
-    else:
-        return render(request, 'manual.html')
 
 
 def handlePredict(request):
@@ -148,12 +169,14 @@ def transactions(request):
 
 def charts(request):
 
-    budgetValues = showBudget(request)
+    budgetList = showBudget(request)
     categoryTotal = calculateTotal(request)["categoryTotal"]
-
+    isEmpty = all(total == 0 for total in categoryTotal)
     return render(request, 'charts.html', {
         'categoryTotal': categoryTotal,
-        'budgetValues': budgetValues
+        'isEmpty': isEmpty,
+        'budgetList': budgetList
+
     })
 
 
@@ -205,24 +228,8 @@ class TransactionUpdateView(UserPassesTestMixin, UpdateView):
 
 def profile(request):
     if request.method == "GET":
-        #image = request.FILES['file']
-        #fs = FileSystemStorage()
-        #file = fs.save(str(request.user.id) + '.jpeg', image)
         img = User.objects.filter(id=request.user.id).first()
-        #file_name = os.path.basename(img)
-        #image_path = os.path.join(settings.BASE_DIR + '/media/', file_name)
-
         return render(request, 'profile.html', {'img': img})
-
-        #elif request.POST.get("check"):
-        #    user = request.user
-        #    date = request.POST['dateOfTransaction']
-        #    description = request.POST['description']
-        #    cost = request.POST['cost']
-        #    category = request.POST['category']
-        #    transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
-        #    transaction.save()
-        #    updateDataset(description, category)
     return render(request, 'profile.html')
 
 
@@ -246,13 +253,31 @@ def ProfileUpdate(request):
     return render(request, 'profile_form.html', context)
 
 
-def Budget(request):
-    if request.method == 'POST':
-        form = GetBudgetForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, f'You have successfully updated your budget!')
-            return redirect('/myapp/dashboard')
-    else:
-        form = GetBudgetForm()
-    return render(request, 'budget.html', {'form': form})
+class BudgetCreateView(CreateView):
+    model = Budget
+    fields = ['automobile', 'bank', 'cash', 'education', 'entertainment', 'fine', 'food',
+              'health', 'other', 'paytm', 'recharge', 'shopping', 'travel', 'upi', 'month']
+    success_url = '/myapp/budget'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class BudgetUpdateView(UserPassesTestMixin, UpdateView):
+    model = Budget
+    fields = ['automobile', 'bank', 'cash', 'education', 'entertainment', 'fine', 'food',
+              'health', 'other', 'paytm', 'recharge', 'shopping', 'travel', 'upi', 'month']
+    template_name = 'budget_update.html'
+    success_url = '/myapp/budget'
+
+    def test_func(self):
+        budget = self.get_object()
+        if self.request.user == budget.user:
+            return True
+        return False
+
+
+def BudgetPage(request):
+    budget = Budget.objects.filter(user_id=request.user.id)
+    return render(request, 'budget.html', {'budget': budget})

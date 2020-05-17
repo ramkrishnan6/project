@@ -23,4 +23,9 @@ def calculateTotal(request):
 
 def showBudget(request):
     budgetValues = Budget.objects.filter(user_id=request.user.id)
-    return budgetValues
+    budgetList = [0] * 14
+    for x in budgetValues:
+        budgetList = [x.automobile, x.bank, x.cash, x.education, x.entertainment, x.food, x.fine,
+                      x.health, x.other, x.paytm, x.recharge, x.shopping, x.travel, x.upi]
+
+    return budgetList

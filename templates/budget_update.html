@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block navbar_budget %}
+<li class="nav-item active">
+    <a class="nav-link" href="/myapp/budget">
+        <i class="fa fa-calculator"></i>
+        <span>Budget</span></a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between my-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit/Update Your budget</h1>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<!-------------------------------------------------------------------------------------------------------------------------->
+
+<div class="mx-auto">
+    <div class="col-xl-12 col-lg-12 mx-auto">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold ">
+                    <span>You can update your budget here</span><br>
+                </h6>
+            </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body shadow">
+            <form class="user align-items-center" enctype="multipart/form-data" method='post'>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col mx-auto">
+                        {{ form.automobile|as_crispy_field }}
+                        {{ form.bank|as_crispy_field }}
+                        {{ form.cash|as_crispy_field }}
+                    </div>
+                    <div class="col mx-auto">
+                        {{ form.education|as_crispy_field }}
+                        {{ form.entertainment|as_crispy_field }}
+                        {{ form.fine|as_crispy_field }}
+                    </div>
+                    <div class="col mx-auto">
+                        {{ form.food|as_crispy_field }}
+                        {{ form.health|as_crispy_field }}
+                        {{ form.other|as_crispy_field }}
+                    </div>
+                    <div class="col mx-auto">
+                        {{ form.paytm|as_crispy_field }}
+                        {{ form.shopping|as_crispy_field }}
+                        {{ form.travel|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form.upi|as_crispy_field }}
+                    </div>
+                    <div class="col">
+                        {{ form.recharge|as_crispy_field }}
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col">
+                        {{ form.month|as_crispy_field }}
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary btn-user btn-block" type="submit">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
