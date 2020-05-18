@@ -20,7 +20,7 @@
 <!-------------------------------------------------------------------------------------------------------------------------->
 
 <div class="mx-auto">
-    <div class="col-xl-5 col-lg-5 mx-auto">
+    <div class="col-xl-10 col-lg-10 mx-auto">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold ">
@@ -34,25 +34,44 @@
         <div class="card-body shadow">
             <form class="user align-items-center" enctype="multipart/form-data" method='post'>
                 {% csrf_token %}
-                <div class="py-1">
-                    {{ form.month|as_crispy_field }}
-                    {{ form.automobile|as_crispy_field }}
-                    {{ form.bank|as_crispy_field }}
-                    {{ form.cash|as_crispy_field }}
-                    {{ form.education|as_crispy_field }}
-                    {{ form.entertainment|as_crispy_field }}
-                    {{ form.fine|as_crispy_field }}
-                    {{ form.food|as_crispy_field }}
-                    {{ form.health|as_crispy_field }}
-                    {{ form.other|as_crispy_field }}
-                    {{ form.paytm|as_crispy_field }}
-                    {{ form.shopping|as_crispy_field }}
-                    {{ form.travel|as_crispy_field }}
-                    {{ form.upi|as_crispy_field }}
-                    {{ form.recharge|as_crispy_field }}
+                <div class="py-1"><div class="row">
+                    <div class="col mx-auto">
+                        {{ form.automobile|as_crispy_field }}
+                        {{ form.bank|as_crispy_field }}
+                        {{ form.cash|as_crispy_field }}
+                    </div>
+                    <div class="col mx-auto">
+                        {{ form.education|as_crispy_field }}
+                        {{ form.entertainment|as_crispy_field }}
+                        {{ form.fine|as_crispy_field }}
+                    </div>
+                    <div class="col mx-auto">
+                        {{ form.food|as_crispy_field }}
+                        {{ form.health|as_crispy_field }}
+                        {{ form.other|as_crispy_field }}
+                    </div>
+                    <div class="col mx-auto">
+                        {{ form.paytm|as_crispy_field }}
+                        {{ form.shopping|as_crispy_field }}
+                        {{ form.travel|as_crispy_field }}
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ form.upi|as_crispy_field }}
+                        </div>
+                        <div class="col">
+                            {{ form.recharge|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ form.month|as_crispy_field }}
+                        </div>
+                    </div>
                     <div>
-                        <button class="btn btn-primary btn-user btn-block" type="submit">
-                            Submit
+                        <button class="btn btn-primary btn-block" type="submit">
+                            Create
                         </button>
                     </div>
                 </div>

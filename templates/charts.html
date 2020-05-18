@@ -23,6 +23,46 @@
         <!-- Area Chart -->
         <div class="col-xl-12 col-xs-12">
             {% if isEmpty == False %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <div class="mx-auto d-flex">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <input class="form-control btn-user" name="startDate"
+                                                   placeholder="Start Date of Transaction"
+                                                   required type="date">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <input class="form-control btn-user" name="endDate"
+                                                   placeholder="End Date of Transaction"
+                                                   required type="date">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-primary mx-auto" name="setDateRange" type="submit" value="setDateRange">
+                                            Set
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <form method="get">
+                                <div class="col px-5">
+                                    <button formmethod="get"  class="btn btn-primary mx-auto" name="reset" type="submit" value="reset">
+                                        Reset
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if isEmpty == False %}
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -43,7 +83,7 @@
             {% else %}
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">AREA CHART</h6>
                 </div>
                 <div class="card-body">
                     <p>You have not recorded any transactions yet. You can

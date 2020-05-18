@@ -24,7 +24,8 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold ">
-                    <span></span><br>
+                    <span>You can click on the month to update the budget for that month.</span><br>
+                    <span>Click on New Entry for creating a New Budget.</span>
                 </h6>
 
             </div>
@@ -32,53 +33,63 @@
 
         <!-- Card Body -->
         <div class="card-body shadow">
-            <div class="table-responsive">
-                <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>Month</th>
-                        <th>Automobile</th>
-                        <th>Bank Transfer</th>
-                        <th>Cash Withdrawal</th>
-                        <th>Education</th>
-                        <th>Entertainment</th>
-                        <th>Fine</th>
-                        <th>Food</th>
-                        <th>Health care</th>
-                        <th>Other</th>
-                        <th>Paytm</th>
-                        <th>Shopping</th>
-                        <th>Travel</th>
-                        <th>UPI</th>
-                        <th>Recharge</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for budget in budget %}
-                    <tr>
-                        <td>  <a href="/myapp/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.month }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.automobile }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.bank }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.cash }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.education }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.entertainment }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.fine }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.food }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.health }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.other }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.paytm }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.shopping }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.travel }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.upi }} </a> </td>
-                        <td>  <a href="" style="color:gray;"> {{ budget.recharge }} </a> </td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <a href="/myapp/budget/create" ><button class="btn btn-primary mx-auto" name="delete" type="submit" value="delete">
+            <div class="py-3">
+                <a href="/myapp/budget/create"><button class="btn btn-primary mx-auto" name="delete" type="submit" value="delete">
                     New Entry
                 </button>
                 </a>
+            </div>
+            <div class="table-responsive">
+                <form class="user align-items-center" method="post">
+                    {% csrf_token %}
+                    <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Delete</th>
+                            <th>Month</th>
+                            <th>Automobile</th>
+                            <th>Bank Transfer</th>
+                            <th>Cash Withdrawal</th>
+                            <th>Education</th>
+                            <th>Entertainment</th>
+                            <th>Fine</th>
+                            <th>Food</th>
+                            <th>Health care</th>
+                            <th>Other</th>
+                            <th>Paytm</th>
+                            <th>Shopping</th>
+                            <th>Travel</th>
+                            <th>UPI</th>
+                            <th>Recharge</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for budget in budget %}
+                        <tr>
+                            <td><input name="b{{budget.id}}" type="checkbox" unchecked value="clicked"></td>
+                            <td>  <a href="/myapp/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.month }} </a> </td>
+                            <td> {{ budget.automobile }} </td>
+                            <td> {{ budget.bank }} </td>
+                            <td> {{ budget.cash }} </td>
+                            <td> {{ budget.education }} </td>
+                            <td> {{ budget.entertainment }} </td>
+                            <td> {{ budget.fine }} </td>
+                            <td> {{ budget.food }} </td>
+                            <td> {{ budget.health }} </td>
+                            <td> {{ budget.other }} </td>
+                            <td> {{ budget.paytm }} </td>
+                            <td> {{ budget.shopping }} </td>
+                            <td> {{ budget.travel }} </td>
+                            <td> {{ budget.upi }} </td>
+                            <td> {{ budget.recharge }} </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary mx-auto" name="delete" type="submit" value="delete">
+                        Delete
+                    </button>
+                </form>
             </div>
         </div>
     </div>

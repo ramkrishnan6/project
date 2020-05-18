@@ -11,7 +11,7 @@ from myapp.models import Transaction, Budget
 
 from mysite.predict import predict
 from mysite.predict import updateDataset
-from mysite.dashboard import calculateTotal
+from mysite.dashboard import calculateTotal, calculateTotalWithRange
 from mysite.dashboard import showBudget
 from mysite.ocr import ocr
 from django.core.files.storage import FileSystemStorage
@@ -76,6 +76,19 @@ def dashboard(request):
     categoryTotal = calculateTotal(request)["categoryTotal"]
     total = calculateTotal(request)["total"]
     isEmpty = all(total == 0 for total in categoryTotal)
+
+    if request.method == "POST":
+        if request.POST.get('setDateRange'):
+            startDate = request.POST.get('startDate')
+            endDate = request.POST.get('endDate')
+            isEmpty = all(total == 0 for total in categoryTotal)
+            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
+            total = calculateTotalWithRange(request, startDate, endDate)['total']
+            return render(request, 'dashboard.html', {
+                'categoryTotal': categoryTotal,
+                'total': total,
+                'isEmpty': isEmpty
+            })
     return render(request, 'dashboard.html', {
         'categoryTotal': categoryTotal,
         'total': total,
@@ -172,11 +185,22 @@ def charts(request):
     budgetList = showBudget(request)
     categoryTotal = calculateTotal(request)["categoryTotal"]
     isEmpty = all(total == 0 for total in categoryTotal)
+
+    if request.method == "POST":
+        if request.POST.get('setDateRange'):
+            startDate = request.POST.get('startDate')
+            endDate = request.POST.get('endDate')
+            budgetList = showBudget(request)
+            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
+            return render(request, 'charts.html', {
+                'categoryTotal': categoryTotal,
+                'isEmpty': isEmpty,
+                'budgetList': budgetList
+            })
     return render(request, 'charts.html', {
         'categoryTotal': categoryTotal,
         'isEmpty': isEmpty,
         'budgetList': budgetList
-
     })
 
 
@@ -279,5 +303,11 @@ class BudgetUpdateView(UserPassesTestMixin, UpdateView):
 
 
 def BudgetPage(request):
+    budget = Budget.objects.filter(user_id=request.user.id)
+    if request.method == "POST":
+        if request.POST.get('delete'):
+            for budget in budget:
+                if request.POST.get("b" + str(budget.id)) == "clicked":
+                    budget.delete()
     budget = Budget.objects.filter(user_id=request.user.id)
     return render(request, 'budget.html', {'budget': budget})
