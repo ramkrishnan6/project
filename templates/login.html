@@ -5,7 +5,7 @@
 <head>
 
     {% if user.is_authenticated %}
-    <meta content="0; url = '/myapp/dashboard' " http-equiv="refresh">
+    <meta content="0; url = 'dashboard' " http-equiv="refresh">
     {% else %}
 
 
@@ -31,7 +31,7 @@
 <!-- TOP NAVBAR -->
 <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark bg-gray-900  fixed-top">
-        <a class="navbar-brand" href="/myapp/">
+        <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static 'images/icons/icon.ico' %}" width="30" height="30" class="d-inline-block align-top"
                  alt="">
             Expense Manager
@@ -64,7 +64,7 @@
                                 <div class="text-center">
                                     <h1 class="h2 text-gray-900 mb-4">Welcome Back</h1>
                                 </div>
-                                <form class="user" action='/myapp/login' method='post'>
+                                <form class="user" action="{% url 'login' %}" method='post'>
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user" name="username"
@@ -82,7 +82,7 @@
                                 </form>
                                 <hr>
                                 <div class="text-center mt-3">
-                                    <a class="small" href="/myapp/register">Don't have an account? Register</a>
+                                    <a class="small" href="{% url 'register' %}">Don't have an account? Register</a>
                                 </div>
                             </div>
                         </div>

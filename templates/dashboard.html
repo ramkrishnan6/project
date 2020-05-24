@@ -5,7 +5,7 @@
 
 {% block navbar_dashboard %}
 <li class="nav-item active">
-    <a class="nav-link" href="/myapp/dashboard">
+    <a class="nav-link" href="{% url 'dashboard' %}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
 </li>
@@ -32,7 +32,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between my-4">
         <h1 class="h3 mb-0 text-gray-800">{{ request.user.first_name }}'s Dashboard</h1>
-        <a href="/myapp/profile">
+        <a href="{% url 'profile' %}">
             <img class="avatar" src="media/{{ user.profile.image }}" alt="Card image" >
         </a>
     </div>
@@ -403,44 +403,47 @@
         <!-- Area Chart -->
         <div class="col-xl-12 col-xs-12">
             {% if isEmpty == False %}
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <div class="mx-auto d-flex">
-                            <form method="post">
-                                {% csrf_token %}
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <input class="form-control btn-user" name="startDate"
-                                                   placeholder="Start Date of Transaction"
-                                                   required type="date">
+            <div class="col-xl-12 col-xs-12">
+                <div class="card shadow d-flex mb-4">
+                    <div class="card-header py-3 flex-row align-items-center justify-content-between">
+                        <div class="mx-auto d-lg-block ">
+                            <div class="row justify-content-between">
+                                <form method="post" class="form-group px-4">
+                                    {% csrf_token %}
+                                    <div class="row d-flex py-2">
+                                        <div class="col align-items-center">
+                                            <div>
+                                                <input class="form-control btn-user" name="startDate"
+                                                       placeholder="Start Date of Transaction"
+                                                       required type="date">
+                                            </div>
+                                        </div>
+                                        <div class="col align-items-center">
+                                            <div>
+                                                <input class="form-control btn-user" name="endDate"
+                                                       placeholder="End Date of Transaction"
+                                                       required type="date">
+                                            </div>
+                                        </div>
+                                        <div class="col align-items-center">
+                                            <button class="btn btn-primary mx-auto" name="setDateRange" type="submit" value="setDateRange">
+                                                Set
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <input class="form-control btn-user" name="endDate"
-                                                   placeholder="End Date of Transaction"
-                                                   required type="date">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <button class="btn btn-primary mx-auto" name="setDateRange" type="submit" value="setDateRange">
-                                            Set
+                                </form>
+                                <form method="get" class="form-group">
+                                    <div class="col py-2 pr-5">
+                                        <button formmethod="get"  class="btn btn-primary btn-block" name="reset" type="submit" value="reset">
+                                            Reset
                                         </button>
                                     </div>
-                                </div>
-                            </form>
-
-                            <form method="get">
-                                <div class="col px-5">
-                                    <button formmethod="get"  class="btn btn-primary mx-auto" name="reset" type="submit" value="reset">
-                                        Reset
-                                    </button>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
             {% endif %}
             {% if isEmpty == False %}
             <div class="card shadow mb-4">
@@ -467,8 +470,8 @@
                 </div>
                 <div class="card-body">
                     <p>You have not recorded any transactions yet. You can
-                        <a href="/myapp/manual">Add Transactions Manually</a> or
-                        <a href="/myapp/bill">Add Transactions from bill.</a>
+                        <a href="{% url 'manual' %}">Add Transactions Manually</a> or
+                        <a href="{% url 'bill' %}">Add Transactions from bill.</a>
                     </p>
                 </div>
             </div>
@@ -503,8 +506,8 @@
                 </div>
                 <div class="card-body">
                     <p>You have not recorded any transactions yet. You can
-                        <a href="/myapp/manual">Add Transactions Manually</a> or
-                        <a href="/myapp/bill">Add Transactions from bill.</a>
+                        <a href="{% url 'manual' %}">Add Transactions Manually</a> or
+                        <a href="{% url 'bill' %}">Add Transactions from bill.</a>
                     </p>
                 </div>
             </div>
@@ -516,14 +519,6 @@
     <!-------------------------------------------------------------------------------------------------------------------------->
 
 </div>
-
-
-<!-- Bootstrap core JavaScript-->
-<script src="{% static 'imp/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'imp/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="{% static 'imp/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
 
 <!-- Page level plugins -->

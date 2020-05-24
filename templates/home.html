@@ -38,7 +38,7 @@
 
 <div class="container-fluid pb-3">
     <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark fixed-top bg-transparent" >
-        <a class="navbar-brand" href="/myapp/">
+        <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static 'images/icons/icon.ico' %}" width="30" height="30" class="d-inline-block align-top"
                  alt="">
             Expense Manager
@@ -106,10 +106,10 @@
 <script type="text/javascript">
     function newPage(num) {
         var url = new Array();
-        url[0] = "/myapp/login";
-        url[1] = "/myapp/register";
-        url[2] = "/myapp/dashboard";
-        url[3] = "/myapp/logout";
+        url[0] = "{% url 'login' %}";
+        url[1] = "{% url 'register' %}";
+        url[2] = "{% url 'dashboard' %}";
+        url[3] = "{% url 'logout' %}";
         window.location = url[num];
         ``
     }

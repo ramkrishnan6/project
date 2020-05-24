@@ -5,27 +5,28 @@ from django.conf.urls.static import static
 from .views import TransactionUpdateView, BudgetUpdateView, BudgetCreateView
 
 urlpatterns = [
-    path('', views.home),
-    path('login', views.logIn),
-    path('register', views.register),
-    path('logout', views.logOut),
+    path('', views.home, name='home'),
+    path('login', views.logIn, name='login'),
+    path('register', views.register, name='register'),
+    path('logout', views.logOut, name='logout'),
 
-    path('dashboard', views.dashboard),
-    path('manual', views.manual),
-    path('transactions', views.transactions),
-    path('charts', views.charts),
-    path('bill', views.bill),
+    path('dashboard', views.dashboard, name='dashboard'),
+    path('manual', views.manual, name='manual'),
+    path('transactions', views.transactions, name='transactions'),
+    path('charts', views.charts, name='charts'),
+    path('bill', views.bill, name='bill'),
     path('transaction/<int:pk>/update', TransactionUpdateView.as_view(), name='transaction-update'),
     path('profile/update', views.ProfileUpdate, name='profile-update'),
 
-    path('predict', views.handlePredict),
-    path('csv', views.csvUpload),
+    path('predict', views.handlePredict, name='predict'),
+    path('csv', views.csvUpload, name='csv'),
     path('validate_username', views.validate_username),
 
-    path('profile', views.profile),
-    path('budget', views.BudgetPage),
+    path('profile', views.profile, name='profile'),
+    path('budget', views.BudgetPage, name='budget'),
     path('budget/<int:pk>/update', BudgetUpdateView.as_view(), name='budget-update'),
     path('budget/create', BudgetCreateView.as_view(), name='budget-create'),
+    path('analysis', views.analysis, name='analysis'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

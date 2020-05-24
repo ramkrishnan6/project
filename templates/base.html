@@ -15,6 +15,8 @@
 
     {% if user.is_authenticated %}
 
+    <link href="{% static 'css/circle.css' %}" rel="stylesheet" type="text/css">
+
     <script src="https://use.fontawesome.com/aea125d216.js"></script>
     <!-- Custom fonts for this template -->
     <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -73,7 +75,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/myapp/">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'home' %}">
             <img src="{% static 'images/icons/icon.ico' %}" width="50">
             <div class="sidebar-brand-text mr-3">Expense Manager</div>
         </a>
@@ -84,7 +86,7 @@
         {% block navbar_dashboard %}
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/myapp/dashboard">
+            <a class="nav-link" href="{% url 'dashboard' %}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -108,9 +110,9 @@
             </a>
             <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/myapp/manual">Add Manually</a>
-                    <a class="collapse-item" href="/myapp/bill">Add Bill</a>
-                    <a class="collapse-item" href="/myapp/csv">Add CSV</a>
+                    <a class="collapse-item" href="{% url 'manual' %}">Add Manually</a>
+                    <a class="collapse-item" href="{% url 'bill' %}">Add Bill</a>
+                    <a class="collapse-item" href="{% url 'csv' %}">Add CSV</a>
                 </div>
             </div>
         </li>
@@ -119,7 +121,7 @@
         {% block navbar_view_transactions %}
         <!--View Transactions -->
         <li class="nav-item">
-            <a class="nav-link" href="/myapp/transactions">
+            <a class="nav-link" href="{% url 'transactions' %}">
                 <i class="fa fa-eye"></i>
                 <span>View Transactions</span></a>
         </li>
@@ -136,12 +138,20 @@
         {% block navbar_Charts %}
         <!-- Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="/myapp/charts">
+            <a class="nav-link" href="{% url 'charts' %}">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Charts</span></a>
         </li>
         {% endblock %}
 
+        {% block navbar_analysis %}
+        <!-- Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'analysis' %}">
+                <i class="fas fa-chart-line"></i>
+                <span>Analysis</span></a>
+        </li>
+        {% endblock %}
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
         <!-- HEADING ACCOUNT -->
@@ -152,7 +162,7 @@
         {% block navbar_profile %}
         <!-- Profile -->
         <li class="nav-item">
-            <a class="nav-link" href="/myapp/profile">
+            <a class="nav-link" href="{% url 'profile' %}">
                 <i class="fa fa-user"></i>
                 <span>Profile</span></a>
         </li>
@@ -162,14 +172,14 @@
         {% block navbar_budget %}
         <!-- Budget -->
         <li class="nav-item">
-            <a class="nav-link" href="/myapp/budget">
+            <a class="nav-link" href="{% url 'budget' %}">
                 <i class="fa fa-calculator"></i>
                 <span>Budget</span></a>
         </li>
         {% endblock %}
         <!-- Log Out -->
         <li class="nav-item">
-            <a class="nav-link" href="/myapp/logout">
+            <a class="nav-link" href="{% url 'logout' %}">
                 <i aria-hidden="true" class="fa fa-sign-out"></i>
                 <span>Log Out</span></a>
         </li>
@@ -236,7 +246,7 @@
 {% else %}
 <h1>You are not signed in!</h1>
 <h2>Kindly sign in, You will be redirected in 5 seconds</h2>
-<meta content="5; url = '/myapp/login' " http-equiv="refresh">
+<meta content="5; url = 'login' " http-equiv="refresh">
 {% endif %}
 
 

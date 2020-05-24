@@ -5,7 +5,7 @@
 {% block navbar_view_transactions %}
 <!--View Transactions -->
 <li class="nav-item active">
-    <a class="nav-link" href="/myapp/transactions">
+    <a class="nav-link" href="{% url 'transactions' %}">
         <i class="fa fa-eye"></i>
         <span>View Transactions</span></a>
 </li>
@@ -42,9 +42,9 @@
                         <tbody>
                         {% for transaction in transactions %}
                         <tr>
-                            <td>  <a href="/myapp/transaction/{{transaction.id}}/update" style="color:gray;">{{ transaction.date }} </a> </td>
-                            <td>  <a href="/myapp/transaction/{{transaction.id}}/update" style="color:gray;">{{ transaction.description }} </a> </td>
-                            <td>  <a href="/myapp/transaction/{{transaction.id}}/update" style="color:gray;">{{ transaction.cost }} </a> </td>
+                            <td>  <a href="/transaction/{{transaction.id}}/update" style="color:gray;">{{ transaction.date }} </a> </td>
+                            <td>  <a href="/transaction/{{transaction.id}}/update" style="color:gray;">{{ transaction.description }} </a> </td>
+                            <td>  <a href="/transaction/{{transaction.id}}/update" style="color:gray;">{{ transaction.cost }} </a> </td>
                             <td>{{ transaction.category }}</td>
                             <td><input name="t{{transaction.id}}" type="checkbox" unchecked
                                        value="clicked"></input></td>

@@ -3,7 +3,7 @@
 
 {% block navbar_budget %}
 <li class="nav-item active">
-    <a class="nav-link" href="/myapp/budget">
+    <a class="nav-link" href="{% url 'budget' %}">
         <i class="fa fa-calculator"></i>
         <span>Budget</span></a>
 </li>
@@ -34,7 +34,7 @@
         <!-- Card Body -->
         <div class="card-body shadow">
             <div class="py-3">
-                <a href="/myapp/budget/create"><button class="btn btn-primary mx-auto" name="delete" type="submit" value="delete">
+                <a href="{% url 'budget-create' %}"><button class="btn btn-primary mx-auto" name="delete" type="submit" value="delete">
                     New Entry
                 </button>
                 </a>
@@ -67,7 +67,7 @@
                         {% for budget in budget %}
                         <tr>
                             <td><input name="b{{budget.id}}" type="checkbox" unchecked value="clicked"></td>
-                            <td>  <a href="/myapp/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.month }} </a> </td>
+                            <td>  <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.month }} </a> </td>
                             <td> {{ budget.automobile }} </td>
                             <td> {{ budget.bank }} </td>
                             <td> {{ budget.cash }} </td>

@@ -5,7 +5,7 @@
 {% block navbar_Charts %}
 <!-- Charts -->
 <li class="nav-item active">
-    <a class="nav-link" href="/myapp/charts">
+    <a class="nav-link" href="{% url 'charts' %}">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Charts</span></a>
 </li>
@@ -23,44 +23,44 @@
         <!-- Area Chart -->
         <div class="col-xl-12 col-xs-12">
             {% if isEmpty == False %}
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <div class="mx-auto d-flex">
-                            <form method="post">
-                                {% csrf_token %}
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <input class="form-control btn-user" name="startDate"
-                                                   placeholder="Start Date of Transaction"
-                                                   required type="date">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <input class="form-control btn-user" name="endDate"
-                                                   placeholder="End Date of Transaction"
-                                                   required type="date">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <button class="btn btn-primary mx-auto" name="setDateRange" type="submit" value="setDateRange">
-                                            Set
-                                        </button>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <div class="mx-auto d-flex">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input class="form-control btn-user" name="startDate"
+                                               placeholder="Start Date of Transaction"
+                                               required type="date">
                                     </div>
                                 </div>
-                            </form>
-
-                            <form method="get">
-                                <div class="col px-5">
-                                    <button formmethod="get"  class="btn btn-primary mx-auto" name="reset" type="submit" value="reset">
-                                        Reset
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input class="form-control btn-user" name="endDate"
+                                               placeholder="End Date of Transaction"
+                                               required type="date">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary mx-auto" name="setDateRange" type="submit" value="setDateRange">
+                                        Set
                                     </button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
+
+                        <form method="get">
+                            <div class="col px-5">
+                                <button formmethod="get"  class="btn btn-primary mx-auto" name="reset" type="submit" value="reset">
+                                    Reset
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
+            </div>
             {% endif %}
             {% if isEmpty == False %}
             <div class="card shadow mb-4">
@@ -87,8 +87,8 @@
                 </div>
                 <div class="card-body">
                     <p>You have not recorded any transactions yet. You can
-                        <a href="/myapp/manual">Add Transactions Manually</a> or
-                        <a href="/myapp/bill">Add Transactions from bill.</a>
+                        <a href="{% url 'manual' %}">Add Transactions Manually</a> or
+                        <a href="{% url 'bill' %}">Add Transactions from bill.</a>
                     </p>
                 </div>
             </div>
@@ -122,8 +122,8 @@
                 </div>
                 <div class="card-body">
                     <p>You have not recorded any transactions yet. You can
-                        <a href="/myapp/manual">Add Transactions Manually</a> or
-                        <a href="/myapp/bill">Add Transactions from bill.</a>
+                        <a href="{% url 'manual' %}">Add Transactions Manually</a> or
+                        <a href="{% url 'bill' %}">Add Transactions from bill.</a>
                     </p>
                 </div>
             </div>
@@ -173,20 +173,20 @@
 
           ],
           backgroundColor: [
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
-              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
 
           ],
           borderWidth: 3

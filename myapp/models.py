@@ -64,7 +64,6 @@ class Budget(models.Model):
         ('Oct', 'Oct'),
         ('Nov', 'Nov'),
         ('Dec', 'Dec'),
-        ('None', 'None'),
     ]
     month = models.CharField(
         max_length=30,

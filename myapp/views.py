@@ -1,6 +1,7 @@
 import csv
 import io
 import os
+from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -11,7 +12,7 @@ from myapp.models import Transaction, Budget
 
 from mysite.predict import predict
 from mysite.predict import updateDataset
-from mysite.dashboard import calculateTotal, calculateTotalWithRange
+from mysite.dashboard import calculateTotal, calculateTotalWithRange, getDate, getFraction, calculateMonthlyTotal
 from mysite.dashboard import showBudget
 from mysite.ocr import ocr
 from django.core.files.storage import FileSystemStorage
@@ -33,10 +34,10 @@ def logIn(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Successfully Logged in")
-            return redirect('/myapp/dashboard')
+            return redirect('/dashboard')
         else:
             messages.error(request, "Invalid credentials, please try again!")
-            return redirect('/myapp/login')
+            return redirect('/login')
     else:
         return render(request, 'login.html')
 
@@ -53,7 +54,7 @@ def register(request):
         user.first_name = firstName
         user.last_name = lastName
         user.save()
-        return redirect('/myapp/login')
+        return redirect('/login')
     else:
         return render(request, 'register.html')
 
@@ -69,7 +70,7 @@ def validate_username(request):
 def logOut(request):
     logout(request)
     messages.success(request, "Successfully Logged out")
-    return redirect('/myapp/')
+    return redirect('/')
 
 
 def dashboard(request):
@@ -122,7 +123,7 @@ def manual(request):
             updateDataset(description, category)
             transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
             transaction.save()
-            return redirect("/myapp/dashboard")
+            return redirect("/dashboard")
 
     if request.POST.get('confirmCategory'):
         user = request.user
@@ -133,7 +134,7 @@ def manual(request):
         updateDataset(description, category)
         transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
         transaction.save()
-        return redirect("/myapp/dashboard")
+        return redirect("/dashboard")
 
 
 def handlePredict(request):
@@ -181,8 +182,6 @@ def transactions(request):
 
 
 def charts(request):
-
-    budgetList = showBudget(request)
     categoryTotal = calculateTotal(request)["categoryTotal"]
     isEmpty = all(total == 0 for total in categoryTotal)
 
@@ -190,17 +189,15 @@ def charts(request):
         if request.POST.get('setDateRange'):
             startDate = request.POST.get('startDate')
             endDate = request.POST.get('endDate')
-            budgetList = showBudget(request)
+
             categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
             return render(request, 'charts.html', {
                 'categoryTotal': categoryTotal,
                 'isEmpty': isEmpty,
-                'budgetList': budgetList
             })
     return render(request, 'charts.html', {
         'categoryTotal': categoryTotal,
         'isEmpty': isEmpty,
-        'budgetList': budgetList
     })
 
 
@@ -235,13 +232,13 @@ def bill(request):
             transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
             transaction.save()
             updateDataset(description, category)
-            return redirect("/myapp/dashboard")
+            return redirect("/dashboard")
 
 
 class TransactionUpdateView(UserPassesTestMixin, UpdateView):
     model = Transaction
     fields = ['date', 'description', 'cost']
-    success_url = '/myapp/transactions'
+    success_url = '/transactions'
 
     def test_func(self):
         transaction = self.get_object()
@@ -265,7 +262,7 @@ def ProfileUpdate(request):
             user_update_form.save()
             profile_update_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('/myapp/profile')
+            return redirect('/profile')
     else:
         user_update_form = UserUpdateForm(instance=request.user)
         profile_update_form = ProfileUpdateForm(instance=request.user.profile)
@@ -281,7 +278,7 @@ class BudgetCreateView(CreateView):
     model = Budget
     fields = ['automobile', 'bank', 'cash', 'education', 'entertainment', 'fine', 'food',
               'health', 'other', 'paytm', 'recharge', 'shopping', 'travel', 'upi', 'month']
-    success_url = '/myapp/budget'
+    success_url = '/budget'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -293,7 +290,7 @@ class BudgetUpdateView(UserPassesTestMixin, UpdateView):
     fields = ['automobile', 'bank', 'cash', 'education', 'entertainment', 'fine', 'food',
               'health', 'other', 'paytm', 'recharge', 'shopping', 'travel', 'upi', 'month']
     template_name = 'budget_update.html'
-    success_url = '/myapp/budget'
+    success_url = '/budget'
 
     def test_func(self):
         budget = self.get_object()
@@ -311,3 +308,83 @@ def BudgetPage(request):
                     budget.delete()
     budget = Budget.objects.filter(user_id=request.user.id)
     return render(request, 'budget.html', {'budget': budget})
+
+
+def analysis(request):
+    month = datetime.now().month
+    year = datetime.now().year
+    buffer = getDate(month, year)
+
+    startDate = buffer['startDate']
+    endDate = buffer['endDate']
+    charMonth = buffer['charMonth']
+
+    buffer = showBudget(request, charMonth)
+    budgetList = buffer['budgetList']
+
+    categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
+    buffer = getFraction(categoryTotal, budgetList, 0)
+    progress = buffer["list_z"]
+    colour = buffer["colour"]
+
+    buffer = calculateMonthlyTotal(request, year)
+    monthlyTotal = buffer['monthlyTotal']
+    monthlyColour = buffer['colour']
+    budgetTotalList = buffer['budgetTotalList']
+    monthlyTotalPercentage = buffer['monthlyTotalPercentage']
+
+    isEmpty = all(total == 0 for total in categoryTotal)
+
+    if request.method == "POST":
+        if request.POST.get('setDateRange'):
+            month = request.POST.get('month')
+            year = request.POST.get('year')
+            buffer = getDate(month, year)
+
+
+            startDate = buffer['startDate']
+            endDate = buffer['endDate']
+            charMonth = buffer['charMonth']
+
+            buffer = showBudget(request, charMonth)  # buffer-2
+            budgetList = buffer['budgetList']
+
+            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
+            buffer = getFraction(categoryTotal, budgetList, 0)  # buffer-3
+            progress = buffer["list_z"]
+            colour = buffer["colour"]
+
+            buffer = calculateMonthlyTotal(request, year)  # buffer-4
+            monthlyTotal = buffer['monthlyTotal']
+            monthlyColour = buffer['colour']
+            budgetTotalList = buffer['budgetTotalList']
+            monthlyTotalPercentage = buffer['monthlyTotalPercentage']
+
+            isEmpty = all(total == 0 for total in categoryTotal)
+
+            return render(request, 'analysis.html', {
+                'categoryTotal': categoryTotal,
+                'isEmpty': isEmpty,
+                'budgetList': budgetList,
+                'charMonth': charMonth,
+                'year': year,
+                'progress': progress,
+                'colour': colour,
+                'monthlyTotal': monthlyTotal,
+                'monthlyColour': monthlyColour,
+                'budgetTotalList': budgetTotalList,
+                'monthlyTotalPercentage': monthlyTotalPercentage
+            })
+    return render(request, 'analysis.html', {
+        'categoryTotal': categoryTotal,
+        'isEmpty': isEmpty,
+        'budgetList': budgetList,
+        'charMonth': charMonth,
+        'year': year,
+        'progress': progress,
+        'colour': colour,
+        'monthlyTotal': monthlyTotal,
+        'monthlyColour': monthlyColour,
+        'budgetTotalList': budgetTotalList,
+        'monthlyTotalPercentage': monthlyTotalPercentage
+    })
