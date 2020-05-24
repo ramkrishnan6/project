@@ -3,6 +3,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import TransactionUpdateView, BudgetUpdateView, BudgetCreateView
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -26,7 +27,18 @@ urlpatterns = [
     path('budget', views.BudgetPage, name='budget'),
     path('budget/<int:pk>/update', BudgetUpdateView.as_view(), name='budget-update'),
     path('budget/create', BudgetCreateView.as_view(), name='budget-create'),
+
     path('analysis', views.analysis, name='analysis'),
+
+    path('reset-password', auth_views.PasswordResetView.as_view(
+        template_name='reset-password/reset_password.html'), name='reset_password'),
+    path('reset-password-sent', auth_views.PasswordResetDoneView.as_view(
+        template_name='reset-password/reset_password_sent.html'), name='password_reset_done'),
+    path('reset-password/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
+        template_name='reset-password/reset_password_confirm.html'), name='password_reset_confirm'),
+    path('reset-password-done', auth_views.PasswordResetCompleteView.as_view(
+        template_name='reset-password/reset_password_done.html'), name='password_reset_complete')
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
