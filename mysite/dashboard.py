@@ -46,7 +46,6 @@ def showBudget(request, month):
     for index, x in enumerate(budgetValues):
         budgetList = [x.automobile, x.bank, x.cash, x.education, x.entertainment, x.fine, x.food,
                       x.health, x.other, x.paytm, x.recharge, x.shopping, x.travel, x.upi]
-
     budgetTotal = (x.automobile + x.bank + x.cash + x.education + x.entertainment + x.fine + x.food + x.health + x.other + x.paytm + x.recharge + x.shopping + x.travel + x.upi)
     budgetTotal = int(budgetTotal)
 

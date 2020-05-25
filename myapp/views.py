@@ -54,6 +54,11 @@ def register(request):
         user.first_name = firstName
         user.last_name = lastName
         user.save()
+
+        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        for month in months:
+            budget = Budget(user=user, month=month)
+            budget.save()
         return redirect('/login')
     else:
         return render(request, 'register.html')
@@ -63,6 +68,14 @@ def validate_username(request):
     username = request.GET.get('username', None).replace(" ", "")
     data = {
         'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    return JsonResponse(data)
+
+
+def validate_email(request):
+    email = request.GET.get('email', None).replace(" ", "")
+    data = {
+        'is_taken': User.objects.filter(email__iexact=email).exists()
     }
     return JsonResponse(data)
 
@@ -216,8 +229,6 @@ def bill(request):
             file_name = os.path.basename(file)
             transaction = ocr(file_name)
             category = predict(transaction[1])[0]
-            # transaction = ['2019-05-07', "petrol", 700]
-            # category = "Travel"
             showBillCard = False
             return render(request, 'bill.html',
                           {"transaction": transaction, "category": category, "showBillCard": showBillCard}
@@ -248,10 +259,8 @@ class TransactionUpdateView(UserPassesTestMixin, UpdateView):
 
 
 def profile(request):
-    if request.method == "GET":
-        img = User.objects.filter(id=request.user.id).first()
-        return render(request, 'profile.html', {'img': img})
-    return render(request, 'profile.html')
+    img = User.objects.filter(id=request.user.id).first()
+    return render(request, 'profile.html', {'img': img})
 
 
 def ProfileUpdate(request):
@@ -301,12 +310,6 @@ class BudgetUpdateView(UserPassesTestMixin, UpdateView):
 
 def BudgetPage(request):
     budget = Budget.objects.filter(user_id=request.user.id)
-    if request.method == "POST":
-        if request.POST.get('delete'):
-            for budget in budget:
-                if request.POST.get("b" + str(budget.id)) == "clicked":
-                    budget.delete()
-    budget = Budget.objects.filter(user_id=request.user.id)
     return render(request, 'budget.html', {'budget': budget})
 
 
@@ -341,20 +344,19 @@ def analysis(request):
             year = request.POST.get('year')
             buffer = getDate(month, year)
 
-
             startDate = buffer['startDate']
             endDate = buffer['endDate']
             charMonth = buffer['charMonth']
 
-            buffer = showBudget(request, charMonth)  # buffer-2
+            buffer = showBudget(request, charMonth)
             budgetList = buffer['budgetList']
 
             categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
-            buffer = getFraction(categoryTotal, budgetList, 0)  # buffer-3
+            buffer = getFraction(categoryTotal, budgetList, 0)
             progress = buffer["list_z"]
             colour = buffer["colour"]
 
-            buffer = calculateMonthlyTotal(request, year)  # buffer-4
+            buffer = calculateMonthlyTotal(request, year)
             monthlyTotal = buffer['monthlyTotal']
             monthlyColour = buffer['colour']
             budgetTotalList = buffer['budgetTotalList']

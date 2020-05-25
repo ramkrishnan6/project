@@ -68,11 +68,11 @@ class Budget(models.Model):
     month = models.CharField(
         max_length=30,
         choices=months,
-        default='None',
+        default='Jan',
     )
 
     def __str__(self):
-        return "{} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {}".format(
+        return "{} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {} - {}".format(
             self.user, self.automobile, self.bank, self.cash, self.education, self.entertainment,
             self.fine, self.food, self.health, self.other, self.paytm, self.recharge, self.shopping,
             self.travel, self.upi, self.month)
