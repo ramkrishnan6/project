@@ -22,6 +22,7 @@ urlpatterns = [
     path('predict', views.handlePredict, name='predict'),
     path('csv', views.csvUpload, name='csv'),
     path('validate_username', views.validate_username),
+    path('validate_email', views.validate_email),
 
     path('profile', views.profile, name='profile'),
     path('budget', views.BudgetPage, name='budget'),

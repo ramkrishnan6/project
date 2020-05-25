@@ -71,7 +71,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control form-control-user" name="email" placeholder="Email Address"
+                                        <input class="form-control form-control-user" id="id_email" name="email" placeholder="Email Address"
                                                required type="email">
                                     </div>
                                     <div class="form-group row">
@@ -128,6 +128,29 @@
           if (data.is_taken) {
               swal({
                  text: "A user with this username already exists.\nPlease try again with a different username.",
+                 icon: "warning",
+                });
+          }
+        }
+      });
+
+    });
+
+</script>
+<script>
+    $("#id_email").change(function () {
+      var email = $(this).val();
+
+      $.ajax({
+        url: '/validate_email',
+        data: {
+          'email': email
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+              swal({
+                 text: "A user with this email id already exists.\nPlease try again with a different email id.",
                  icon: "warning",
                 });
           }
