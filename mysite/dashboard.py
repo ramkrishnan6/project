@@ -2,6 +2,7 @@ from myapp.models import Transaction
 from myapp.models import Budget
 
 
+# get total of each category and the total of all categories of ALL TRANSACTIONS
 def calculateTotal(request):
     categories = ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
                   "Food", "Health Care", "Other", "Paytm", "Recharge", "Shopping", "Travel", "UPI"]
@@ -20,6 +21,7 @@ def calculateTotal(request):
     }
 
 
+# get total of each category and the total of all categories of transactions in a given range of days
 def calculateTotalWithRange(request, startDate, endDate):
     categories = ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
                   "Food", "Health Care", "Other", "Paytm", "Recharge", "Shopping", "Travel", "UPI"]
@@ -39,6 +41,7 @@ def calculateTotalWithRange(request, startDate, endDate):
     }
 
 
+# get budget value and total of the values of a particular month
 def showBudget(request, month):
     budgetValues = Budget.objects.filter(user_id=request.user.id, month=month)
     budgetList = [0] * 14
@@ -52,6 +55,8 @@ def showBudget(request, month):
     return {'budgetList': budgetList, 'budgetTotal': budgetTotal}
 
 
+# get MONTH-WISE total of each category of TRANSACTIONS, corresponding BUDGET VALUE, COLOUR (in terms of bootstrap),
+# and percentage of a given year
 def calculateMonthlyTotal(request, year):
     months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     monthlyTotal = [0] * 12
@@ -69,13 +74,13 @@ def calculateMonthlyTotal(request, year):
 
     buffer = getFraction(monthlyTotal, budgetTotalList, 1)
     colour = buffer['colour']
-
     monthlyTotalPercentage = buffer['list_z']
 
     return {'monthlyTotal': monthlyTotal, 'colour': colour, 'budgetTotalList': budgetTotalList,
             'monthlyTotalPercentage': monthlyTotalPercentage}
 
 
+# get start date and end date of given month and year
 def getDate(month, year):
     startDate = ''
     endDate = ''
@@ -137,6 +142,7 @@ def getDate(month, year):
     }
 
 
+# get percentage values and colour  of given two lists
 def getFraction(list_x, list_y, purpose):
     size = len(list_x)
     list_z = [0] * size

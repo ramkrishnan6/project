@@ -12,7 +12,8 @@ from myapp.models import Transaction, Budget
 
 from mysite.predict import predict
 from mysite.predict import updateDataset
-from mysite.dashboard import calculateTotal, calculateTotalWithRange, getDate, getFraction, calculateMonthlyTotal
+from mysite.dashboard import calculateTotal, calculateTotalWithRange, getDate, getFraction, calculateMonthlyTotal, \
+    summarize
 from mysite.dashboard import showBudget
 from mysite.ocr import ocr
 from django.core.files.storage import FileSystemStorage
@@ -314,17 +315,18 @@ def BudgetPage(request):
 
 
 def analysis(request):
+    # get current month, year
     month = datetime.now().month
     year = datetime.now().year
     buffer = getDate(month, year)
-
+    # convert month to a range and in character format
     startDate = buffer['startDate']
     endDate = buffer['endDate']
     charMonth = buffer['charMonth']
-
+    # get budget values for the current month
     buffer = showBudget(request, charMonth)
     budgetList = buffer['budgetList']
-
+    # get total, colour of categories from transactions for the current month
     categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
     buffer = getFraction(categoryTotal, budgetList, 0)
     progress = buffer["list_z"]
@@ -388,5 +390,5 @@ def analysis(request):
         'monthlyTotal': monthlyTotal,
         'monthlyColour': monthlyColour,
         'budgetTotalList': budgetTotalList,
-        'monthlyTotalPercentage': monthlyTotalPercentage
+        'monthlyTotalPercentage': monthlyTotalPercentage,
     })

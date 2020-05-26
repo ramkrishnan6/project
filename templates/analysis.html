@@ -346,9 +346,11 @@
                     <div class="row">
                         <div class="col">
                             <div class="mx-auto d-flex">
+                                <!-- Setting of Month and Year Picker-->
                                 <form method="post">
                                     {% csrf_token %}
                                     <div class="row">
+                                        <!-- Month Picker-->
                                         <div class="col">
                                             <div class="form-group">
                                                 <div class="dropdown">
@@ -370,6 +372,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- Year Picker-->
                                         <div class="col">
                                             <div class="form-group">
                                                 <div class="dropdown">
@@ -389,6 +392,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- Set Button for Month and Year Picker-->
                                         <div class="col">
                                             <button class="btn btn-primary mx-auto" name="setDateRange"
                                                     type="submit" value="setDateRange">
@@ -397,6 +401,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                <!-- Re-setting of Month and Year Picker-->
                                 <form method="get">
                                     <div class="col px-5">
                                         <button class="btn btn-primary mx-auto" formmethod="get" name="reset"
