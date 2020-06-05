@@ -159,7 +159,13 @@
     .prog{ margin-bottom: 20px; }
 }
 
+    @media (max-width: 1499px) { /*For laptops*/
+        .large {height: 35rem;}
+    }
 
+    @media (min-width: 1500px) { /*For large monitors*/
+        .large {height: 55rem;}
+    }
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -178,7 +184,7 @@
                 <div class="row">
 
                     <!-- default -->
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Jan</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.0 }} {{ monthlyColour.0 }}">
@@ -191,7 +197,7 @@
                             <h6>₹{{ monthlyTotal.0 }} / ₹{{ budgetTotalList.0 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Feb</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.1 }} {{ monthlyColour.1 }}">
@@ -204,7 +210,7 @@
                             <h6>₹{{ monthlyTotal.1 }} / ₹{{ budgetTotalList.1 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Mar</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.2 }} {{ monthlyColour.2 }}">
@@ -217,7 +223,7 @@
                             <h6>₹{{ monthlyTotal.2 }} / ₹{{ budgetTotalList.2 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Apr</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.3 }} {{ monthlyColour.3 }}">
@@ -230,7 +236,7 @@
                             <h6>₹{{ monthlyTotal.3 }} / ₹{{ budgetTotalList.3 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>May</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.4 }} {{ monthlyColour.4 }}">
@@ -243,7 +249,7 @@
                             <h6>₹{{ monthlyTotal.4 }} / ₹{{ budgetTotalList.4 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Jun</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.5 }} {{ monthlyColour.5 }}">
@@ -256,7 +262,7 @@
                             <h6>₹{{ monthlyTotal.5 }} / ₹{{ budgetTotalList.5 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Jul</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.6 }} {{ monthlyColour.6 }}">
@@ -269,7 +275,7 @@
                             <h6>₹{{ monthlyTotal.6 }} / ₹{{ budgetTotalList.6 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Aug</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.7 }} {{ monthlyColour.7 }}">
@@ -282,7 +288,7 @@
                             <h6>₹{{ monthlyTotal.7 }} / ₹{{ budgetTotalList.7 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Sep</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.8 }} {{ monthlyColour.8 }}">
@@ -295,7 +301,7 @@
                             <h6>₹{{ monthlyTotal.8 }} / ₹{{ budgetTotalList.8 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Oct</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.9 }} {{ monthlyColour.9 }}">
@@ -308,7 +314,7 @@
                             <h6>₹{{ monthlyTotal.9 }} / ₹{{ budgetTotalList.9 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Nov</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.10 }} {{ monthlyColour.10 }}">
@@ -321,7 +327,7 @@
                             <h6>₹{{ monthlyTotal.10 }} / ₹{{ budgetTotalList.10 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Dec</h5>
                             <div class="c100 p{{ monthlyTotalPercentage.11 }} {{ monthlyColour.11 }}">
@@ -433,15 +439,15 @@
             </div>
             <!--Card: Display Chart Laptop-->
             <!-- Card Body -->
-            <div class="card-body mb-5 d-none d-lg-block" style="height: 35rem;">
+            <div class="card-body mb-5 d-none d-xl-block large">
                 <div class="chart-pie pt-4 pb-2 ">
-                    <canvas id="barChart"></canvas>
+                    <canvas id="lineChart"></canvas>
                 </div>
             </div>
             <!--Card: Display Chart Mobile-->
             <div class="card-body mb-5 d-xl-none" style="height: 16rem;">
                 <div class="chart-pie pt-4 pb-2 ">
-                    <canvas id="barChartPhone"></canvas>
+                    <canvas id="lineChartPhone"></canvas>
                 </div>
             </div>
         </div>
@@ -469,7 +475,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-xs-12 col-md-6">
                         <div class="pb-4">
                             <h6> Automobile - {{ categoryTotal.0 }} / {{ budgetList.0 }}</h6>
                             <div class="progress" style="height: 20px;">
@@ -541,7 +547,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-xs-12 col-md-6">
                         <div class="pb-4">
                             <h6> Health care - {{ categoryTotal.7 }} / {{ budgetList.7 }}</h6>
                             <div class="progress" style="height: 20px;">
@@ -636,7 +642,7 @@
 var data1 = {{ categoryTotal }};
 var data2 = {{ budgetList }};
 
-var barChart = document.getElementById('barChart').getContext('2d');
+var barChart = document.getElementById('lineChart').getContext('2d');
 var mixedChart = new Chart(barChart, {
     type: 'line',
     data: {
@@ -659,16 +665,41 @@ var mixedChart = new Chart(barChart, {
                   "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"]
     },
     options: {
-    layout: {
-            padding: {
-                left: 50,
-                right: 0,
-                top: 0,
-                bottom: 0
-            }
-
-             }
+    maintainAspectRatio: true,
         }
 });
+</script>
+
+
+<script>
+    var data1 = {{ categoryTotal }};
+    var data2 = {{ budgetList }};
+
+    var barChart = document.getElementById('lineChartPhone').getContext('2d');
+    var mixedChart = new Chart(barChart, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Your Expenditure ',
+                data: data1,
+                backgroundColor: 'rgb(255 , 255, 0, 0)',
+                borderColor: 'rgb(0, 255, 0, 0.5)',
+
+
+            }, {
+                label: 'Your Budget',
+                data: data2,
+                backgroundColor: 'rgb(0, 255, 0, 0)',
+                borderColor: 'rgb(255, 0, 0, 1)',
+
+            }],
+            fill: false,
+            labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"]
+        },
+        options: {
+            maintainAspectRatio: false,
+        }
+    });
 </script>
 {% endblock %}
