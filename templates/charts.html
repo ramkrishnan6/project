@@ -69,7 +69,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">AREA CHART</h6>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body mb-5 d-none d-lg-block" style="height: 35rem;">
+                <div class="card-body mb-5 d-none d-xl-block large">
                     <div class="chart-pie pt-4 pb-2 ">
                         <canvas id="areaChart"></canvas>
                     </div>
@@ -95,6 +95,15 @@
             {% endif %}
         </div>
 
+        <style>
+            @media (max-width: 1499px) { /*For laptops*/
+                .large {height: 35rem;}
+            }
+
+            @media (min-width: 1500px) { /*For large monitors*/
+                .large {height: 55rem;}
+            }
+        </style>
         <!-- Donut Chart -->
         <div class="col-xl-12 col-xs-12">
             {% if isEmpty == False %}
@@ -104,7 +113,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body mb-5 d-none d-lg-block" style="height: 35rem;">
+                <div class="card-body mb-5 d-none d-xl-block large">
                     <div class="chart-pie pt-4 pb-2 ">
                         <canvas id="donutChart"></canvas>
                     </div>
