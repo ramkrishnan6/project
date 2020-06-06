@@ -14,4 +14,3 @@ veryfi==0.0.4
 requests==2.23.0
 django-crispy-forms==1.9.0
 Pillow==7.1.1
-whitenoise==5.1.0
