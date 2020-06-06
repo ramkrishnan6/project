@@ -6,6 +6,7 @@ from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.core import mail
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from myapp.models import Transaction, Budget
@@ -19,6 +20,8 @@ from django.core.files.storage import FileSystemStorage
 from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from .forms import UserUpdateForm, ProfileUpdateForm
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 
 def home(request):
@@ -54,6 +57,7 @@ def register(request):
         user.first_name = firstName
         user.last_name = lastName
         user.save()
+        welcomeMail(user, username, password)
 
         months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         for month in months:
@@ -390,3 +394,19 @@ def analysis(request):
         'budgetTotalList': budgetTotalList,
         'monthlyTotalPercentage': monthlyTotalPercentage
     })
+
+
+def welcomeMail(user, username, password):
+    firstName = user.first_name
+    lastName = user.last_name
+    email = user.email
+    subject = 'Welcome to Expense Manager'
+    html_message = render_to_string('welcome-mail.html', {'username': username, 'firstName': firstName,
+                                                          'lastName': lastName, 'password': password,
+                                                          'email': email
+                                                          })
+    plain_message = strip_tags(html_message)
+    from_email = 'Expense Manager <checkproject55@gmail.com>'
+    to = user.email
+
+    mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
