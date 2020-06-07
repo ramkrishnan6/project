@@ -70,6 +70,15 @@
 
 			.content-spacing { width: 15px !important; }
 		}
+
+    @media (max-width: 450px) { /*For phones*/
+        .emailHeader { font-size:35px; }
+    }
+
+	@media (min-width: 451px) { /*For laptop and above*/
+        .emailHeader { font-size:45px; }
+    }
+
 	</style>
 </head>
 <body class="body" style="padding:0 !important; margin:0 !important; display:block !important; min-width:100% !important; width:100% !important; background:#001736; -webkit-text-size-adjust:none;">
@@ -88,7 +97,7 @@
 												<th class="column-top" width="145" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;">
 													<table width="100%" border="0" cellspacing="0" cellpadding="0">
 														<tr>
-															<td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left;"><img src="http://www.expensemanager.xyz/static/images/icons/icon.ico" width="70" height="70" editable="true" border="0" alt="" /></td>
+															<td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left;"><img src="http://13.126.22.81/static/images/icons/icon.ico" width="70" height="70" editable="true" border="0" alt="" /></td>
 														</tr>
 													</table>
 												</th>
@@ -96,7 +105,7 @@
 												<th class="column" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
 													<table width="100%" border="0" cellspacing="0" cellpadding="0">
 														<tr>
-															<td class="text-header" style="color:#475c77; font-family:'Muli', Arial,sans-serif; font-size:40px; line-height:16px; text-align:center;"><multiline><webversion class="link2" style="color:#475c77; text-decoration:none;">Expense Manager</webversion></multiline></td>
+															<td class="text-header emailHeader" style="color:#475c77; font-family:'Muli', Arial,sans-serif; line-height:16px; text-align:center;"><multiline><webversion class="link2" style="color:#475c77; text-decoration:none;">Expense Manager</webversion></multiline></td>
 														</tr>
 													</table>
 												</th>
