@@ -58,6 +58,7 @@ def register(request):
         user.last_name = lastName
         user.save()
         welcomeMail(user, username, password)
+        notifyAdmin(user, username)
 
         months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         for month in months:
@@ -410,3 +411,18 @@ def welcomeMail(user, username, password):
     to = user.email
 
     mail.send_mail(subject, plain_message, from_email, [to], html_message=html_message)
+
+
+def notifyAdmin(user, username):
+    firstName = user.first_name
+    lastName = user.last_name
+    email = user.email
+    subject = 'New User Notification'
+    html_message = render_to_string('notify-new-user.html', {'username': username, 'firstName': firstName,
+                                                             'lastName': lastName, 'email': email
+                                                             })
+    plain_message = strip_tags(html_message)
+    from_email = 'Expense Manager <checkproject55@gmail.com>'
+    to = ['ramkrishnan@live.com', 'anurag_mandal@ymail.com']
+
+    mail.send_mail(subject, plain_message, from_email, to, html_message=html_message)
