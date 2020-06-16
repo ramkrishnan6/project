@@ -3,6 +3,10 @@
 <html lang="en">
 <head>
 
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169214518-1"></script>
     <script>
@@ -17,7 +21,8 @@
         gtag('config', 'UA-169214518-1');
     </script>
 
-    <script data-ad-client="ca-pub-6290075272232383" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script data-ad-client="ca-pub-6290075272232383" async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
     <!-- Required meta tags -->
     <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
@@ -67,7 +72,10 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#section1"> Our Team <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#team"> Our Team <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#tech"> Tech Stack <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             {% if user.is_authenticated %}
@@ -136,7 +144,9 @@
     <h1><span id="typed1"></span></h1>
 </div>
 <div class="container">
-
+    <br>
+    <br>
+    <br>
     <div id="carouselExampleIndicators" class="carousel slide md-2" data-ride="carousel" data-interval="4000">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -166,50 +176,6 @@
 
 </div>
 
-<div class="pb-2" id="section1"></div>
-<div class="container-fluid mt-1 text-gray-100">
-    <h1>Our Team</h1>
-</div>
-
-<div class="card-deck mx-1 container-fluid row">
-    <div class="card col-xs-4 border-dark">
-        <img src="{% static 'images/abhiraj.png' %}" class="card-img-top img-fluid rounded"
-             style="width: 100%; height: auto">
-        <div class="card-body">
-            <h2 class="card-title text-gray-900"> Abhiraj Kale</h2>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">Final year engineering student</small>
-        </div>
-    </div>
-    <div class="card col-xs-4 border-dark">
-        <img src="{% static 'images/anurag.png' %}" class="card-img-top img-fluid rounded"
-             style="width: 100%; height: auto">
-        <div class="card-body">
-            <h2 class="card-title text-gray-900">Anurag Mandal</h2>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">Final year engineering student</small>
-        </div>
-    </div>
-    <div class="card col-xs-4 border-dark">
-        <img src="{% static 'images/ram.png' %}" class="card-img-top img-fluid rounded"
-             style="width: 100%; height: auto">
-        <div class="card-body">
-            <h2 class="card-title text-gray-900">Ram Krishnan</h2>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">Final year engineering student</small>
-        </div>
-    </div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
 <!-- Typed.js DONT TOUCH THIS! -->
 <div id="typed-strings">
 </div>
@@ -226,6 +192,278 @@
 
     });
 </script>
+
+
+<!-- TECHNOLOGY STACK USED-->
+
+<section class="our-webcoderskull padding-lg" id="tech">
+    <div class="container-fluid">
+        <div class="row heading heading-icon mt-1">
+            <h2>Technology Stack</h2>
+        </div>
+
+        <div class="container-fluid">
+            <!--Grid row-->
+            <div class="row text-center">
+                <!--Grid column-->
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/python.png' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>Python</h3></figcaption>
+                </div>
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/django.png' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>Django</h3></figcaption>
+
+                </div>
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/html.png' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>HTML</h3></figcaption>
+                </div>
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/css.svg' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>CSS</h3></figcaption>
+                </div>
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/js.svg' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>Javascript</h3></figcaption>
+                </div>
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/bootstrap.png' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>Bootstrap</h3></figcaption>
+                </div>
+
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/apache.png' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>Apache2</h3></figcaption>
+                </div>
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/aws1.svg' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>AWS EC2</h3></figcaption>
+                </div>
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/aws2.svg' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>AWS Route 53</h3></figcaption>
+                </div>
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/sqlite.svg' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>SQL</h3></figcaption>
+                </div>
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/github.png' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>GitHub</h3></figcaption>
+                </div>
+                <div class="col-md-3 col-lg-2 mb-4">
+                    <img class="rounded-circle tech" alt="100x100"
+                         src="{% static 'images/pycharm.png' %}"
+                         data-holder-rendered="true">
+                    <figcaption class="figure-caption"> <h3>PyCharm</h3></figcaption>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- OUR TEAM -->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<section class="our-webcoderskull padding-lg" id="team">
+    <div class="container">
+        <div class="row heading heading-icon">
+            <h2>Our Team</h2>
+        </div>
+        <ul class="row">
+            <li class="col-12 col-md-6 col-lg-3 ml-auto">
+                <div class="cnt-block equal-height" style="height: 349px;">
+                    <figure><img src="{% static 'images/ram.png' %}" class="img-responsive" alt=""></figure>
+                    <h3><a href="https://www.linkedin.com/in/ramkrishnan6/" target="_blank">Ram Krishnan </a></h3>
+                    <p>Final year engineering student</p>
+                    <ul class="follow-us clearfix">
+                        <li><a href="https://www.linkedin.com/in/ramkrishnan6/" target="_blank"><i
+                                class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="col-12 col-md-6 col-lg-3 mr-auto">
+                <div class="cnt-block equal-height" style="height: 349px;">
+                    <figure><img src="{% static 'images/anurag.png' %}" class="img-responsive" alt=""></figure>
+                    <h3><a href="https://www.linkedin.com/in/anurag-mandal-4272661a1/" target="_blank">Anurag Mandal</a>
+                    </h3>
+                    <p>Final year engineering student</p>
+                    <ul class="follow-us clearfix">
+                        <li><a href="https://www.linkedin.com/in/anurag-mandal-4272661a1/" target="_blank"><i
+                                class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+<style>
+    .row.heading h2 {
+        color: #fff;
+        font-size: 52.52px;
+        line-height: 95px;
+        font-weight: 400;
+        text-align: center;
+        margin: 0 0 40px;
+        padding-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .heading.heading-icon {
+        display: block;
+    }
+
+    .padding-lg {
+        display: block;
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .practice-area.padding-lg {
+        padding-bottom: 55px;
+        padding-top: 55px;
+    }
+
+    .practice-area .inner {
+        border: 1px solid #999999;
+        text-align: center;
+        margin-bottom: 28px;
+        padding: 40px 25px;
+    }
+
+    .our-webcoderskull .cnt-block:hover {
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        border: 0;
+    }
+
+    .practice-area .inner h3 {
+        color: #3c3c3c;
+        font-size: 24px;
+        font-weight: 500;
+        font-family: 'Poppins', sans-serif;
+        padding: 10px 0;
+    }
+
+    .practice-area .inner p {
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 400;
+    }
+
+    .practice-area .inner img {
+        display: inline-block;
+    }
+
+    .our-webcoderskull .cnt-block {
+        float: left;
+        width: 100%;
+        background: #fff;
+        padding: 30px 20px;
+        text-align: center;
+        border: 2px solid #d5d5d5;
+        margin: 0 0 28px;
+    }
+
+    .our-webcoderskull .cnt-block figure {
+        width: 148px;
+        height: 148px;
+        border-radius: 100%;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    .our-webcoderskull .cnt-block img {
+        width: 148px;
+        height: 148px;
+        border-radius: 100%;
+    }
+
+    .our-webcoderskull .cnt-block h3 {
+        color: #2a2a2a;
+        font-size: 20px;
+        font-weight: 500;
+        padding: 6px 0;
+        text-transform: uppercase;
+    }
+
+    .our-webcoderskull .cnt-block h3 a {
+        text-decoration: none;
+        color: #2a2a2a;
+    }
+
+    .our-webcoderskull .cnt-block h3 a:hover {
+        color: #337ab7;
+    }
+
+    .our-webcoderskull .cnt-block p {
+        color: #2a2a2a;
+        font-size: 13px;
+        line-height: 20px;
+        font-weight: 400;
+    }
+
+    .our-webcoderskull .cnt-block .follow-us {
+        margin: 20px 0 0;
+    }
+
+    .our-webcoderskull .cnt-block .follow-us li {
+        display: inline-block;
+        width: auto;
+        margin: 0 5px;
+    }
+
+    .our-webcoderskull .cnt-block .follow-us li .fa {
+        font-size: 24px;
+        color: #767676;
+    }
+
+    .our-webcoderskull .cnt-block .follow-us li .fa:hover {
+        color: #025a8e;
+    }
+
+    .tech {
+        width: 148px;
+        height: 148px;
+        border-radius: 100%;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+</style>
 
 
 <!-- Footer-->
