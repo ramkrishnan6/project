@@ -1,4 +1,4 @@
-# Classification Engine for Monetory Transactions
+# Classification Engine for Monetory Transactions (Expense Manager)
 
 **You can check the demo of this application at: https://www.expensemanager.xyz**
 
