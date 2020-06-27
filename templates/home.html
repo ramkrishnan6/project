@@ -29,7 +29,7 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=smartphone-width, initial-scale=1, shrink-to-fit=no">
     <link href="{% static 'imp/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'imp/css/sb-admin-2.min.css' %}" rel="stylesheet">
     <!-- Bootstrap CSS -->
@@ -193,6 +193,186 @@
     });
 </script>
 
+<!-- MAC DEMO AREA STARTS -->
+
+<style>
+
+    .device {
+        position: relative;
+        background-size: auto;
+    }
+
+    .device-mockup.imac {
+        padding-bottom: 81.230769%;
+    }
+
+    .device-mockup {
+        position: relative;
+        width: 100%;
+        padding-bottom: 61.775701%;
+    }
+
+
+    .device-mockup.imac > .device {
+        background-image: url("https://d1r27dnp1fh4g5.cloudfront.net/i/imac.webp");
+    }
+
+    .device-mockup > .device {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .device-mockup.imac > .device > .screen {
+        top: 8.20707071%;
+        right: 6.61538462%;
+        bottom: 31.6919192%;
+        left: 6.61538462%;
+    }
+
+    .device-mockup > .device > .screen {
+        position: absolute;
+        top: 11.0438729%;
+        right: 13.364486%;
+        bottom: 14.6747352%;
+        left: 13.364486%;
+        overflow: hidden;
+        overflow-y: hidden;
+    }
+
+    .device .screen {
+        position: absolute;
+        pointer-events: none;
+        background-size: cover;
+    }
+
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+</style>
+
+<div class="container-fluid d-none d-xl-block">
+    <div class="row heading heading-icon mt-5 mb-auto">
+        <h2>Quick Demo</h2>
+    </div>
+    <div class="device-mockup imac mb-small col-lg-12 mx-auto">
+        <div class="device">
+            <div class="screen" style="overflow-y: auto; pointer-events: all;">
+                <iframe src="http://127.0.0.1:8001/dashboard"
+                        allowfullscreen="allowfullscreen" allowpaymentrequest="" style="position: absolute;"
+                        width="100%"
+                        height="100%" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MAC DEMO AREA ENDS -->
+
+
+<!-- IPHONE DEMO AREA STARTS -->
+
+<style>
+
+    .smartphone {
+        position: relative;
+        background-size: auto;
+    }
+
+    .smartphone-mockup.imac {
+        padding-bottom: 81.230769%;
+    }
+
+    .smartphone-mockup {
+        position: relative;
+        width: 100%;
+        padding-bottom: 61.775701%;
+    }
+
+
+    .smartphone-mockup.imac > .smartphone {
+        background-image: url("/static/images/iphone.png");
+        /*width: 400px;*/
+        /*height: 500px;*/
+    }
+
+    .smartphone-mockup > .smartphone {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .smartphone-mockup.imac > .smartphone > .screen {
+        top: 21.62%;
+        right: 33.64%;
+        bottom: 22.38%;
+        left: 34.87%;
+    }
+
+    .smartphone-mockup > .smartphone > .screen {
+        position: absolute;
+        /*top: 11.0438729%;*/
+        /*right: 13.364486%;*/
+        /*bottom: 14.6747352%;*/
+        /*left: 13.3644%;*/
+        /*overflow: auto;*/
+        /*overflow-y: auto;*/
+    }
+
+    .smartphone .screen {
+        position: absolute;
+        pointer-events: none;
+        background-size: auto;
+    }
+
+    /** {*/
+    /*    -webkit-box-sizing: border-box;*/
+    /*    -moz-box-sizing: border-box;*/
+    /*    box-sizing: border-box;*/
+    /*}*/
+
+</style>
+
+
+<!--<div class="container-fluid mt-5 ">-->
+<!--    <div class="col-xs-10 mx-auto">-->
+<!--        <div class="row heading heading-icon">-->
+<!--            <h2>Quick Demo</h2>-->
+<!--        </div>-->
+<!--        <div class="smartphone-mockup imac mb-small">-->
+<!--            <div class="smartphone img-fluid" style="max-width: 100%; height: auto;">-->
+<!--                <div class="screen" style="overflow-y: auto; pointer-events: all;">-->
+<!--                    <iframe src="http://127.0.0.1:8001/dashboard"-->
+<!--                            allowfullscreen="allowfullscreen" allowpaymentrequest="" style="position: absolute;"-->
+<!--                            width="100%"-->
+<!--                            height="100%" frameborder="0">-->
+<!--                    </iframe>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col-lg-1"></div>-->
+
+<!--</div>-->
+
+<!-- IPHONE DEMO AREA ENDS -->
+
 
 <!-- TECHNOLOGY STACK USED-->
 
@@ -326,93 +506,6 @@
     </div>
 </section>
 
-<!-- EXPREIMENT AREA STARTS -->
-
-<!--<div class="container">-->
-<!--        <iframe class="" src="http://127.0.0.1:8000/login" width="1200" height="800"></iframe>-->
-<!--</div>-->
-
-
-<style>
-
-    .device {
-        position: relative;
-        background-size: auto;
-    }
-
-    .device-mockup.imac {
-        padding-bottom: 81.230769%;
-    }
-
-    .device-mockup {
-        position: relative;
-        width: 100%;
-        padding-bottom: 61.775701%;
-    }
-
-
-    .device-mockup.imac > .device {
-        background-image: url("https://d1r27dnp1fh4g5.cloudfront.net/i/imac.webp");
-    }
-
-    .device-mockup > .device {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-    }
-
-    .device-mockup.imac > .device > .screen {
-        top: 8.20707071%;
-        right: 6.61538462%;
-        bottom: 31.6919192%;
-        left: 6.61538462%;
-    }
-
-    .device-mockup > .device > .screen {
-        position: absolute;
-        top: 11.0438729%;
-        right: 13.364486%;
-        bottom: 14.6747352%;
-        left: 13.364486%;
-        overflow: hidden;
-        overflow-y: hidden;
-    }
-
-    .device .screen {
-        position: absolute;
-        pointer-events: none;
-        background-size: cover;
-    }
-
-    * {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-</style>
-
-<!--<div>-->
-<!--    <div class="device-mockup imac mb-small">-->
-<!--        <div class="device">-->
-<!--            <div class="screen" style="overflow-y: auto; pointer-events: all;">-->
-<!--                <iframe src="http://127.0.0.1:8000/login"-->
-<!--                        allowfullscreen="allowfullscreen" allowpaymentrequest="" style="position: absolute;"-->
-<!--                        width="100%"-->
-<!--                        height="100%" frameborder="0"></iframe>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!-- EXPREIMENT AREA STARTS -->
-
-
 <style>
     .row.heading h2 {
         color: #fff;
@@ -420,8 +513,6 @@
         line-height: 95px;
         font-weight: 400;
         text-align: center;
-        margin: 0 0 40px;
-        padding-bottom: 20px;
         text-transform: uppercase;
     }
 
