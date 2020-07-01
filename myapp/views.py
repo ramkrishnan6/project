@@ -25,7 +25,7 @@ from django.utils.html import strip_tags
 
 
 def home(request):
-    return render(request, 'welcome-mail.html')
+    return render(request, 'home.html')
 
 
 def logIn(request):
