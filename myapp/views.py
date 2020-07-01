@@ -25,7 +25,7 @@ from django.utils.html import strip_tags
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'welcome-mail.html')
 
 
 def logIn(request):
@@ -57,7 +57,7 @@ def register(request):
         user.first_name = firstName
         user.last_name = lastName
         user.save()
-        welcomeMail(user, username, password)
+        welcomeMail(user, username)
         notifyAdmin(user, username)
 
         months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -397,14 +397,13 @@ def analysis(request):
     })
 
 
-def welcomeMail(user, username, password):
+def welcomeMail(user, username):
     firstName = user.first_name
     lastName = user.last_name
     email = user.email
     subject = 'Welcome to Expense Manager'
     html_message = render_to_string('welcome-mail.html', {'username': username, 'firstName': firstName,
-                                                          'lastName': lastName, 'password': password,
-                                                          'email': email
+                                                          'lastName': lastName, 'email': email
                                                           })
     plain_message = strip_tags(html_message)
     from_email = 'Expense Manager <checkproject55@gmail.com>'
