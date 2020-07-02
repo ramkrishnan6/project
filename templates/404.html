@@ -1,0 +1,21 @@
+{% extends 'demo/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div class="container-fluid mt-5 pt-5">
+                <div class="text-center mt-5">
+                    <div class="error mx-auto" data-text="404">404</div>
+                    <p class="lead text-gray-800 mb-5">Page Not Found</p>
+                    <a href="/dashboard">&larr; Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
