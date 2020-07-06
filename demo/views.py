@@ -22,8 +22,7 @@ from myapp.forms import UserUpdateForm, ProfileUpdateForm
 
 
 def home(request):
-    user = authenticate(username='guest', password='guestuser')
-    login(request, user)
+    request.user = User.objects.filter(username='guest').first()
     categoryTotal = calculateTotal(request)["categoryTotal"]
     total = calculateTotal(request)["total"]
     isEmpty = all(total == 0 for total in categoryTotal)
@@ -48,6 +47,7 @@ def home(request):
 
 
 def manual(request):
+    request.user = User.objects.filter(username='guest').first()
     if request.method == 'GET':
         showManualCard = True
         return render(request, 'demo/manual.html', {'showManualCard': showManualCard})
@@ -88,6 +88,7 @@ def manual(request):
 
 
 def handlePredict(request):
+    request.user = User.objects.filter(username='guest').first()
     if request.method == 'POST':
         transaction = request.POST['transaction']
         prediction = predict(transaction)[0]
@@ -96,6 +97,7 @@ def handlePredict(request):
 
 
 def csvUpload(request):
+    request.user = User.objects.filter(username='guest').first()
     context = {}
     if request.method == "GET":
         return render(request, 'demo/csvUpload.html')
@@ -120,6 +122,7 @@ def csvUpload(request):
 
 
 def transactions(request):
+    request.user = User.objects.filter(username='guest').first()
     transaction = Transaction.objects.filter(user_id=request.user.id)
     if request.method == "POST":
         if request.POST.get('delete'):
@@ -132,6 +135,7 @@ def transactions(request):
 
 
 def charts(request):
+    request.user = User.objects.filter(username='guest').first()
     categoryTotal = calculateTotal(request)["categoryTotal"]
     isEmpty = all(total == 0 for total in categoryTotal)
 
@@ -152,6 +156,7 @@ def charts(request):
 
 
 def bill(request):
+    request.user = User.objects.filter(username='guest').first()
     if request.method == 'GET':
         showBillCard = True
         return render(request, 'demo/bill.html', {"showBillCard": showBillCard})
@@ -197,11 +202,13 @@ class TransactionUpdateView(UserPassesTestMixin, UpdateView):
 
 
 def profile(request):
+    request.user = User.objects.filter(username='guest').first()
     img = User.objects.filter(id=request.user.id).first()
     return render(request, 'demo/profile.html', {'img': img})
 
 
 def ProfileUpdate(request):
+    request.user = User.objects.filter(username='guest').first()
     if request.method == 'POST':
         user_update_form = UserUpdateForm(request.POST, instance=request.user)
         profile_update_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -248,11 +255,13 @@ class BudgetUpdateView(UserPassesTestMixin, UpdateView):
 
 
 def BudgetPage(request):
+    request.user = User.objects.filter(username='guest').first()
     budget = Budget.objects.filter(user_id=request.user.id)
     return render(request, 'demo/budget.html', {'budget': budget})
 
 
 def analysis(request):
+    request.user = User.objects.filter(username='guest').first()
     month = datetime.now().month
     year = datetime.now().year
     buffer = getDate(month, year)
