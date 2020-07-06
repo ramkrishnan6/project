@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block navbar_add_transactions %}
+<!-- Add Transactions Items -->
+<li class="nav-item active">
+    <a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed" data-target="#collapseTwo"
+       data-toggle="collapse" href="#">
+        <i class="fas fa-plus-circle"></i>
+        <span>Add Transactions</span>
+    </a>
+    <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{% url 'manual' %}">Add Manually</a>
+            <a class="collapse-item" href="{% url 'bill' %}">Add Bill</a>
+            <a class="collapse-item" href="{% url 'csv' %}">Add CSV</a>
+        </div>
+    </div>
+</li>
+{% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between my-4">
+        <h1 class="h3 mb-0 text-gray-800">Upload Your Bill</h1>
+    </div>
+    <!-------------------------------------------------------------------------------------------------------------------------->
+
+    <div class="mx-auto">
+        <div class="col-xl-6 col-lg-6 mx-auto">
+            <div class="card shadow mb-4 billCard">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold ">
+                        <span>Upload a Bill and we will extract the information and Add it to your Transactions</span>
+                    </h6>
+                </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="card-body shadow billCard">
+                <form class="user" method="post" action="{% url 'bill' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Upload a file</label>
+                        <br>
+                        <input accept=".png, .jpg, .jpeg" class="form " name="file"  type="file" required>
+                        <p>Accepts .png, .jpg and .jpeg files only</p>
+                        <div>
+                            <button class="btn btn-primary btn-user btn-block" name="bill"
+                                    type="submit" value="bill">
+                                Upload Bill
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <!--------------------------------------------------------------------------------------------------------->
+            {% if showBillCard == True %}
+            <style>
+                            .checkBillCard{
+                                display: none;
+                            }
+                        </style>
+            {% elif showBillCard == False %}
+            <style>
+                            .checkBillCard{
+                                display: block;
+                            }
+                            .billCard{
+                                display: none;
+                            }
+                        </style>
+            {% endif %}
+            <br>
+            <div class="card shadow mb-4 checkBillCard">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold ">
+                        <span>Check your bill entries</span><br>
+                        <span>If you need to change the entries you may do it on this page.</span>
+                    </h6>
+                </div>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body shadow checkBillCard">
+                <form action="{% url 'bill' %}" class="user" method='post'>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input class="form-control btn-user" name="dateOfTransaction"
+                               placeholder="Date of Transaction"
+                               required type="date" value="{{ transaction.0 }}">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control btn-user" name="description" placeholder="Description"
+                               required type="text" value="{{ transaction.1 }}">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control btn-user py-1" name="cost" placeholder="Cost"
+                               required type="number" value="{{ transaction.2 }}">
+                    </div>
+                    <div class="dropdown">
+                        <label for="category">Choose a category</label>
+                        <select class=" form-control btn-user py-1 " id="category" name="category" required >
+                            <option value="Automobile">Automobile</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Cash Withdrawal">Cash Withdrawal</option>
+                            <option value="Education">Education</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Fine">Fine</option>
+                            <option value="Food">Food</option>
+                            <option value="Health Care">Health Care</option>
+                            <option value="Other">Other</option>
+                            <option value="Paytm">Paytm</option>
+                            <option value="Recharge">Recharge</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Travel">Travel</option>
+                            <option value="UPI">UPI</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div>
+                        <button class="btn btn-primary btn-user btn-block" type="submit" name="check" value="check">
+                            Confirm
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <script>
+                            function setSelectedIndex(s, v) {
+                                for ( var i = 0; i < s.options.length; i++ ) {
+
+                                    if ( s.options[i].text == v ) {
+                                        s.options[i].selected = true;
+                                        return;
+                                    }
+                                }
+                            }
+                             setSelectedIndex(document.getElementById('category'), "{{ category }}" );
+                        </script>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

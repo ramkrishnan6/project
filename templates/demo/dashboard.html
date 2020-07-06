@@ -1,0 +1,861 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block navbar_dashboard %}
+<li class="nav-item active">
+    <a class="nav-link" href="{% url 'dashboard' %}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+</li>
+{% endblock %}
+
+
+
+<style>
+        .carousel-control-prev, .carousel-control-next {
+            filter: invert(1);
+        }
+        .avatar {
+          vertical-align: middle;
+          width: 50px;
+          height: 50px;
+          border-radius: 70%;
+        }
+
+
+</style>
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between my-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ request.user.first_name }}'s Dashboard</h1>
+        <a href="{% url 'profile' %}">
+            <img class="avatar" src="media/{{ user.profile.image }}" alt="Card image" >
+        </a>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner container-fluid">
+                        <div class="carousel-item active">
+                            <div class="row ">
+
+                                <div class="col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        Automobile
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.0 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="font-weight-bold text-primary text-uppercase mb-1">
+                                                        <a class="text-md">Bank</a>
+                                                        <a class="text-xs"> Transfer</a>
+                                                    </div>
+
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.1 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="font-weight-bold text-primary text-uppercase mb-1">
+                                                        <a class="text-md">Cash</a>
+                                                        <a class="text-xs">Withdrawal</a>
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.2 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        Education
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.3 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="row ">
+
+                                <div class="col-sm-12 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                        Entertainment
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.4 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        Fine
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.5 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        Food
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.6 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        Health Care
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.7 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="row ">
+
+                                <div class="col-sm-12 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        Other
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.8 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        Paytm
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.9 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        Recharge
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.10 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        Shopping
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.11 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="row ">
+
+                                <div class="col-sm-12 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        Travel
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.12 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-lg-3">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                                        UPI
+                                                    </div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        ₹ {{ categoryTotal.13 }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto d-none d-lg-block">
+                                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                       data-slide="prev">
+                        <span class="carousel-control-prev-icon icon1" aria-hidden="true" style="border-right-width: 50px;"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                       data-slide="next">
+                        <span class="carousel-control-next-icon icon2" aria-hidden="true" style="border-left-width: 50px;"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!------------------------------------------------------------------------------------------------------------------------------>
+    <!--SLIDER FOR CATEGORIES STARTS  -->
+
+
+    <!-- SLIDER FOR CATEGORIES ENDS -->
+    <!------------------------------------------------------------------------------------------------------------------------->
+    <!-- TOTAL CARD STARTS -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Total Card -->
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card border-bottom-danger shadow h-80 py-10 my-3">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-lg font-weight-bold text-danger text-uppercase mb-1">
+                                        Total
+                                    </div>
+                                    <div class="h3 mb-0 font-weight-bold text-gray-800">₹ {{ total }}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOTAL CARD ENDS -->
+    <!------------------------------------------------------------------------------------------------------------------------->
+    <!-- GRAPH AREA STARTS -->
+
+    <!-- Content Row -->
+
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-xs-12">
+            {% if isEmpty == False %}
+            <div class="col-xl-12 col-xs-12">
+                <div class="card shadow d-flex mb-4">
+                    <div class="card-header py-3 flex-row align-items-center justify-content-between">
+                        <div class="mx-auto d-lg-block ">
+                            <div class="row justify-content-between">
+                                <form method="post" class="form-group px-4">
+                                    {% csrf_token %}
+                                    <div class="row d-flex py-2">
+                                        <div class="col align-items-center">
+                                            <div>
+                                                <input class="form-control btn-user" name="startDate"
+                                                       placeholder="Start Date of Transaction"
+                                                       required type="date">
+                                            </div>
+                                        </div>
+                                        <div class="col align-items-center">
+                                            <div>
+                                                <input class="form-control btn-user" name="endDate"
+                                                       placeholder="End Date of Transaction"
+                                                       required type="date">
+                                            </div>
+                                        </div>
+                                        <div class="col align-items-center">
+                                            <button class="btn btn-primary mx-auto" name="setDateRange" type="submit" value="setDateRange">
+                                                Set
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form method="get" class="form-group">
+                                    <div class="col py-2 pr-5">
+                                        <button formmethod="get"  class="btn btn-primary btn-block" name="reset" type="submit" value="reset">
+                                            Reset
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if isEmpty == False %}
+
+            <style>
+                @media (max-width: 1499px) { /*For laptops*/
+                    .large {height: 35rem;}
+                    .icon1 {margin-right: 130px}
+                    .icon2 {margin-left: 130px}
+                }
+
+                @media (min-width: 1500px) { /*For large monitors*/
+                    .large {height: 55rem;}
+                    .icon1 {margin-right: 200px}
+                    .icon2 {margin-left: 200px}
+                    }
+            </style>
+
+
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">BAR CHART</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body mb-5 d-none d-xl-block large">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+                <div class="card-body mb-5 d-xl-none" style="height: 16rem;">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="barChartPhone"></canvas>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">BAR CHART</h6>
+                </div>
+                <div class="card-body">
+                    <p>You have not recorded any transactions yet. You can
+                        <a href="{% url 'manual' %}">Add Transactions Manually</a> or
+                        <a href="{% url 'bill' %}">Add Transactions from bill.</a>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <!-- Pie Chart -->
+        <div class="col-xl-12 col-xs-12">
+            {% if isEmpty == False %}
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">PIE CHART</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body mb-5 d-none d-xl-block large">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                </div>
+                <div class="card-body mb-5 d-xl-none" style="height: 16rem;">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="pieChartPhone"></canvas>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">PIE CHART</h6>
+                </div>
+                <div class="card-body">
+                    <p>You have not recorded any transactions yet. You can
+                        <a href="{% url 'manual' %}">Add Transactions Manually</a> or
+                        <a href="{% url 'bill' %}">Add Transactions from bill.</a>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- GRAPH AREA ENDS -->
+    <!-------------------------------------------------------------------------------------------------------------------------->
+
+</div>
+
+
+<!-- Page level plugins -->
+<script src="{% static 'imp/vendor/chart.js/Chart.min.js' %}"></script>
+
+
+<!--SCRIPTS FOR LAPTOP CHARTS STARTS-->
+
+<!--BAR CHART-->
+<script>
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx2 = document.getElementById('barChart');
+  var myChart2 = new Chart(ctx2, {
+  type: 'bar',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
+
+          label: 'Expenditure',
+          data: categoryTotal,
+         borderColor: [
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+
+          ],
+          backgroundColor: [
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+
+          ],
+          borderWidth: 3
+      }]
+  },
+  options: {
+    maintainAspectRatio: true,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 14
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(234, 236, 244)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+      }
+});
+
+</script>
+
+
+<script>
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx3 = document.getElementById('pieChart');
+  var myChart3 = new Chart(ctx3, {
+  type: 'pie',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
+          label: 'Expenditure',
+          data: categoryTotal,
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(150, 79, 164, 0.2)',
+              'rgba(200, 100, 64, 0.2)',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(150, 79, 164, 1)',
+              'rgba(200, 100, 64, 1)',
+          ],
+          borderWidth: 1,
+      }],
+  },
+  options: {
+    maintainAspectRatio: true,
+    legend: {
+      display: true
+    },
+    cutoutPercentage: 0,
+  }
+
+});
+
+</script>
+
+
+<!--SCRIPTS FOR LAPTOP CHARTS ENDS-->
+
+
+<!--SCRIPTS FOR MOBILE CHARTS ENDS-->
+<script>
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx2 = document.getElementById('barChartPhone');
+  var myChart2 = new Chart(ctx2, {
+  type: 'bar',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
+
+          label: 'Expenditure',
+          data: categoryTotal,
+         borderColor: [
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+
+          ],
+          backgroundColor: [
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+
+          ],
+          borderWidth: 3
+      }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 14
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(234, 236, 244)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+      }
+});
+
+</script>
+
+
+<script>
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx3 = document.getElementById('pieChartPhone');
+  var myChart3 = new Chart(ctx3, {
+  type: 'pie',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
+          label: 'Expenditure',
+          data: categoryTotal,
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(150, 79, 164, 0.2)',
+              'rgba(200, 100, 64, 0.2)',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(150, 79, 164, 1)',
+              'rgba(200, 100, 64, 1)',
+          ],
+          borderWidth: 1,
+      }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    legend: {
+      display: false
+    },
+    cutoutPercentage: 0,
+  }
+
+});
+
+</script>
+<!--SCRIPTS FOR MOBILE CHARTS ENDS-->
+{% endblock %}
