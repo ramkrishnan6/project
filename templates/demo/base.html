@@ -24,8 +24,6 @@
     <link href="{% static 'images/icons/icon.ico' %}" rel="icon" type="image/png"/>
     <title>Expense Manager</title>
 
-    {% if user.is_authenticated %}
-
     <link href="{% static 'css/circle.css' %}" rel="stylesheet" type="text/css">
 
     <script src="https://use.fontawesome.com/aea125d216.js"></script>
@@ -258,12 +256,6 @@
 
 <!-- Page level custom scripts -->
 <script src="{% static 'imp/js/demo/datatables-demo.js' %}"></script>
-
-{% else %}
-<h1>You are not signed in!</h1>
-<h2>Kindly sign in, You will be redirected in 5 seconds</h2>
-<meta content="5; url = '' " http-equiv="refresh">
-{% endif %}
 
 
 </body>
