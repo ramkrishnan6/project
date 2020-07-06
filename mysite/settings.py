@@ -56,6 +56,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'mysite.urls'
 ROOT_HOSTCONF = 'mysite.hosts'
 DEFAULT_HOST = 'www'
+X_FRAME_OPTIONS = 'ALLOWALL'
 
 TEMPLATES = [
     {
