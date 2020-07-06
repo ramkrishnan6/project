@@ -22,7 +22,7 @@ from myapp.forms import UserUpdateForm, ProfileUpdateForm
 
 
 def home(request):
-    user = authenticate(username='admin', password='admin')
+    user = authenticate(username='guest', password='guestuser')
     login(request, user)
     categoryTotal = calculateTotal(request)["categoryTotal"]
     total = calculateTotal(request)["total"]
