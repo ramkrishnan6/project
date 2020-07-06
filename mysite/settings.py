@@ -22,10 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'k(gm6pnr299_@yciv=ilpz%e_$v5s-z+)nrg&nv(!#r7#b9jcy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["expensemanager.xyz", "www.expensemanager.xyz", '127.0.0.1', '13.126.22.81',
-                 'demo.expensemanager.xyz', 'expensemanager.xyz']
+ALLOWED_HOSTS = ['expensemanager.xyz', 'www.expensemanager.xyz', '127.0.0.1', '13.126.22.81',
+                 'demo.expensemanager.xyz']
 
 # Application definition
 
@@ -127,7 +127,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 

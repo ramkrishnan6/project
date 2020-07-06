@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
@@ -22,34 +22,6 @@ from myapp.forms import UserUpdateForm, ProfileUpdateForm
 
 
 def home(request):
-    return redirect('dashboard')
-
-
-def logIn(request):
-    if request.method == 'POST':
-        username = request.POST['username'].replace(" ", "")
-        password = request.POST['password'].replace(" ", "")
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            messages.success(request, "Successfully Logged in")
-            return redirect('/dashboard')
-        else:
-            messages.error(request, "Invalid credentials, please try again!")
-            return redirect('/login')
-    else:
-        return render(request, 'demo/login.html')
-
-
-def logOut(request):
-    logout(request)
-    messages.success(request, "Successfully Logged out")
-    return redirect('/')
-
-
-def dashboard(request):
-
     user = authenticate(username='admin', password='admin')
     login(request, user)
     categoryTotal = calculateTotal(request)["categoryTotal"]
@@ -101,7 +73,7 @@ def manual(request):
             updateDataset(description, category)
             transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
             transaction.save()
-            return redirect("/dashboard")
+            return redirect("/")
 
     if request.POST.get('confirmCategory'):
         user = request.user
@@ -112,7 +84,7 @@ def manual(request):
         updateDataset(description, category)
         transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
         transaction.save()
-        return redirect("/dashboard")
+        return redirect("/")
 
 
 def handlePredict(request):
@@ -208,12 +180,13 @@ def bill(request):
             transaction = Transaction(user=user, date=date, description=description, cost=cost, category=category)
             transaction.save()
             updateDataset(description, category)
-            return redirect("/dashboard")
+            return redirect("/")
 
 
 class TransactionUpdateView(UserPassesTestMixin, UpdateView):
     model = Transaction
     fields = ['date', 'description', 'cost']
+    template_name = 'demo/myapp/transaction_form.html'
     success_url = '/transactions'
 
     def test_func(self):
@@ -252,6 +225,7 @@ class BudgetCreateView(CreateView):
     model = Budget
     fields = ['automobile', 'bank', 'cash', 'education', 'entertainment', 'fine', 'food',
               'health', 'other', 'paytm', 'recharge', 'shopping', 'travel', 'upi', 'month']
+    template_name = 'demo/myapp/budget_form.html'
     success_url = '/budget'
 
     def form_valid(self, form):
@@ -263,7 +237,7 @@ class BudgetUpdateView(UserPassesTestMixin, UpdateView):
     model = Budget
     fields = ['automobile', 'bank', 'cash', 'education', 'entertainment', 'fine', 'food',
               'health', 'other', 'paytm', 'recharge', 'shopping', 'travel', 'upi', 'month']
-    template_name = 'budget_update.html'
+    template_name = 'demo/budget_update.html'
     success_url = '/budget'
 
     def test_func(self):
