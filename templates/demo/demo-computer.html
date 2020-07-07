@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/png" href="{% static 'images/icons/icon.ico' %}"/>
+
+    <title>Expense Manager Demo</title>
+
+    <link href="{% static 'demo.css' %}" rel="stylesheet">
+    <link href="{% static 'imp/css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'iframe.css' %}" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="{% static 'demo-computer.css' %}" rel="stylesheet">
+
+</head>
+
+<body style="background-image: url('../../static/images/ipad.jpg')">
+
+<!-- TOP NAVBAR -->
+
+<div class="container-fluid pb-3" id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gray-900 fixed-top">
+        <a class="navbar-brand" href="{% url 'options' %}">
+            <img src="{% static 'images/icons/icon.ico' %}" width="30" height="30" class="d-inline-block align-top"
+                 alt="">
+            Expense Manager Demo
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/phone"> Smartphone <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/tablet"> Tablet <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active d-none d-lg-block">
+                    <a class="nav-link" href="/computer"> Computer <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+<div class="container-fluid d-none d-xl-block">
+    <div class="device-mockup imac mb-small col-lg-12 mx-auto">
+        <div class="device">
+            <div class="screen" style="overflow-y: auto; pointer-events: all;">
+                <iframe src="https://demo.expensemanager.xyz"
+                        allowfullscreen="allowfullscreen" allowpaymentrequest="" style="position: absolute;"
+                        width="100%"
+                        height="100%" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="https://d1r27dnp1fh4g5.cloudfront.net/tmp/jsloader-501f395d8619.js?1574161973"></script>
+</body>
+</html>

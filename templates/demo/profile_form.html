@@ -1,0 +1,62 @@
+{% extends 'demo/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block navbar_profile %}
+<!-- Begin Page Content -->
+<li class="nav-item active">
+    <a class="nav-link" href="{% url 'profile' %}">
+        <i class="fa fa-user"></i>
+        <span>Profile</span></a>
+</li>
+{% endblock %}
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between my-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit Profile</h1>
+    </div>
+</div>
+<!-------------------------------------------------------------------------------------------------------------------------->
+
+
+<div class="mx-auto">
+    <div class="col-xl-5 col-lg-5 mx-auto">
+        <div class="card shadow mb-4 mx-auto">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h5 class="m-0 font-weight-bold justify-content-center">
+                    Edit/Update your Profile here
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-5 col-lg-5 mx-auto">
+        <div class="card shadow mb-4 mx-auto">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="card mx-auto" style="width:400px">
+                    <div class="card-img-top">
+                        <img alt="Profile image" class="img-thumbnail"
+                             src="/media/{{ user.profile.image }}" style="width:100%">
+                    </div>
+                    <form class="user align-items-center" enctype="multipart/form-data" method=''>
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">Profile Info</legend>
+                            {{ user_update_form|crispy }}
+                            {{ profile_update_form|crispy }}
+                        </fieldset>
+                        <div class="mx-auto">
+                            <div class="form-group text-center">
+                                <button class="btn btn-outline-info" type="">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Content Wrapper -->
+{% endblock %}

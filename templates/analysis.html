@@ -159,7 +159,13 @@
     .prog{ margin-bottom: 20px; }
 }
 
+    @media (max-width: 1499px) { /*For laptops*/
+        .large {height: 35rem;}
+    }
 
+    @media (min-width: 1500px) { /*For large monitors*/
+        .large {height: 55rem;}
+    }
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -176,8 +182,9 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <div class="row">
-                    <!-- cicular progress bars -->
-                    <div class="col-md-2 col-sm-2 py-2">
+
+                    <!-- default -->
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Jan</h5>
                             <div class="c100 p{{ monthly_total_percentage.0 }} {{ monthly_colour.0 }}">
@@ -190,7 +197,7 @@
                             <h6>₹{{ monthly_expenditure.0 }} / ₹{{ monthly_budget.0 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Feb</h5>
                             <div class="c100 p{{ monthly_total_percentage.1 }} {{ monthly_colour.1 }}">
@@ -203,7 +210,7 @@
                             <h6>₹{{ monthly_expenditure.1 }} / ₹{{ monthly_budget.1 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Mar</h5>
                             <div class="c100 p{{ monthly_total_percentage.2 }} {{ monthly_colour.2 }}">
@@ -216,7 +223,7 @@
                             <h6>₹{{ monthly_expenditure.2 }} / ₹{{ monthly_budget.2 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Apr</h5>
                             <div class="c100 p{{ monthly_total_percentage.3 }} {{ monthly_colour.3 }}">
@@ -229,7 +236,7 @@
                             <h6>₹{{ monthly_expenditure.3 }} / ₹{{ monthly_budget.3 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>May</h5>
                             <div class="c100 p{{ monthly_total_percentage.4 }} {{ monthly_colour.4 }}">
@@ -242,7 +249,7 @@
                             <h6>₹{{ monthly_expenditure.4 }} / ₹{{ monthly_budget.4 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Jun</h5>
                             <div class="c100 p{{ monthly_total_percentage.5 }} {{ monthly_colour.5 }}">
@@ -255,7 +262,7 @@
                             <h6>₹{{ monthly_expenditure.5 }} / ₹{{ monthly_budget.5 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Jul</h5>
                             <div class="c100 p{{ monthly_total_percentage.6 }} {{ monthly_colour.6 }}">
@@ -268,7 +275,7 @@
                             <h6>₹{{ monthly_expenditure.6 }} / ₹{{ monthly_budget.6 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Aug</h5>
                             <div class="c100 p{{ monthly_total_percentage.7 }} {{ monthly_colour.7 }}">
@@ -281,7 +288,7 @@
                             <h6>₹{{ monthly_expenditure.7 }} / ₹{{ monthly_budget.7 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Sep</h5>
                             <div class="c100 p{{ monthly_total_percentage.8 }} {{ monthly_colour.8 }}">
@@ -294,7 +301,7 @@
                             <h6>₹{{ monthly_expenditure.8 }} / ₹{{ monthly_budget.8 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Oct</h5>
                             <div class="c100 p{{ monthly_total_percentage.9 }} {{ monthly_colour.9 }}">
@@ -307,7 +314,7 @@
                             <h6>₹{{ monthly_expenditure.9 }} / ₹{{ monthly_budget.9 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Nov</h5>
                             <div class="c100 p{{ monthly_total_percentage.10 }} {{ monthly_colour.10 }}">
@@ -320,7 +327,7 @@
                             <h6>₹{{ monthly_expenditure.10 }} / ₹{{ monthly_budget.10 }}</h6>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-2 py-2">
+                    <div class="col-md-4 col-sm-3 col-lg-2 py-2">
                         <div class="clearfix">
                             <h5>Dec</h5>
                             <div class="c100 p{{ monthly_total_percentage.11 }} {{ monthly_colour.11 }}">
@@ -443,15 +450,15 @@
             </div>
             <!--Card: Display Chart Laptop-->
             <!-- Card Body -->
-            <div class="card-body mb-5 d-none d-lg-block" style="height: 35rem;">
+            <div class="card-body mb-5 d-none d-xl-block large">
                 <div class="chart-pie pt-4 pb-2 ">
-                    <canvas id="barChart"></canvas>
+                    <canvas id="lineChart"></canvas>
                 </div>
             </div>
             <!--Card: Display Chart Mobile-->
             <div class="card-body mb-5 d-xl-none" style="height: 16rem;">
                 <div class="chart-pie pt-4 pb-2 ">
-                    <canvas id="barChartPhone"></canvas>
+                    <canvas id="lineChartPhone"></canvas>
                 </div>
             </div>
         </div>
@@ -478,7 +485,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-xs-12 col-md-6">
                         <div class="pb-4">
                             <h6> Automobile - {{ category_wise_expenditure.0 }} / {{ category_wise_budget.0 }}</h6>
                             <div class="progress" style="height: 20px;">
@@ -550,7 +557,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-xs-12 col-md-6">
                         <div class="pb-4">
                             <h6> Health care - {{ category_wise_expenditure.7 }} / {{ category_wise_budget.7 }}</h6>
                             <div class="progress" style="height: 20px;">
@@ -648,7 +655,7 @@
 var data1 = {{ category_wise_expenditure }};
 var data2 = {{ category_wise_budget }};
 
-var barChart = document.getElementById('barChart').getContext('2d');
+var barChart = document.getElementById('lineChart').getContext('2d');
 var mixedChart = new Chart(barChart, {
     type: 'line',
     data: {
@@ -671,16 +678,41 @@ var mixedChart = new Chart(barChart, {
                   "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"]
     },
     options: {
-    layout: {
-            padding: {
-                left: 50,
-                right: 0,
-                top: 0,
-                bottom: 0
-            }
-
-             }
+    maintainAspectRatio: true,
         }
 });
+</script>
+
+
+<script>
+    var data1 = {{ categoryTotal }};
+    var data2 = {{ budgetList }};
+
+    var barChart = document.getElementById('lineChartPhone').getContext('2d');
+    var mixedChart = new Chart(barChart, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Your Expenditure ',
+                data: data1,
+                backgroundColor: 'rgb(255 , 255, 0, 0)',
+                borderColor: 'rgb(0, 255, 0, 0.5)',
+
+
+            }, {
+                label: 'Your Budget',
+                data: data2,
+                backgroundColor: 'rgb(0, 255, 0, 0)',
+                borderColor: 'rgb(255, 0, 0, 1)',
+
+            }],
+            fill: false,
+            labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"]
+        },
+        options: {
+            maintainAspectRatio: false,
+        }
+    });
 </script>
 {% endblock %}

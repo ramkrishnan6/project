@@ -1,0 +1,90 @@
+{% extends 'demo/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block navbar_budget %}
+<li class="nav-item active">
+    <a class="nav-link" href="{% url 'budget' %}">
+        <i class="fa fa-calculator"></i>
+        <span>Budget</span></a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between my-4">
+        <h1 class="h3 mb-0 text-gray-800">Your budget details</h1>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<!-------------------------------------------------------------------------------------------------------------------------->
+
+<div class="mx-auto">
+    <div class="col-xl-12 col-lg-12 mx-auto">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold ">
+                    <span>You can click on the month to update the budget for that month.</span><br>
+                    <span>Click on New Entry for creating a New Budget.</span>
+                </h6>
+
+            </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body shadow">
+            <div class="py-3">
+                <a href="{% url 'budget-create' %}"><button class="btn btn-primary mx-auto" name="delete" type="submit" value="delete">
+                    New Entry
+                </button>
+                </a>
+            </div>
+            <div class="table-responsive">
+                <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Month</th>
+                        <th>Automobile</th>
+                        <th>Bank Transfer</th>
+                        <th>Cash Withdrawal</th>
+                        <th>Education</th>
+                        <th>Entertainment</th>
+                        <th>Fine</th>
+                        <th>Food</th>
+                        <th>Health care</th>
+                        <th>Other</th>
+                        <th>Paytm</th>
+                        <th>Shopping</th>
+                        <th>Travel</th>
+                        <th>UPI</th>
+                        <th>Recharge</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for budget in budget %}
+                    <tr>
+                        <td>  <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.month }} </a> </td>
+                        <td> {{ budget.automobile }} </td>
+                        <td> {{ budget.bank }} </td>
+                        <td> {{ budget.cash }} </td>
+                        <td> {{ budget.education }} </td>
+                        <td> {{ budget.entertainment }} </td>
+                        <td> {{ budget.fine }} </td>
+                        <td> {{ budget.food }} </td>
+                        <td> {{ budget.health }} </td>
+                        <td> {{ budget.other }} </td>
+                        <td> {{ budget.paytm }} </td>
+                        <td> {{ budget.shopping }} </td>
+                        <td> {{ budget.travel }} </td>
+                        <td> {{ budget.upi }} </td>
+                        <td> {{ budget.recharge }} </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
