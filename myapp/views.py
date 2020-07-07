@@ -21,6 +21,10 @@ from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from .forms import UserUpdateForm, ProfileUpdateForm
 
+# from django.views.generic import View
+
+from mysite.utils import render_to_pdf
+
 
 def home(request):
     return render(request, 'home.html')
@@ -325,20 +329,32 @@ def analysis(request):
     charMonth = buffer['charMonth']
     # get budget values for the current month
     buffer = showBudget(request, charMonth)
-    budgetList = buffer['budgetList']
-    # get total, colour of categories from transactions for the current month
-    categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
-    buffer = getFraction(categoryTotal, budgetList, 0)
+    category_wise_budget = buffer['category_wise_budget']
+    # get total, progress_colour of categories from transactions for the current month
+    category_wise_expenditure = calculateTotalWithRange(request, startDate, endDate)['category_wise_expenditure']           # returns total of each category and the total of all categories of transactions in a given range of days
+    buffer = getFraction(category_wise_expenditure, category_wise_budget, 0)             # returns percentage values and progress_colour of given two lists
     progress = buffer["list_z"]
-    colour = buffer["colour"]
+    progress_colour = buffer["progress_colour"]
 
     buffer = calculateMonthlyTotal(request, year)
-    monthlyTotal = buffer['monthlyTotal']
-    monthlyColour = buffer['colour']
-    budgetTotalList = buffer['budgetTotalList']
-    monthlyTotalPercentage = buffer['monthlyTotalPercentage']
+    monthly_expenditure = buffer['monthly_expenditure']
+    monthly_colour = buffer['progress_colour']
+    monthly_budget = buffer['monthly_budget']
+    monthly_total_percentage = buffer['monthly_total_percentage']
 
-    isEmpty = all(total == 0 for total in categoryTotal)
+    buffer = summarize(category_wise_expenditure, category_wise_budget, year, 1)
+    summaryCategory = buffer[1]
+    # print("v.py/analysis/ summaryCategory is", summaryCategory)
+    # print("v.py/analysis/ category_wise_expenditure is", category_wise_expenditure)
+    # print("v.py/analysis/ category_wise_budget is", category_wise_budget)
+
+    buffer = summarize(monthly_expenditure, monthly_budget, year, 0)
+    summaryMonthly = buffer[0]
+    # print("v.py/analysis/ summaryMonthly is", summaryMonthly)
+    # print("v.py/analysis/ monthly_expenditure is", monthly_expenditure)
+    # print("v.py/analysis/ monthly_budget is", monthly_budget)
+
+    isEmpty = all(total == 0 for total in category_wise_expenditure)
 
     if request.method == "POST":
         if request.POST.get('setDateRange'):
@@ -351,44 +367,66 @@ def analysis(request):
             charMonth = buffer['charMonth']
 
             buffer = showBudget(request, charMonth)
-            budgetList = buffer['budgetList']
+            category_wise_budget = buffer['category_wise_budget']
 
-            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
-            buffer = getFraction(categoryTotal, budgetList, 0)
+            category_wise_expenditure = calculateTotalWithRange(request, startDate, endDate)['category_wise_expenditure']
+            buffer = getFraction(category_wise_expenditure, category_wise_budget, 0)
             progress = buffer["list_z"]
-            colour = buffer["colour"]
+            progress_colour = buffer["progress_colour"]
 
             buffer = calculateMonthlyTotal(request, year)
-            monthlyTotal = buffer['monthlyTotal']
-            monthlyColour = buffer['colour']
-            budgetTotalList = buffer['budgetTotalList']
-            monthlyTotalPercentage = buffer['monthlyTotalPercentage']
+            monthly_expenditure = buffer['monthly_expenditure']
+            monthly_colour = buffer['progress_colour']
+            monthly_budget = buffer['monthly_budget']
+            monthly_total_percentage = buffer['monthly_total_percentage']
 
-            isEmpty = all(total == 0 for total in categoryTotal)
+            summary = summarize(monthly_expenditure, year)
+            #print("v.py/analysis/ summary is", summary)
+
+            isEmpty = all(total == 0 for total in category_wise_expenditure)
 
             return render(request, 'analysis.html', {
-                'categoryTotal': categoryTotal,
+                'category_wise_expenditure': category_wise_expenditure,
                 'isEmpty': isEmpty,
-                'budgetList': budgetList,
+                'category_wise_budget': category_wise_budget,
                 'charMonth': charMonth,
                 'year': year,
                 'progress': progress,
-                'colour': colour,
-                'monthlyTotal': monthlyTotal,
-                'monthlyColour': monthlyColour,
-                'budgetTotalList': budgetTotalList,
-                'monthlyTotalPercentage': monthlyTotalPercentage
+                'progress_colour': progress_colour,
+                'monthly_expenditure': monthly_expenditure,
+                'monthly_colour': monthly_colour,
+                'monthly_budget': monthly_budget,
+                'monthly_total_percentage': monthly_total_percentage,
+                'summary': summary,
             })
     return render(request, 'analysis.html', {
-        'categoryTotal': categoryTotal,
+        'category_wise_expenditure': category_wise_expenditure,
         'isEmpty': isEmpty,
-        'budgetList': budgetList,
+        'category_wise_budget': category_wise_budget,
         'charMonth': charMonth,
         'year': year,
         'progress': progress,
-        'colour': colour,
-        'monthlyTotal': monthlyTotal,
-        'monthlyColour': monthlyColour,
-        'budgetTotalList': budgetTotalList,
-        'monthlyTotalPercentage': monthlyTotalPercentage,
+        'progress_colour': progress_colour,
+        'monthly_expenditure': monthly_expenditure,
+        'monthly_colour': monthly_colour,
+        'monthly_budget': monthly_budget,
+        'monthly_total_percentage': monthly_total_percentage,
+        'summaryMonthly': summaryMonthly,
+        'summaryCategory': summaryCategory,
     })
+
+
+def gen_pdf(request, *args, **kwargs):
+    categoryTotal = calculateTotal(request)["categoryTotal"]
+    total = calculateTotal(request)["total"]
+    isEmpty = all(total == 0 for total in categoryTotal)
+
+    user = request.user
+    data = {
+        'categoryTotal': categoryTotal,
+        'total': total,
+        'isEmpty': isEmpty,
+        'user': user,
+    }
+    pdf = render_to_pdf('analysis.html', data)
+    return HttpResponse(pdf, content_type='application/pdf')

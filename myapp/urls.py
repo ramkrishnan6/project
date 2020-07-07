@@ -30,6 +30,7 @@ urlpatterns = [
     path('budget/create', BudgetCreateView.as_view(), name='budget-create'),
 
     path('analysis', views.analysis, name='analysis'),
+    path('pdf/dashboard', views.gen_pdf, name='pdf'),
 
     path('reset-password', auth_views.PasswordResetView.as_view(
         template_name='reset-password/reset_password.html'), name='reset_password'),

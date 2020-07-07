@@ -24,7 +24,7 @@ SECRET_KEY = 'k(gm6pnr299_@yciv=ilpz%e_$v5s-z+)nrg&nv(!#r7#b9jcy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["expensemanager.xyz", "www.expensemanager.xyz", '127.0.0.1', '13.126.22.81']
+ALLOWED_HOSTS = ["expensemanager.xyz", "www.expensemanager.xyz", '127.0.0.1', '13.126.22.81', '192.168.0.115', 'localhost']
 
 # Application definition
 

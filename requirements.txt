@@ -14,3 +14,4 @@ veryfi==0.0.4
 requests==2.23.0
 django-crispy-forms==1.9.0
 Pillow==7.1.1
+xhtml2pdf==0.2.4
