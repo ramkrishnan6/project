@@ -4,7 +4,6 @@ import os
 from datetime import datetime
 
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
@@ -44,6 +43,22 @@ def home(request):
         'total': total,
         'isEmpty': isEmpty
     })
+
+
+def options(request):
+    return render(request, 'demo/options.html')
+
+
+def phone(request):
+    return render(request, 'demo/demo-phone.html')
+
+
+def tablet(request):
+    return render(request, 'demo/demo-tablet.html')
+
+
+def computer(request):
+    return render(request, 'demo/demo-computer.html')
 
 
 def manual(request):

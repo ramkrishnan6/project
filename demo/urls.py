@@ -6,6 +6,10 @@ from .views import TransactionUpdateView, BudgetUpdateView, BudgetCreateView
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('options', views.options, name='options'),
+    path('phone', views.phone, name='phone'),
+    path('tablet', views.tablet, name='tablet'),
+    path('computer', views.computer, name='computer'),
 
     path('manual', views.manual, name='manual'),
     path('transactions', views.transactions, name='transactions'),
