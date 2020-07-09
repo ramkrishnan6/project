@@ -404,7 +404,7 @@ def analysis(request):
                 'monthly_total_percentage': monthly_total_percentage,
                 # 'summary': summary,
             })
-    return render(request, 'myapp/  analysis.html', {
+    return render(request, 'myapp/analysis.html', {
         'category_wise_expenditure': category_wise_expenditure,
         'isEmpty': isEmpty,
         'category_wise_budget': category_wise_budget,
