@@ -25,7 +25,6 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold ">
                     <span>You can click on the month to update the budget for that month.</span><br>
-                    <span>Click on New Entry for creating a New Budget.</span>
                 </h6>
 
             </div>
@@ -33,12 +32,6 @@
 
         <!-- Card Body -->
         <div class="card-body shadow">
-            <div class="py-3">
-                <a href="{% url 'budget-create' %}"><button class="btn btn-primary mx-auto" name="delete" type="submit" value="delete">
-                    New Entry
-                </button>
-                </a>
-            </div>
             <div class="table-responsive">
                 <table cellspacing="0" class="table table-bordered" id="dataTable" width="100%">
                     <thead class="thead-dark">
@@ -64,20 +57,20 @@
                     {% for budget in budget %}
                     <tr>
                         <td>  <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.month }} </a> </td>
-                        <td> {{ budget.automobile }} </td>
-                        <td> {{ budget.bank }} </td>
-                        <td> {{ budget.cash }} </td>
-                        <td> {{ budget.education }} </td>
-                        <td> {{ budget.entertainment }} </td>
-                        <td> {{ budget.fine }} </td>
-                        <td> {{ budget.food }} </td>
-                        <td> {{ budget.health }} </td>
-                        <td> {{ budget.other }} </td>
-                        <td> {{ budget.paytm }} </td>
-                        <td> {{ budget.shopping }} </td>
-                        <td> {{ budget.travel }} </td>
-                        <td> {{ budget.upi }} </td>
-                        <td> {{ budget.recharge }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.automobile }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.bank }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.cash }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.education }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.entertainment }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.fine }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.food }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.health }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.other }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.paytm }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.shopping }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.travel }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.upi }} </td>
+                        <td> <a href="/budget/{{budget.id}}/update" style="color:gray;"> {{ budget.recharge }} </td>
                     </tr>
                     {% endfor %}
                     </tbody>
