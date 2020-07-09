@@ -106,7 +106,7 @@ def dashboard(request):
             startDate = request.POST.get('startDate')
             endDate = request.POST.get('endDate')
             isEmpty = all(total == 0 for total in categoryTotal)
-            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
+            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['category_wise_expenditure']
             total = calculateTotalWithRange(request, startDate, endDate)['total']
             return render(request, 'myapp/dashboard.html', {
                 'categoryTotal': categoryTotal,
@@ -213,7 +213,7 @@ def charts(request):
             startDate = request.POST.get('startDate')
             endDate = request.POST.get('endDate')
 
-            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
+            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['category_wise_expenditure']
             return render(request, 'myapp/charts.html', {
                 'categoryTotal': categoryTotal,
                 'isEmpty': isEmpty,
@@ -404,7 +404,7 @@ def analysis(request):
                 'monthly_total_percentage': monthly_total_percentage,
                 # 'summary': summary,
             })
-    return render(request, 'myapp/analysis.html', {
+    return render(request, 'myapp/  analysis.html', {
         'category_wise_expenditure': category_wise_expenditure,
         'isEmpty': isEmpty,
         'category_wise_budget': category_wise_budget,
