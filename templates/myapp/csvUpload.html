@@ -1,0 +1,66 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block navbar_add_transactions %}
+<!-- Add Transactions Items -->
+<li class="nav-item active">
+    <a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed" data-target="#collapseTwo"
+       data-toggle="collapse" href="#">
+        <i class="fas fa-plus-circle"></i>
+        <span>Add Transactions</span>
+    </a>
+    <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{% url 'manual' %}">Add Manually</a>
+            <a class="collapse-item" href="{% url 'bill' %}">Add Bill</a>
+            <a class="collapse-item" href="{% url 'csv' %}">Add CSV</a>
+        </div>
+    </div>
+</li>
+{% endblock %}
+{% block content %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between my-4">
+        <h1 class="h3 mb-0 text-gray-800">Upload Your Bank Statement</h1>
+    </div>
+    <!-------------------------------------------------------------------------------------------------------------------------->
+
+    <div class="mx-auto">
+        <div class="col-xl-6 col-lg-6 mx-auto">
+            <div class="card shadow mb-4 billCard">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold ">
+                        <span>Upload your Bank Statement in the form of .CSV ONLY and we will extract the information and Add it to your Transactions</span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="col-xl-6 col-lg-5 mx-auto">
+            <!-- Card Body -->
+            <div class="card-body shadow">
+                <form method="post" enctype="multipart/form-data" class="user">
+                    {% csrf_token %}
+                    <label>Upload a file</label>
+                    <input type="file" name="file" accept=".csv">
+                    <p>ONLY accepts .csv file</p>
+                    <div>
+                        <button class="btn btn-primary btn-user btn-block" type="submit">
+                            Upload CSV
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- End of Content Wrapper -->
+
+{% endblock %}

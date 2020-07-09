@@ -1,0 +1,471 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block navbar_Charts %}
+<!-- Charts -->
+<li class="nav-item active">
+    <a class="nav-link" href="{% url 'charts' %}">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Charts</span></a>
+</li>
+{% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 mt-4">Charts</h1>
+
+    <!-- Content Row -->
+    <div class="row container-fluid pt-4">
+        <!-- Area Chart -->
+        <div class="col-xl-12 col-xs-12">
+            {% if isEmpty == False %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <div class="mx-auto d-flex">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input class="form-control btn-user" name="startDate"
+                                               placeholder="Start Date of Transaction"
+                                               required type="date">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input class="form-control btn-user" name="endDate"
+                                               placeholder="End Date of Transaction"
+                                               required type="date">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary mx-auto" name="setDateRange" type="submit" value="setDateRange">
+                                        Set
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form method="get">
+                            <div class="col px-5">
+                                <button formmethod="get"  class="btn btn-primary mx-auto" name="reset" type="submit" value="reset">
+                                    Reset
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if isEmpty == False %}
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">AREA CHART</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body mb-5 d-none d-xl-block large">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="areaChart"></canvas>
+                    </div>
+                </div>
+                <div class="card-body mb-5 d-xl-none" style="height: 16rem;">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="areaChartPhone"></canvas>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">AREA CHART</h6>
+                </div>
+                <div class="card-body">
+                    <p>You have not recorded any transactions yet. You can
+                        <a href="{% url 'manual' %}">Add Transactions Manually</a> or
+                        <a href="{% url 'bill' %}">Add Transactions from bill.</a>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <style>
+            @media (max-width: 1499px) { /*For laptops*/
+                .large {height: 35rem;}
+            }
+
+            @media (min-width: 1500px) { /*For large monitors*/
+                .large {height: 55rem;}
+            }
+        </style>
+        <!-- Donut Chart -->
+        <div class="col-xl-12 col-xs-12">
+            {% if isEmpty == False %}
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body mb-5 d-none d-xl-block large">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="donutChart"></canvas>
+                    </div>
+                </div>
+                <div class="card-body mb-5 d-xl-none" style="height: 16rem;">
+                    <div class="chart-pie pt-4 pb-2 ">
+                        <canvas id="donutChartPhone"></canvas>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">DONUT CHART</h6>
+                </div>
+                <div class="card-body">
+                    <p>You have not recorded any transactions yet. You can
+                        <a href="{% url 'manual' %}">Add Transactions Manually</a> or
+                        <a href="{% url 'bill' %}">Add Transactions from bill.</a>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+
+</div>
+<!-- /.container-fluid -->
+
+
+<!-- Page level plugins -->
+<script src="{% static 'imp/vendor/chart.js/Chart.min.js' %}"></script>
+
+<!--SCRIPTS FOR LAPTOP WEB CHARTS STARTS-->
+
+<!--SCRIPT FOR AREA CHART-->
+<script>
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx2 = document.getElementById('areaChart');
+  var myChart2 = new Chart(ctx2, {
+  type: 'line',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
+
+          label: 'Expenditure',
+          data: categoryTotal,
+         borderColor: [
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+
+          ],
+          backgroundColor: [
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+              'rgba(231, 76, 60, 0)',
+
+          ],
+          borderWidth: 3
+      }]
+  },
+  options: {
+    maintainAspectRatio: true,
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 14
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(234, 236, 244)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: true
+    },
+      }
+});
+
+</script>
+
+<!-- SCRIPT FOR AREA CHART -->
+<script>
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx3 = document.getElementById('donutChart');
+  var myChart3 = new Chart(ctx3, {
+  type: 'doughnut',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
+          label: 'Expenditure',
+          data: categoryTotal,
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(150, 79, 164, 0.2)',
+              'rgba(200, 100, 64, 0.2)',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(150, 79, 164, 1)',
+              'rgba(200, 100, 64, 1)',
+          ],
+          borderWidth: 1,
+      }],
+  },
+  options: {
+    maintainAspectRatio: true,
+    legend: {
+      display: true
+    },
+    cutoutPercentage: 50,
+  }
+
+});
+
+</script>
+
+<!--SCRIPTS FOR LAPTOP WEB CHARTS ENDS-->
+
+
+<!--SCRIPTS FOR MOBILE CHARTS STARTS-->
+
+<!--SCRIPT FOR AREA CHART -->
+<script>
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx2 = document.getElementById('areaChartPhone');
+  var myChart2 = new Chart(ctx2, {
+  type: 'line',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
+
+          label: 'Expenditure',
+          data: categoryTotal,
+         borderColor: [
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+              'rgba(23, 32, 42, 1)',
+
+          ],
+          backgroundColor: [
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+              'rgba(231, 76, 60, 1)',
+
+          ],
+          borderWidth: 3
+      }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+      }
+    },
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'date'
+        },
+        gridLines: {
+          display: false,
+          drawBorder: false
+        },
+        ticks: {
+          maxTicksLimit: 14
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          maxTicksLimit: 5,
+          padding: 10,
+        },
+        gridLines: {
+          color: "rgb(234, 236, 244)",
+          zeroLineColor: "rgb(234, 236, 244)",
+          drawBorder: false,
+          borderDash: [2],
+          zeroLineBorderDash: [2]
+        }
+      }],
+    },
+    legend: {
+      display: false
+    },
+      }
+});
+
+</script>
+
+
+<!--SCRIPT FOR DONUT CHART -->
+
+
+<script>
+  var categoryTotal =  {{ categoryTotal }};
+  var ctx3 = document.getElementById('donutChartPhone');
+  var myChart3 = new Chart(ctx3, {
+  type: 'pie',
+  data: {
+      labels: ["Automobile", "Bank Transfer", "Cash Withdrawal", "Education", "Entertainment", "Fine",
+                  "Food", "Health care", "Other", "PayTM", "Recharge", "Shopping", "Travel", "UPI"],
+      datasets: [{
+          label: 'Expenditure',
+          data: categoryTotal,
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(150, 79, 164, 0.2)',
+              'rgba(200, 100, 64, 0.2)',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(150, 79, 164, 1)',
+              'rgba(200, 100, 64, 1)',
+          ],
+          borderWidth: 1,
+      }],
+  },
+  options: {
+    maintainAspectRatio: false,
+    legend: {
+      display: false
+    },
+    cutoutPercentage: 50,
+  }
+
+});
+
+</script>
+<!--SCRIPTS FOR MOBILE CHARTS ENDS-->
+
+{% endblock %}
