@@ -30,7 +30,7 @@ from mysite.utils import render_to_pdf
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'myapp/home.html')
 
 
 def logIn(request):
@@ -47,7 +47,7 @@ def logIn(request):
             messages.error(request, "Invalid credentials, please try again!")
             return redirect('/login')
     else:
-        return render(request, 'login.html')
+        return render(request, 'myapp/login.html')
 
 
 def register(request):
@@ -71,7 +71,7 @@ def register(request):
             budget.save()
         return redirect('/login')
     else:
-        return render(request, 'register.html')
+        return render(request, 'myapp/register.html')
 
 
 def validate_username(request):
@@ -108,12 +108,12 @@ def dashboard(request):
             isEmpty = all(total == 0 for total in categoryTotal)
             categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
             total = calculateTotalWithRange(request, startDate, endDate)['total']
-            return render(request, 'dashboard.html', {
+            return render(request, 'myapp/dashboard.html', {
                 'categoryTotal': categoryTotal,
                 'total': total,
                 'isEmpty': isEmpty
             })
-    return render(request, 'dashboard.html', {
+    return render(request, 'myapp/dashboard.html', {
         'categoryTotal': categoryTotal,
         'total': total,
         'isEmpty': isEmpty
@@ -123,7 +123,7 @@ def dashboard(request):
 def manual(request):
     if request.method == 'GET':
         showManualCard = True
-        return render(request, 'manual.html', {'showManualCard': showManualCard})
+        return render(request, 'myapp/manual.html', {'showManualCard': showManualCard})
 
     if request.POST.get('manualAdd'):
         user = request.user
@@ -134,7 +134,7 @@ def manual(request):
         if category == "Unknown":
             category = predict(description)[0]
             showManualCard = False
-            return render(request, 'manual.html',
+            return render(request, 'myapp/manual.html',
                           {'user': user,
                            'date': date,
                            'description': description,
@@ -171,7 +171,7 @@ def handlePredict(request):
 def csvUpload(request):
     context = {}
     if request.method == "GET":
-        return render(request, 'csvUpload.html')
+        return render(request, 'myapp/csvUpload.html')
 
     csv_file = request.FILES['file']
     dataset = csv_file.read().decode('UTF-8')
@@ -189,7 +189,7 @@ def csvUpload(request):
     name = fs.save(csv_file.name, csv_file)
     context['url'] = fs.url(name)
 
-    return render(request, 'csvUpload.html', context)
+    return render(request, 'myapp/csvUpload.html', context)
 
 
 def transactions(request):
@@ -201,7 +201,7 @@ def transactions(request):
                     transaction.delete()
 
     transaction = Transaction.objects.filter(user_id=request.user.id)
-    return render(request, 'transactions.html', {'transactions': transaction})
+    return render(request, 'myapp/transactions.html', {'transactions': transaction})
 
 
 def charts(request):
@@ -214,11 +214,11 @@ def charts(request):
             endDate = request.POST.get('endDate')
 
             categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
-            return render(request, 'charts.html', {
+            return render(request, 'myapp/charts.html', {
                 'categoryTotal': categoryTotal,
                 'isEmpty': isEmpty,
             })
-    return render(request, 'charts.html', {
+    return render(request, 'myapp/charts.html', {
         'categoryTotal': categoryTotal,
         'isEmpty': isEmpty,
     })
@@ -227,7 +227,7 @@ def charts(request):
 def bill(request):
     if request.method == 'GET':
         showBillCard = True
-        return render(request, 'bill.html', {"showBillCard": showBillCard})
+        return render(request, 'myapp/bill.html', {"showBillCard": showBillCard})
 
     elif request.method == "POST":
 
@@ -240,7 +240,7 @@ def bill(request):
             transaction = ocr(file_name)
             category = predict(transaction[1])[0]
             showBillCard = False
-            return render(request, 'bill.html',
+            return render(request, 'myapp/bill.html',
                           {"transaction": transaction, "category": category, "showBillCard": showBillCard}
                           )
 
@@ -270,7 +270,7 @@ class TransactionUpdateView(UserPassesTestMixin, UpdateView):
 
 def profile(request):
     img = User.objects.filter(id=request.user.id).first()
-    return render(request, 'profile.html', {'img': img})
+    return render(request, 'myapp/profile.html', {'img': img})
 
 
 def ProfileUpdate(request):
@@ -290,7 +290,7 @@ def ProfileUpdate(request):
         'user_update_form': user_update_form,
         'profile_update_form': profile_update_form,
     }
-    return render(request, 'profile_form.html', context)
+    return render(request, 'myapp/profile_form.html', context)
 
 
 class BudgetCreateView(CreateView):
@@ -308,7 +308,7 @@ class BudgetUpdateView(UserPassesTestMixin, UpdateView):
     model = Budget
     fields = ['automobile', 'bank', 'cash', 'education', 'entertainment', 'fine', 'food',
               'health', 'other', 'paytm', 'recharge', 'shopping', 'travel', 'upi', 'month']
-    template_name = 'budget_update.html'
+    template_name = 'myapp/budget_update.html'
     success_url = '/budget'
 
     def test_func(self):
@@ -320,7 +320,7 @@ class BudgetUpdateView(UserPassesTestMixin, UpdateView):
 
 def BudgetPage(request):
     budget = Budget.objects.filter(user_id=request.user.id)
-    return render(request, 'budget.html', {'budget': budget})
+    return render(request, 'myapp/budget.html', {'budget': budget})
 
 
 def analysis(request):
@@ -385,12 +385,12 @@ def analysis(request):
             monthly_budget = buffer['monthly_budget']
             monthly_total_percentage = buffer['monthly_total_percentage']
 
-            summary = summarize(monthly_expenditure, year)
+            # summary = summarize(monthly_expenditure, year) //TODO: implement later
             #print("v.py/analysis/ summary is", summary)
 
             isEmpty = all(total == 0 for total in category_wise_expenditure)
 
-            return render(request, 'analysis.html', {
+            return render(request, 'myapp/analysis.html', {
                 'category_wise_expenditure': category_wise_expenditure,
                 'isEmpty': isEmpty,
                 'category_wise_budget': category_wise_budget,
@@ -402,9 +402,9 @@ def analysis(request):
                 'monthly_colour': monthly_colour,
                 'monthly_budget': monthly_budget,
                 'monthly_total_percentage': monthly_total_percentage,
-                'summary': summary,
+                # 'summary': summary,
             })
-    return render(request, 'analysis.html', {
+    return render(request, 'myapp/analysis.html', {
         'category_wise_expenditure': category_wise_expenditure,
         'isEmpty': isEmpty,
         'category_wise_budget': category_wise_budget,
