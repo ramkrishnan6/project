@@ -11,9 +11,9 @@
     </a>
     <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{% url 'manual' %}">Add Manually</a>
-            <a class="collapse-item" href="{% url 'bill' %}">Add Bill</a>
-            <a class="collapse-item" href="{% url 'csv' %}">Add CSV</a>
+            <a class="collapse-item" href="{% url 'manual-demo' %}">Add Manually</a>
+            <a class="collapse-item" href="{% url 'bill-demo' %}">Add Bill</a>
+            <a class="collapse-item" href="{% url 'csv-demo' %}">Add CSV</a>
         </div>
     </div>
 </li>
@@ -41,7 +41,7 @@
 
             <!-- Card Body -->
             <div class="card-body shadow billCard">
-                <form class="user" method="post" action="{% url 'bill' %}" enctype="multipart/form-data">
+                <form class="user" method="post" action="{% url 'bill-demo' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
                         <label>Upload a file</label>
@@ -86,7 +86,7 @@
             </div>
             <!-- Card Body -->
             <div class="card-body shadow checkBillCard">
-                <form action="{% url 'bill' %}" class="user" method='post'>
+                <form action="{% url 'bill-demo' %}" class="user" method='post'>
                     {% csrf_token %}
                     <div class="form-group">
                         <input class="form-control btn-user" name="dateOfTransaction"

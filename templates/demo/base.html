@@ -95,7 +95,7 @@
         {% block navbar_dashboard %}
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">
+            <a class="nav-link" href="{% url 'home-demo' %}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -119,9 +119,9 @@
             </a>
             <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{% url 'manual' %}">Add Manually</a>
-                    <a class="collapse-item" href="{% url 'bill' %}">Add Bill</a>
-                    <a class="collapse-item" href="{% url 'csv' %}">Add CSV</a>
+                    <a class="collapse-item" href="{% url 'manual-demo' %}">Add Manually</a>
+                    <a class="collapse-item" href="{% url 'bill-demo' %}">Add Bill</a>
+                    <a class="collapse-item" href="{% url 'csv-demo' %}">Add CSV</a>
                 </div>
             </div>
         </li>
@@ -130,7 +130,7 @@
         {% block navbar_view_transactions %}
         <!--View Transactions -->
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'transactions' %}">
+            <a class="nav-link" href="{% url 'transactions-demo' %}">
                 <i class="fa fa-eye"></i>
                 <span>View Transactions</span></a>
         </li>
@@ -147,7 +147,7 @@
         {% block navbar_Charts %}
         <!-- Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'charts' %}">
+            <a class="nav-link" href="{% url 'charts-demo' %}">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Charts</span></a>
         </li>
@@ -156,7 +156,7 @@
         {% block navbar_analysis %}
         <!-- Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'analysis' %}">
+            <a class="nav-link" href="{% url 'analysis-demo' %}">
                 <i class="fas fa-chart-line"></i>
                 <span>Analysis</span></a>
         </li>
@@ -171,7 +171,7 @@
         {% block navbar_profile %}
         <!-- Profile -->
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">
+            <a class="nav-link" href="{% url 'profile-demo' %}">
                 <i class="fa fa-user"></i>
                 <span>Profile</span></a>
         </li>
@@ -181,7 +181,7 @@
         {% block navbar_budget %}
         <!-- Budget -->
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'budget' %}">
+            <a class="nav-link" href="{% url 'budget-demo' %}">
                 <i class="fa fa-calculator"></i>
                 <span>Budget</span></a>
         </li>
@@ -200,7 +200,7 @@
             <h6>DEMO</h6>
         </div>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'options' %}" target="_blank">
+            <a class="nav-link" href="{% url 'options-demo' %}" target="_blank">
                 <i class="fa fa-desktop" aria-hidden="true"></i>
                 <span>Screen Options</span></a>
         </li>

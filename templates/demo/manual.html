@@ -12,9 +12,9 @@
     </a>
     <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{% url 'manual' %}">Add Manually</a>
-            <a class="collapse-item" href="{% url 'bill' %}">Add Bill</a>
-            <a class="collapse-item" href="{% url 'csv' %}">Add CSV</a>
+            <a class="collapse-item" href="{% url 'manual-demo' %}">Add Manually</a>
+            <a class="collapse-item" href="{% url 'bill-demo' %}">Add Bill</a>
+            <a class="collapse-item" href="{% url 'csv'-demo %}">Add CSV</a>
         </div>
     </div>
 </li>
@@ -64,7 +64,7 @@
 
             <!-- Card Body -->
             <div class="card-body shadow">
-                <form action="{% url 'manual' %}" class="user" method='post'>
+                <form action="{% url 'manual-demo' %}" class="user" method='post'>
                     {% csrf_token %}
                     <div class="form-group">
                         <input class="form-control btn-user" name="dateOfTransaction"
@@ -112,7 +112,7 @@
             {% if user.id == 4 %}
             <hr>
             <div class="card-body shadow">
-                <form action="{% url 'predict' %}" class="user" method='post'>
+                <form action="{% url 'predict-demo' %}" class="user" method='post'>
                     {% csrf_token %}
 
                     <div class="form-group">
@@ -145,7 +145,7 @@
             </div>
             <!-- Card Body -->
             <div class="card-body shadow checkCategoryCard">
-                <form action="{% url 'manual' %}" class="user" method='post'>
+                <form action="{% url 'manual-demo' %}" class="user" method='post'>
                     {% csrf_token %}
                     <div class="form-group">
                         <input class="form-control btn-user" name="dateOfTransaction"
@@ -210,7 +210,7 @@
 <script type="text/javascript">
     function newPage(num) {
         var url = new Array();
-        url[0] = "{% url 'home' %}";
+        url[0] = "{% url 'home-demo' %}";
         window.location = url[num];
         ``
     }
