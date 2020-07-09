@@ -32,7 +32,7 @@ def home(request):
             startDate = request.POST.get('startDate')
             endDate = request.POST.get('endDate')
             isEmpty = all(total == 0 for total in categoryTotal)
-            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
+            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['category_wise_expenditure']
             total = calculateTotalWithRange(request, startDate, endDate)['total']
             return render(request, 'demo/dashboard.html', {
                 'categoryTotal': categoryTotal,
@@ -160,7 +160,7 @@ def charts(request):
             startDate = request.POST.get('startDate')
             endDate = request.POST.get('endDate')
 
-            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['categoryTotal']
+            categoryTotal = calculateTotalWithRange(request, startDate, endDate)['category_wise_expenditure']
             return render(request, 'demo/charts.html', {
                 'categoryTotal': categoryTotal,
                 'isEmpty': isEmpty,
