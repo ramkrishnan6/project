@@ -442,7 +442,7 @@ def welcomeMail(user, username):
     lastName = user.last_name
     email = user.email
     subject = 'Welcome to Expense Manager'
-    html_message = render_to_string('welcome-mail.html', {'username': username, 'firstName': firstName,
+    html_message = render_to_string('myapp/welcome-mail.html', {'username': username, 'firstName': firstName,
                                                           'lastName': lastName, 'email': email
                                                           })
     plain_message = strip_tags(html_message)
@@ -457,7 +457,7 @@ def notifyAdmin(user, username):
     lastName = user.last_name
     email = user.email
     subject = 'New User Notification'
-    html_message = render_to_string('notify-new-user.html', {'username': username, 'firstName': firstName,
+    html_message = render_to_string('myapp/notify-new-user.html', {'username': username, 'firstName': firstName,
                                                              'lastName': lastName, 'email': email
                                                              })
     plain_message = strip_tags(html_message)
