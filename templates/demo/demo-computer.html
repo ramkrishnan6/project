@@ -24,8 +24,8 @@
 
 <!-- TOP NAVBAR -->
 
-<div class="container-fluid pb-3" id="page-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-gray-900 fixed-top">
+<div class="container-fluid" id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gray-900 mb-1 fixed-top">
         <a class="navbar-brand" href="{% url 'options' %}">
             <img src="{% static 'images/icons/icon.ico' %}" width="30" height="30" class="d-inline-block align-top"
                  alt="">
@@ -49,22 +49,38 @@
             </ul>
         </div>
     </nav>
-</div>
 
 
-<div class="container-fluid d-none d-xl-block">
-    <div class="device-mockup imac mb-small col-lg-12 mx-auto">
-        <div class="device">
-            <div class="screen" style="overflow-y: auto; pointer-events: all;">
-                <iframe src="https://demo.expensemanager.xyz"
-                        allowfullscreen="allowfullscreen" allowpaymentrequest="" style="position: absolute;"
-                        width="100%"
-                        height="100%" frameborder="0"></iframe>
+
+    <div class="container">
+        <div class="device-mockup imac">
+            <div class="device">
+                <div class="screen" style="overflow-y: auto; pointer-events: all;">
+                    <iframe src="https://demo.expensemanager.xyz"
+                            allowfullscreen="allowfullscreen" style="position: absolute;"
+                            width="100%"
+                            height="100%" frameborder="0"></iframe>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script type="text/javascript"
-        src="https://d1r27dnp1fh4g5.cloudfront.net/tmp/jsloader-501f395d8619.js?1574161973"></script>
+<!--    <div class="container">-->
+<!--        <div class="device-mockup imac mb-small col-lg-12 mx-auto">-->
+<!--            <div class="device">-->
+<!--                <div class="screen" style="overflow-y: auto; pointer-events: all;">-->
+<!--                    <object data="https://demo.expensemanager.xyz" style="position: absolute;"-->
+<!--                            width="100%"-->
+<!--                            height="100%">-->
+<!--                        <embed src="https://demo.expensemanager.xyz" width="600" height="400"> </embed>-->
+<!--                        Error: Embedded data could not be displayed.-->
+<!--                    </object>-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <script type="text/javascript"
+            src="https://d1r27dnp1fh4g5.cloudfront.net/tmp/jsloader-501f395d8619.js?1574161973"></script>
 </body>
 </html>
