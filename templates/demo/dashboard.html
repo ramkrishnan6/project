@@ -5,7 +5,7 @@
 
 {% block navbar_dashboard %}
 <li class="nav-item active">
-    <a class="nav-link" href="{% url 'home' %}">
+    <a class="nav-link" href="{% url 'home-demo' %}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
 </li>
@@ -34,7 +34,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between my-4">
         <h1 class="h3 mb-0 text-gray-800">{{ request.user.first_name }}'s Dashboard</h1>
-        <a href="{% url 'profile' %}">
+        <a href="{% url 'profile-demo' %}">
             <img class="avatar" src="media/{{ user.profile.image }}" alt="Card image">
         </a>
     </div>
@@ -1137,8 +1137,8 @@
                 </div>
                 <div class="card-body">
                     <p>You have not recorded any transactions yet. You can
-                        <a href="{% url 'manual' %}">Add Transactions Manually</a> or
-                        <a href="{% url 'bill' %}">Add Transactions from bill.</a>
+                        <a href="{% url 'manual-demo' %}">Add Transactions Manually</a> or
+                        <a href="{% url 'bill-demo' %}">Add Transactions from bill.</a>
                     </p>
                 </div>
             </div>
@@ -1173,8 +1173,8 @@
                 </div>
                 <div class="card-body">
                     <p>You have not recorded any transactions yet. You can
-                        <a href="{% url 'manual' %}">Add Transactions Manually</a> or
-                        <a href="{% url 'bill' %}">Add Transactions from bill.</a>
+                        <a href="{% url 'manual-demo' %}">Add Transactions Manually</a> or
+                        <a href="{% url 'bill-demo' %}">Add Transactions from bill.</a>
                     </p>
                 </div>
             </div>

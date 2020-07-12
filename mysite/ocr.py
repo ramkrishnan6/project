@@ -7,11 +7,11 @@ from mysite import settings
 
 
 def ocr(file_name):
-    CLIENT_ID = "vrfeK7cz4wechSlmZ9uhoWRrCSyWMZLAdoekDI9"
+    CLIENT_ID = "vrfkHMWI7SgvD1urk4VSwIjbZnwbXPfim3CD9I7"
     ENVIRONMENT_URL = "api.veryfi.com"
 
-    username = "vopawen821"
-    api_key = "72c4ff43b8c9ac71938c2d0445bda2bc"
+    username = "nirilet231"
+    api_key = "9571cd4ba2df603699f7e747f12685e8"
     process_image_url = 'https://{0}/api/v7/partner/documents/'.format(ENVIRONMENT_URL)
     headers = {
         "Content-Type": "application/json",

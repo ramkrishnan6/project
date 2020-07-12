@@ -29,28 +29,18 @@
 
 <div class="container-fluid out pb-3" id="page-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-gray-900 fixed-top">
-        <a class="navbar-brand" href="{% url 'options' %}">
+        <a class="navbar-brand" href="https://expensemanager.xyz">
             <img src="{% static 'images/icons/icon.ico' %}" width="30" height="30" class="d-inline-block align-top"
                  alt="">
-            Expense Manager Demo
+            Expense Manager
+        </a>
+        <a class="navbar-brand" href="{% url 'options-demo' %}">
+            Demo
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/phone"> Smartphone <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/tablet"> Tablet <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item d-none d-lg-block">
-                    <a class="nav-link" href="/computer"> Computer <span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </div>
     </nav>
 </div>
 
@@ -69,7 +59,7 @@
         </tr>
         <tr>
             <td id="tablet">
-                <a href="tablet" target="_blank">
+                <a href="tablet">
                     <div id="android-tablet" style="background-image: url('../../static/images/Tablet-screen.png')">
                         <div id="tablet-speaker"></div>
                         <div id="tablet-camera"></div>
@@ -78,7 +68,7 @@
             </td>
 
             <td id="phone">
-                <a href="phone" target="_blank">
+                <a href="phone">
                     <div id="android-phone" style="background-image: url('../../static/images/Smartphone-screen.png')">
                         <div id="phone-speaker"></div>
                         <div id="phone-camera"></div>
@@ -86,7 +76,7 @@
                 </a>
             </td>
             <td id="laptop">
-                <a href="computer" target="_blank">
+                <a href="computer">
                     <div class="device" style="width:100%;">
                         <div class="object-laptop">
                             <div class="screen">
@@ -101,17 +91,11 @@
                             <div class="keyboard two"></div>
                         </div>
                     </div>
-                    <!--                    <div class="device-mockup imac">-->
-                    <!--                        <div class="device">-->
-                    <!--                            <div class="screen" style="overflow-y: auto;">-->
-                    <!--                                <img src="{% static 'images/laptop-screen.png' %}" class="d-block w-100" width="150%">-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
+                </a>
+            </td>
+        </tr>
+    </table>
 </div>
-</a>
-</td>
-</tr>
-</table>
-</div>
+
 </body>
 </html>
