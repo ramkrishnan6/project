@@ -180,6 +180,17 @@
     <div class="row container-fluid pt-4">
 
         <div class="card shadow mb-4">
+            <!--Card: Display Month and Year-->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div>
+                    <div class="col">
+                        <h3>Month: {{ charMonth }}</h3>
+                    </div>
+                    <div class="col">
+                        <h3>Year: {{ year }}</h3>
+                    </div>
+                </div>
+            </div>
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <div class="row">
 
@@ -343,8 +354,8 @@
                 </div>
             </div>
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">SUMMARY</h6>
-                </div>
+                <h6 class="m-0 font-weight-bold text-primary">SUMMARY</h6>
+            </div>
             <div class="card-body">
                 <p>{{ summaryMonthly }}</p>
             </div>
