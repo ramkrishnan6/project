@@ -1,13 +1,13 @@
+<!DOCTYPE html>
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-169214518-1"></script>
-<script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169214518-1"></script>
+    <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -75,7 +75,42 @@
   width: 80vw;
 }
 
+@media screen and (min-width: 0px) and (max-width: 720px) {
+  #accordionSidebar-toggle { display: block; }  /* show it on small screens */
+}
+@media screen and (min-width: 721px) {
+  #accordionSidebar-toggle { display: none; }   /* hide it elsewhere */
+}
+
+.sidebar-toggle {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  text-align: center;
+  color: #fff;
+  background: rgba(90, 92, 105, 0.5);
+  line-height: 46px;
+}
+
+.sidebar-toggle:focus, .sidebar-toggle:hover {
+  color: white;
+}
+
+.sidebar-toggle:hover {
+  background: #5a5c69;
+}
+
+.sidebar-toggle i {
+  font-weight: 800;
+}
 </style>
+    <style>
+    .heart{color:#e25555;}
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -218,8 +253,6 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <style>.heart{color:#e25555;}</style>
-
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
@@ -227,21 +260,21 @@
                 </div>
             </div>
         </footer>
-
-
-
         <!-- End of Footer -->
-
     </div>
     <!-- End of Content Wrapper -->
-
 </div>
 <!-- End of Page Wrapper -->
 
+<!-- Hide/Show Side Nav bar-->
+<a class="sidebar-toggle rounded fixed-bottom mx-3" id="accordionSidebar-toggle">
+    <i class="fas fa-angle-left" id="side-bar-toggle-icon"></i>
+</a>
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
+
 
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'imp/vendor/jquery/jquery.min.js' %}"></script>
@@ -259,7 +292,23 @@
 
 <!-- Page level custom scripts -->
 <script src="{% static 'imp/js/demo/datatables-demo.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $("#accordionSidebar-toggle").click(function() {
+            $("#accordionSidebar").toggle(100);
+            var NAME = document.getElementById("side-bar-toggle-icon");
+            var currentClass = NAME.className;
+            if (currentClass == "fas fa-angle-left") {
+                NAME.className = "fas fa-angle-right";
+            }
+            if (currentClass == "fas fa-angle-right") {
+                NAME.className = "fas fa-angle-left";
+            }
 
+        });
+    });
+</script>
 {% else %}
 <h1>You are not signed in!</h1>
 <h2>Kindly sign in, You will be redirected in 5 seconds</h2>

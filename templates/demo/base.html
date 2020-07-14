@@ -1,12 +1,11 @@
-{% load static %}
-
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -73,6 +72,39 @@
 }
 
 </style>
+    <style>
+    @media screen and (min-width: 0px) and (max-width: 720px) {
+  #accordionSidebar-toggle { display: block; }  /* show it on small screens */
+}
+@media screen and (min-width: 721px) {
+  #accordionSidebar-toggle { display: none; }   /* hide it elsewhere */
+}
+
+.sidebar-toggle {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  text-align: center;
+  color: #fff;
+  background: rgba(90, 92, 105, 0.5);
+  line-height: 46px;
+}
+.sidebar-toggle:focus, .sidebar-toggle:hover {
+  color: white;
+}
+
+.sidebar-toggle:hover {
+  background: #5a5c69;
+}
+
+.sidebar-toggle i {
+  font-weight: 800;
+}
+</style>
+
 </head>
 
 <body id="page-top">
@@ -246,6 +278,10 @@
 </div>
 <!-- End of Page Wrapper -->
 
+<!-- Hide/Show Side Nav bar-->
+<a class="sidebar-toggle rounded fixed-bottom mx-3" id="accordionSidebar-toggle">
+    <i class="fas fa-angle-left" id="side-bar-toggle-icon"></i>
+</a>
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -267,7 +303,22 @@
 
 <!-- Page level custom scripts -->
 <script src="{% static 'imp/js/demo/datatables-demo.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $("#accordionSidebar-toggle").click(function() {
+            $("#accordionSidebar").toggle(100);
+            var NAME = document.getElementById("side-bar-toggle-icon");
+            var currentClass = NAME.className;
+            if (currentClass == "fas fa-angle-left") {
+                NAME.className = "fas fa-angle-right";
+            }
+            if (currentClass == "fas fa-angle-right") {
+                NAME.className = "fas fa-angle-left";
+            }
 
+        });
+    });
+</script>
 
 </body>
 
