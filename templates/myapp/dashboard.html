@@ -24,6 +24,12 @@
           border-radius: 70%;
         }
 
+    #fa-angle-left, #fa-angle-right {
+    color: red;
+    }
+    #fa-angle-left, #fa-angle-right {
+        font-size: 7rem;
+        }  /* show it on small screens */
 
 </style>
 
@@ -1000,14 +1006,16 @@
 
                     <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button"
                        data-slide="prev">
-                        <span class="carousel-control-prev-icon icon1" aria-hidden="true"
-                              style="border-right-width: 50px;"></span>
+<!--                        <span class="carousel-control-prev-icon icon1" aria-hidden="true"-->
+<!--                              style="border-right-width: 50px;"></span>-->
+                                    <i class="fas fa-angle-left" id="fa-angle-left"></i>
                         <span class="sr-only">Previous</span>
                     </a>
                     <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button"
                        data-slide="next">
-                        <span class="carousel-control-next-icon icon2" aria-hidden="true"
-                              style="border-left-width: 50px;"></span>
+<!--                        <span class="carousel-control-next-icon icon2" aria-hidden="true"-->
+<!--                              style="border-left-width: 50px;"></span>-->
+                                    <i class="fas fa-angle-right" id="fa-angle-right"></i>
                         <span class="sr-only">Next</span>
                     </a>
                 </div>

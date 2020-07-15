@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
@@ -54,22 +54,30 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="device-mockup imac">
-            <div class="device">
-                <div class="screen"
-                     style="overflow-y: auto; pointer-events: all; background-image: url('../../static/images/ipad.jpg')">
-                    <iframe allowfullscreen="allowfullscreen"
-                            frameborder="0" height="100%"
-                            src="https://demo.expensemanager.xyz"
-                            style="position: absolute;" width="100%"></iframe>
+    <div class="container mt-5">
+        <div class="device" style="width:100%;">
+            <div class="object-laptop">
+                <div class="screen">
+                    <div class="lcd delay-me" style="overflow-y: auto; pointer-events: all; background-image: url('../../static/images/ipad.jpg')">
+                        <iframe class="delay-me" allowfullscreen="allowfullscreen" frameborder="0" height="100%"
+                                src="https://demo.expensemanager.xyz" style="position: absolute;" width="100%">
+                        </iframe>
+                    </div>
+                    <!--                <div class="gloss"></div>-->
+                    <!--                <div class="reflexion"></div>-->
+                    <div class="highlight one"></div>
+                    <div class="highlight two"></div>
                 </div>
+                <div class="keyboard one"></div>
+                <div class="keyboard two"></div>
             </div>
         </div>
-    </div>
 
-    <script src="https://d1r27dnp1fh4g5.cloudfront.net/tmp/jsloader-501f395d8619.js?1574161973"
-            type="text/javascript"></script>
+
+    </div>
 </div>
+
+<script src="https://d1r27dnp1fh4g5.cloudfront.net/tmp/jsloader-501f395d8619.js?1574161973"
+        type="text/javascript"></script>
 </body>
 </html>

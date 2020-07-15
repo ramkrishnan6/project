@@ -1,126 +1,19 @@
 .device {
-    -moz-transform: scale(0.58, 0.58); /* Moz-browsers */
-    zoom: 0.55; /* Other non-webkit browsers */
-    zoom: 55%; /* Webkit browsers */
-    margin-top: -14.1%;
+    -moz-transform: scale(0.8, 0.8); /* Moz-browsers */
+    /*margin-top: -14.1%;*/
+    -webkit-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    /*transform: scale(0.86);*/
 }
 .container{
     max-width: 100%;
  margin-left: auto;
  margin-right: auto;
 }
-.device-mockup {
- position:relative;
- width:100%;
- padding-bottom:61.775701%;
+.delay-me {
+    transition-timing-function: ease-in;
+    transition-delay: 1s;
 }
-.device-mockup > .device {
- position:absolute;
- top:0;
- right:0;
- bottom:0;
- left:0;
- width:100%;
- height:100%;
- /*background-repeat:no-repeat;*/
- /*background-size:100% 100%*/
-}
-.device-mockup > .device > .screen {
- position:absolute;
- top:11.0438729%;
- right:13.364486%;
- bottom:14.6747352%;
- left:13.364486%;
- overflow:hidden
-}
-.device-mockup.imac {
- padding-bottom:81.230769%
-}
-.device-mockup.imac > .device {
- background-image:url("https://d1r27dnp1fh4g5.cloudfront.net/i/imac.webp")
-}
-.device-mockup.imac > .device > .screen {
- top:8.20707071%;
- right:6.61538462%;
- bottom:31.6919192%;
- left:6.61538462%
-}
-.device {
- position:relative;
- background-size:cover
-}
-.device .screen {
- position:absolute;
- pointer-events:none;
- background-size:cover
-}
-.device[data-device="Macbook"][data-orientation="portrait"][data-color="black"] {
- padding-bottom:57.51566%
-}
-.no-webp .device[data-device="Macbook"][data-orientation="portrait"][data-color="black"] {
- background-image:url("https://d1r27dnp1fh4g5.cloudfront.net/i/device-mockups/Macbook/portrait_black.png")
-}
-.webp .device[data-device="Macbook"][data-orientation="portrait"][data-color="black"] {
- background-image:url("https://d1r27dnp1fh4g5.cloudfront.net/i/device-mockups/Macbook/portrait_black.webp")
-}
-.device[data-device="Macbook"][data-orientation="portrait"][data-color="black"] .screen {
- top:7.25953%;
- left:12.36952%;
- width:75.26096%;
- height:81.85118%
-}
-.device[data-device="Macbook"][data-orientation="portrait"][data-color="black"] .button {
- display:none;
- top:0%;
- left:0%;
- width:100%;
- height:100%
-}
-.device[data-device="Macbook"][data-orientation="portrait"][data-color="white"] {
- padding-bottom:57.51566%
-}
-.no-webp .device[data-device="Macbook"][data-orientation="portrait"][data-color="white"] {
- background-image:url("https://d1r27dnp1fh4g5.cloudfront.net/i/device-mockups/Macbook/portrait_white.png")
-}
-.webp .device[data-device="Macbook"][data-orientation="portrait"][data-color="white"] {
- background-image:url("https://d1r27dnp1fh4g5.cloudfront.net/i/device-mockups/Macbook/portrait_white.webp")
-}
-.device[data-device="Macbook"][data-orientation="portrait"][data-color="white"] .screen {
- top:7.25953%;
- left:12.36952%;
- width:75.26096%;
- height:81.85118%
-}
-.device[data-device="Macbook"][data-orientation="portrait"][data-color="white"] .button {
- display:none;
- top:0%;
- left:0%;
- width:100%;
- height:100%
-}
-.device[data-device="Macbook"][data-orientation="portrait"][data-color="gold"] {
- padding-bottom:57.51566%
-}
-.no-webp .device[data-device="Macbook"][data-orientation="portrait"][data-color="gold"] {
- background-image:url("https://d1r27dnp1fh4g5.cloudfront.net/i/device-mockups/Macbook/portrait_gold.png")
-}
-.webp .device[data-device="Macbook"][data-orientation="portrait"][data-color="gold"] {
- background-image:url("https://d1r27dnp1fh4g5.cloudfront.net/i/device-mockups/Macbook/portrait_gold.webp")
-}
-.device[data-device="Macbook"][data-orientation="portrait"][data-color="gold"] .screen {
- top:7.25953%;
- left:12.36952%;
- width:75.26096%;
- height:81.85118%
-}
-.device[data-device="Macbook"][data-orientation="portrait"][data-color="gold"] .button {
- display:none;
- top:0%;
- left:0%;
- width:100%;
- height:100%
-}
-
 <!-------------------------------------------------------------------------------------------------------------------->
 
 .object-laptop {
@@ -216,7 +109,7 @@
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
 .object-laptop > .keyboard.two {
-  height: 1.25vw;
+  height: 2vw;
   border-radius: 0 0 33% 33%;
   box-shadow: 0 -2px 0 -1px rgba(0, 0, 0, 0.5), 0 25px 35px -5px #000000;
   background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0.35)), color-stop(2%, rgba(0, 0, 0, 0.75)), color-stop(7%, rgba(0, 0, 0, 0.5)), color-stop(50%, rgba(0, 0, 0, 0))), -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(83%, rgba(0, 0, 0, 0.5)), color-stop(98%, rgba(0, 0, 0, 0.75)), to(rgba(255, 255, 255, 0.35))), -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.75)), color-stop(33%, rgba(0, 0, 0, 0.25)), color-stop(34%, #ffffff), to(#ffffff)), -webkit-gradient(linear, left bottom, left top, from(#c8c8c8), to(#c8c8c8));
