@@ -177,19 +177,14 @@
     <h1 class="h3 mb-2 text-gray-800 mt-4">Analysis</h1>
 
     <!-- Content Row -->
-    <div class="row container-fluid pt-4">
+    <div class="col-xl-12 col-xs-12 pt-4">
 
         <div class="card shadow mb-4">
             <!--Card: Display Month and Year-->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <div>
-                    <div class="col">
-                        <h3>Month: {{ charMonth }}</h3>
-                    </div>
                     <div class="col">
                         <h3>Year: {{ year }}</h3>
                     </div>
-                </div>
             </div>
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <div class="row">
@@ -365,77 +360,74 @@
     <div class="col-xl-12 col-xs-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <div class="mx-auto d-flex">
-                    <div class="row">
-                        <div class="col">
-                            <div class="mx-auto d-flex">
-                                <!-- Setting of Month and Year Picker-->
-                                <form method="post">
-                                    {% csrf_token %}
-                                    <div class="row">
-                                        <!-- Month Picker-->
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <div class="dropdown">
-                                                    <select class=" form-control btn-user py-1 " id="month"
-                                                            name="month" required>
-                                                        <option value="Jan">Jan</option>
-                                                        <option value="Feb">Feb</option>
-                                                        <option value="Mar">Mar</option>
-                                                        <option value="Apr">Apr</option>
-                                                        <option value="May">May</option>
-                                                        <option value="Jun">Jun</option>
-                                                        <option value="Jul">Jul</option>
-                                                        <option value="Aug">Aug</option>
-                                                        <option value="Sep">Sept</option>
-                                                        <option value="Oct">Oct</option>
-                                                        <option value="Nov">Nov</option>
-                                                        <option value="Dec">Dec</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Year Picker-->
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <div class="dropdown">
-                                                    <select class=" form-control btn-user py-1 " id="year"
-                                                            name="year" required>
-                                                        <option value="2011">2011</option>
-                                                        <option value="2012">2012</option>
-                                                        <option value="2013">2013</option>
-                                                        <option value="2014">2014</option>
-                                                        <option value="2015">2015</option>
-                                                        <option value="2016">2016</option>
-                                                        <option value="2017">2017</option>
-                                                        <option value="2018">2018</option>
-                                                        <option value="2019">2019</option>
-                                                        <option selected value="2020">2020</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Set Button for Month and Year Picker-->
-                                        <div class="col">
-                                            <button class="btn btn-primary mx-auto" name="setDateRange"
-                                                    type="submit" value="setDateRange">
-                                                Set
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- Re-setting of Month and Year Picker-->
-                                <form method="get">
-                                    <div class="col px-5">
-                                        <button class="btn btn-primary mx-auto" formmethod="get" name="reset"
-                                                type="submit" value="reset">
-                                            Reset
-                                        </button>
-                                    </div>
-                                </form>
+                <div class="col pt-2">
+                    <!-- Setting of Month and Year Picker-->
+                    <form method="post" class="form-group m-0">
+                        {% csrf_token %}
+                        <div class="row my-2">
+                            <div class="col-lg-2  py-2">
+                                <h5>Month:</h5>
                             </div>
+                            <!-- Month Picker-->
+                            <div class="col-lg-3  mb-1">
+                                <div class="form-group">
+                                    <div class="dropdown">
+                                        <select class=" form-control btn-user py-1 " id="month"
+                                                name="month" required>
+                                            <option value="Jan">Jan</option>
+                                            <option value="Feb">Feb</option>
+                                            <option value="Mar">Mar</option>
+                                            <option value="Apr">Apr</option>
+                                            <option value="May">May</option>
+                                            <option value="Jun">Jun</option>
+                                            <option value="Jul">Jul</option>
+                                            <option value="Aug">Aug</option>
+                                            <option value="Sep">Sept</option>
+                                            <option value="Oct">Oct</option>
+                                            <option value="Nov">Nov</option>
+                                            <option value="Dec">Dec</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col"></div>
+                            <div class="col-lg-2  py-2">
+                                <h5>Year:</h5>
+                            </div>
+                            <!-- Year Picker-->
+                            <div class="col-lg-3 mb-1">
+                                <div class="form-group">
+                                    <div class="dropdown">
+                                        <select class=" form-control btn-user py-1 " id="year"
+                                                name="year" required>
+                                            <option value="2011">2011</option>
+                                            <option value="2012">2012</option>
+                                            <option value="2013">2013</option>
+                                            <option value="2014">2014</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2019">2019</option>
+                                            <option selected value="2020">2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col"></div>
                         </div>
-                    </div>
+                        <!-- Set Button for Month and Year Picker-->
+                        <button class="btn btn-primary btn-block my-1" name="setDateRange" type="submit" value="setDateRange">
+                            Set
+                        </button>
+                    </form>
+                    <form method="get">
+                        <!-- Re-setting of Month and Year Picker-->
+                        <button class="btn btn-primary btn-block my-2" formmethod="get" name="reset"
+                                type="submit" value="reset">
+                            Reset
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
