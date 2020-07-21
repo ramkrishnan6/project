@@ -205,6 +205,12 @@
 </div>
 <!-- Footer -->
 
+<!--Date picker restriction to not pick date after today-->
+<script>
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("dateOfTransaction")[0].setAttribute('max', today);
+</script>
+
 <!-- Bootstrap core JavaScript-->
 
 <script type="text/javascript">

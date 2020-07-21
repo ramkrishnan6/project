@@ -1181,6 +1181,16 @@
 <!-- Page level plugins -->
 <script src="{% static 'imp/vendor/chart.js/Chart.min.js' %}"></script>
 
+<!--Date picker restriction to not pick date after today-->
+<script>
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("startDate")[0].setAttribute('max', today);
+</script>
+
+<script>
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("endDate")[0].setAttribute('max', today);
+</script>
 
 <!--SCRIPTS FOR LAPTOP CHARTS STARTS-->
 
