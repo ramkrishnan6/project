@@ -1,6 +1,6 @@
 # Classification Engine for Monetory Transactions (Expense Manager)
 
-**You can check the demo of this application at: https://www.expensemanager.xyz**
+**You can check the demo of this application at: https://expensemanager.xyz**
 
 ## Prerequisites:
 
