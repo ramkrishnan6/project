@@ -38,11 +38,13 @@
 - /reset-password
 
 ## Important NOTE:
+- Make a `config.py` file in the root directory and initialize the following 
+```
+SECRET_KEY = "<secret key>"
+ALLOWED_HOSTS = "<allowed hosts>"
+EMAIL_HOST_USER = "< your_email_id>"
+EMAIL_HOST_PASSWORD = "<your_password>"
+```
+
 - There are some endpoints that does not accept GET requests, hence not listed here.<br/>
 You can find the complete URL mapping at `expenseManager/myapp/urls.py`
-
-- The reset password feature will not work for you out the box.<br/>
-To activate the feature, change the following on `expenseManager/mysite/settings.py`(extreme bottom, labelled SMTP config) as per your credentials:<br/>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EMAIL_HOST_USER = 'your_email_id'<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EMAIL_HOST_PASSWORD = 'your_password'
